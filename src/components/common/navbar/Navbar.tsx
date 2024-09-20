@@ -7,7 +7,7 @@ import { appPages } from '@/components/common/navbar/nav-data';
 
 const Navbar: FC = () => {
   return (
-    <header className="shadow-md font-[sans-serif] tracking-wide z-50 fixed w-full h-navbarHeight flex flex-col justify-between">
+    <header className="shadow-md font-[sans-serif] tracking-wide z-50 fixed w-full h-navbarHeight flex flex-col justify-between bg-white">
       <section className="md:flex lg:items-center relative py-3 lg:px-10 px-4 bg-white lg:min-h-[80px] max-lg:min-h-[60px]">
         <Link href={`${PUBLIC_URL.main}`}>
           <Image src={'/icons/main-logo.svg'} alt="logo" width={100} height={100} />
