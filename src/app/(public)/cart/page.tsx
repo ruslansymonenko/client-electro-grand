@@ -1,17 +1,17 @@
-import Main from '@/screens/main/Main';
 import Navbar from '@/components/common/navbar/Navbar';
 import Footer from '@/components/common/footer/Footer';
 import { Metadata } from 'next';
+import Cart from '@/screens/cart/Cart';
 
 export const metadata: Metadata = {
-  title: 'Головна',
+  title: 'Кошик',
 };
 
-export default function HomePage() {
+export default function CartPage() {
   return (
     <main className="h-full">
       <Navbar />
-      <Main />
+      <Cart />
       <Footer />
     </main>
   );

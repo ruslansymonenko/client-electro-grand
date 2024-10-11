@@ -9,7 +9,7 @@ const Navbar: FC = () => {
   return (
     <header className="shadow-md font-[sans-serif] tracking-wide z-50 fixed w-full h-navbarHeight flex flex-col justify-between bg-white">
       <section className="md:flex lg:items-center relative py-3 lg:px-10 px-4 bg-white lg:min-h-[80px] max-lg:min-h-[60px]">
-        <Link href={`${PUBLIC_URL.main}`}>
+        <Link href={`${PUBLIC_URL.main()}`}>
           <Image src={'/icons/main-logo.svg'} alt="logo" width={100} height={100} />
         </Link>
 
@@ -40,9 +40,11 @@ const Navbar: FC = () => {
                 </span>
               </li>
               <li className="flex text-[15px] max-lg:py-2 px-3 hover:text-primary">
-                <button className="px-4 py-2 text-sm rounded font-semibold bg-transparent shadow-lg">
-                  Авторизація
-                </button>
+                <Link href={`${PUBLIC_URL.login()}`}>
+                  <button className="px-4 py-2 text-sm rounded font-semibold bg-transparent shadow-lg">
+                    Авторизація
+                  </button>
+                </Link>
               </li>
               <li className="lg:hidden">
                 <button>
@@ -89,7 +91,7 @@ const Navbar: FC = () => {
           </svg>
         </button>
 
-        <ul className="lg:flex lg:flex-wrap lg:items-center lg:justify-center px-10 py-3 min-h-[46px] gap-4 max-lg:space-y-4 max-lg:fixed max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50 bg-gray-600">
+        <ul className="lg:flex lg:flex-wrap lg:items-center lg:justify-center px-10 py-3 min-h-[46px] gap-4 max-lg:space-y-4 max-lg:fixed max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50 bg-gray-400">
           {appPages.map((page) => (
             <li className="max-lg:border-b max-lg:py-3 px-3">
               <Link

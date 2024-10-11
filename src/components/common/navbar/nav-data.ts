@@ -19,10 +19,6 @@ export const appPages: INavData[] = [
     name: 'Категорії',
   },
   {
-    pagePath: `${PUBLIC_URL.features()}`,
-    name: 'Наші переваги',
-  },
-  {
     pagePath: `${PUBLIC_URL.terms()}`,
     name: 'Умови',
   },

@@ -1,17 +1,17 @@
-import Main from '@/screens/main/Main';
 import Navbar from '@/components/common/navbar/Navbar';
 import Footer from '@/components/common/footer/Footer';
 import { Metadata } from 'next';
+import Login from '@/screens/auth/login/Login';
 
 export const metadata: Metadata = {
-  title: 'Головна',
+  title: 'Авторизація',
 };
 
-export default function HomePage() {
+export default function LoginPage() {
   return (
     <main className="h-full">
       <Navbar />
-      <Main />
+      <Login />
       <Footer />
     </main>
   );

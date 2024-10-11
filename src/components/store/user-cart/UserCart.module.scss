@@ -1,0 +1,11 @@
+.cart {
+  @apply font-sans max-w-5xl max-md:max-w-xl mx-auto bg-white my-14
+}
+
+.title {
+  @apply text-3xl font-bold text-gray-800 text-center;
+}
+
+.input {
+  @apply px-4 mr-2 py-2.5 bg-white text-gray-800 rounded-md w-full text-sm border-b focus:border-gray-800 outline-none
+}

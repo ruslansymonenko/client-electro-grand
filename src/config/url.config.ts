@@ -4,7 +4,7 @@ export const PUBLIC_URL = {
   root: (url = '') => `${url ? url : ''}`,
 
   main: () => PUBLIC_URL.root('/'),
-  register: () => PUBLIC_URL.root('/auth/register'),
+  registration: () => PUBLIC_URL.root('/auth/registration'),
   login: () => PUBLIC_URL.root('/auth/login'),
 
   categories: () => PUBLIC_URL.root('/categories'),
@@ -14,6 +14,7 @@ export const PUBLIC_URL = {
   products: () => PUBLIC_URL.root(`/products`),
   product: (slug: string) => PUBLIC_URL.root(`/product/${slug}`),
   cart: () => PUBLIC_URL.root('/cart'),
+  checkout: () => PUBLIC_URL.root('/checkout'),
 
   features: () => PUBLIC_URL.root('/features'),
   terms: () => PUBLIC_URL.root('/terms'),
