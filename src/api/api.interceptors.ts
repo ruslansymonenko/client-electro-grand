@@ -1,11 +1,11 @@
 import axios, { CreateAxiosDefaults } from 'axios';
-import { SERVER_URL } from '@/config/api.config';
+import { SERVER_API } from '@/config/api.config';
 import { errorCatch, getContentType } from '@/api/api.helper';
 import { getAccessToken, removeTokenFromStorage } from '@/services/auth/auth-token.service';
 import { authService } from '@/services/auth/auth.service';
 
 const options: CreateAxiosDefaults = {
-  baseURL: SERVER_URL,
+  baseURL: SERVER_API,
   headers: getContentType(),
   withCredentials: true,
 };

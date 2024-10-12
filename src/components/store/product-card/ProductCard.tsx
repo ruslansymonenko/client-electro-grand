@@ -3,25 +3,33 @@ import Link from 'next/link';
 import { PUBLIC_URL } from '@/config/url.config';
 import Button from '@/components/common/button/Button';
 import { ShoppingCart, Star } from 'lucide-react';
+import { SERVER_URL } from '@/config/api.config';
 
-const ProductCard: FC = () => {
+interface IProductCardProps {
+  name: string;
+  price: number;
+  subcategory: string;
+  brand: string | null;
+  images: string[];
+}
+
+const ProductCard: FC<IProductCardProps> = ({ name, price, subcategory, brand, images }) => {
   return (
     <div className="bg-white overflow-hidden cursor-pointer rounded-md shadow-md hover:shadow-lg transition-all relative border">
       <div className="w-full h-[250px] overflow-hidden mx-auto aspect-w-16 aspect-h-8 p-2">
-        <img
-          src="https://readymadeui.com/images/laptop2.webp"
-          alt="laptop1"
-          className="h-full w-full object-contain"
-        />
+        <img src={`${SERVER_URL}/${images[0]}`} alt={name} />
       </div>
 
       <div className="p-6">
         <hr className="border-2 mb-6" />
         <div className="mb-2">
-          <h3 className="text-base text-gray-800">
-            HP Polycarbonate Laptop 15S, AMD, 15.6-IInch (39.6 Cm)
-          </h3>
-          <h4 className="text-xl text-gray-800 font-bold mt-4">$600</h4>
+          <h3 className="text-base text-gray-800 mb-2">{name}</h3>
+          <h3 className="text-base text-primary font-bold">{subcategory}</h3>
+          {brand ? <h3 className="text-base text-primary font-bold">{subcategory}</h3> : ''}
+          <h4 className="text-xl text-gray-800 font-bold mt-4">
+            <span className="mr-2">{price}</span>
+            <span>UAH</span>
+          </h4>
         </div>
 
         <div className="mb-2 flex items-center justify-between">
