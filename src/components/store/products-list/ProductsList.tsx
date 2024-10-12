@@ -27,6 +27,7 @@ const ProductsList: FC = () => {
         ) : (
           productsData.map((item) => (
             <ProductCard
+              key={item.id}
               name={item.name}
               price={item.price}
               images={item.images}
