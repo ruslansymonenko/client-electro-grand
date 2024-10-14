@@ -4,4 +4,5 @@ export interface ICategory {
   updated_at: string;
   name: string;
   slug: string;
+  image: string;
 }

@@ -4,30 +4,45 @@ import { PUBLIC_URL } from '@/config/url.config';
 import Button from '@/components/common/button/Button';
 import { ShoppingCart, Star } from 'lucide-react';
 import { SERVER_URL } from '@/config/api.config';
+import { IProductResponse } from '@/types/server-response-types/product-response';
 
 interface IProductCardProps {
-  name: string;
-  price: number;
-  subcategory: string;
-  brand: string | null;
-  images: string[];
+  product: IProductResponse;
 }
 
-const ProductCard: FC<IProductCardProps> = ({ name, price, subcategory, brand, images }) => {
+const ProductCard: FC<IProductCardProps> = ({ product }) => {
   return (
     <div className="bg-white overflow-hidden cursor-pointer rounded-md shadow-md hover:shadow-lg transition-all relative border">
-      <div className="w-full h-[250px] overflow-hidden mx-auto aspect-w-16 aspect-h-8 p-2">
-        <img src={`${SERVER_URL}/${images[0]}`} alt={name} />
-      </div>
+      <Link href={PUBLIC_URL.product(product.slug)}>
+        <div className="w-full h-[250px] overflow-hidden mx-auto aspect-w-16 aspect-h-8 p-2">
+          <img
+            className="object-contain w-full h-full"
+            src={`${SERVER_URL}/${product.images[0]}`}
+            alt={product.name}
+          />
+        </div>
+      </Link>
 
       <div className="p-6">
         <hr className="border-2 mb-6" />
         <div className="mb-2">
-          <h3 className="text-base text-gray-800 mb-2">{name}</h3>
-          <h3 className="text-base text-primary font-bold">{subcategory}</h3>
-          {brand ? <h3 className="text-base text-primary font-bold">{subcategory}</h3> : ''}
+          <Link href={PUBLIC_URL.product(product.slug)}>
+            <h3 className="text-base text-gray-800 mb-2 hover:text-secondaryDark2">
+              {product.name}
+            </h3>
+          </Link>
+          <Link href={PUBLIC_URL.subcategory(product.subcategory.slug)}>
+            <h3 className="text-base hover:text-primary font-bold">{product.subcategory.name}</h3>
+          </Link>
+          {product.brand ? (
+            <Link href={PUBLIC_URL.brandProducts(product.brand.slug)}>
+              <h3 className="text-base hover:text-primary font-bold">{product.brand.name}</h3>
+            </Link>
+          ) : (
+            ''
+          )}
           <h4 className="text-xl text-gray-800 font-bold mt-4">
-            <span className="mr-2">{price}</span>
+            <span className="mr-2">{product.price}</span>
             <span>UAH</span>
           </h4>
         </div>

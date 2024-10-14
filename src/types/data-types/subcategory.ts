@@ -5,4 +5,5 @@ export interface ISubcategory {
   name: string;
   slug: string;
   categoryId: number;
+  image: string;
 }

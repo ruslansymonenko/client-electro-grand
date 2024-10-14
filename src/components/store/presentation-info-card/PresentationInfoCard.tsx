@@ -1,16 +1,17 @@
 import { FC } from 'react';
-import { Info } from 'lucide-react';
+import { SERVER_URL } from '@/config/api.config';
 
 interface IPresentationInfoCardProps {
   title: string;
+  image: string;
 }
 
-const PresentationInfoCard: FC<IPresentationInfoCardProps> = ({ title }) => {
+const PresentationInfoCard: FC<IPresentationInfoCardProps> = ({ title, image }) => {
   return (
     <div className="bg-white p-6 shadow-[0_4px_12px_-5px_rgba(0,0,0,0.4)] w-full max-w-sm rounded-2xl overflow-hidden mx-auto cursor-pointer hover:shadow-xl">
       <div className="flex flex-col items-center">
         <div className="h-16 w-16 flex items-center justify-center">
-          <Info />
+          <img src={`${SERVER_URL}/${image}`} alt={title} />
         </div>
 
         <div className="mt-4 text-center">

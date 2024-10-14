@@ -1,41 +1,22 @@
-'use client';
-
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import ProductCard from '@/components/store/product-card/ProductCard';
-import { useGetAllProducts } from '@/hooks/products/useProducts';
-import Loader from '@/components/common/loader/Loader';
 import { IProductResponse } from '@/types/server-response-types/product-response';
 
-const ProductsList: FC = () => {
-  const { data, isLoading, error } = useGetAllProducts();
-  const [productsData, setProductsData] = useState<IProductResponse[]>([]);
+interface IProductsListProps {
+  title?: string;
+  products: IProductResponse[];
+}
 
-  useEffect(() => {
-    if (data) {
-      setProductsData(data.data);
-    } else {
-      setProductsData([]);
-    }
-  }, [data]);
-
+const ProductsList: FC<IProductsListProps> = ({ products, title }) => {
   return (
     <div className="p-4 mx-auto w-full my-14">
-      <h2 className="text-4xl font-extrabold text-gray-800 mb-12">Всі товари</h2>
+      <h2 className="text-4xl font-extrabold text-gray-800 mb-12">
+        {title ? title : 'Всі товари'}
+      </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {isLoading ? (
-          <Loader />
-        ) : (
-          productsData.map((item) => (
-            <ProductCard
-              key={item.id}
-              name={item.name}
-              price={item.price}
-              images={item.images}
-              subcategory={item.subcategory.name}
-              brand={item.brand ? item.brand.name : null}
-            />
-          ))
-        )}
+        {products.length === 0
+          ? 'Товарів не знайдено'
+          : products.map((item) => <ProductCard key={item.id} product={item} />)}
       </div>
     </div>
   );

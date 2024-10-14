@@ -33,7 +33,9 @@ const PresentationInfo: FC = () => {
         {isLoading ? (
           <Loader />
         ) : (
-          categoriesData.map((item) => <PresentationInfoCard title={item.name} key={item.id} />)
+          categoriesData.map((item) => (
+            <PresentationInfoCard title={item.name} image={item.image} key={item.id} />
+          ))
         )}
       </div>
     </div>

@@ -2,12 +2,19 @@
 
 import { FC, useEffect, useState } from 'react';
 import ProductsList from '@/components/store/products-list/ProductsList';
-import { useGetAllProducts } from '@/hooks/products/useProducts';
+import {
+  useGetProductsByCategory,
+  useGetProductsBySubcategory,
+} from '@/hooks/products/useProducts';
 import { IProductResponse } from '@/types/server-response-types/product-response';
 import Loader from '@/components/common/loader/Loader';
 
-const Products: FC = () => {
-  const { data, isLoading, error } = useGetAllProducts();
+interface ISubcategoryProductsProps {
+  subcategorySlug: string;
+}
+
+const SubcategoryProducts: FC<ISubcategoryProductsProps> = ({ subcategorySlug }) => {
+  const { data, isLoading, error } = useGetProductsBySubcategory(subcategorySlug);
   const [productsData, setProductsData] = useState<IProductResponse[]>([]);
 
   useEffect(() => {
@@ -20,9 +27,13 @@ const Products: FC = () => {
 
   return (
     <div className="py-4 px-8 container mx-auto min-h-screen pt-navbarHeight">
-      {isLoading ? <Loader /> : <ProductsList products={productsData} />}
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <ProductsList products={productsData} title={'Товари за' + ' підкатегорією'} />
+      )}
     </div>
   );
 };
 
-export default Products;
+export default SubcategoryProducts;

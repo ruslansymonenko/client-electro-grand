@@ -2,12 +2,20 @@
 
 import { FC, useEffect, useState } from 'react';
 import ProductsList from '@/components/store/products-list/ProductsList';
-import { useGetAllProducts } from '@/hooks/products/useProducts';
+import {
+  useGetProductsByBrand,
+  useGetProductsByCategory,
+  useGetProductsBySubcategory,
+} from '@/hooks/products/useProducts';
 import { IProductResponse } from '@/types/server-response-types/product-response';
 import Loader from '@/components/common/loader/Loader';
 
-const Products: FC = () => {
-  const { data, isLoading, error } = useGetAllProducts();
+interface IBrandProductsProps {
+  brandSlug: string;
+}
+
+const BrandProducts: FC<IBrandProductsProps> = ({ brandSlug }) => {
+  const { data, isLoading, error } = useGetProductsByBrand(brandSlug);
   const [productsData, setProductsData] = useState<IProductResponse[]>([]);
 
   useEffect(() => {
@@ -20,9 +28,13 @@ const Products: FC = () => {
 
   return (
     <div className="py-4 px-8 container mx-auto min-h-screen pt-navbarHeight">
-      {isLoading ? <Loader /> : <ProductsList products={productsData} />}
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <ProductsList products={productsData} title={'Товари за' + ' брендом'} />
+      )}
     </div>
   );
 };
 
-export default Products;
+export default BrandProducts;

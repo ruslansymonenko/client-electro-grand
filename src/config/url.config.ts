@@ -13,6 +13,9 @@ export const PUBLIC_URL = {
   subcategory: (slug: string) => PUBLIC_URL.root(`/subcategory/${slug}`),
   products: () => PUBLIC_URL.root(`/products`),
   product: (slug: string) => PUBLIC_URL.root(`/product/${slug}`),
+  brands: () => PUBLIC_URL.root('/brands'),
+  brand: () => PUBLIC_URL.root('/brand'),
+  brandProducts: (slug: string) => PUBLIC_URL.root(`/brand-products/${slug}`),
   cart: () => PUBLIC_URL.root('/cart'),
   checkout: () => PUBLIC_URL.root('/checkout'),
 

@@ -25,15 +25,7 @@ const PopularGoods: FC = () => {
         {isLoading ? (
           <Loader />
         ) : (
-          productsData.map((item) => (
-            <ProductCard
-              name={item.name}
-              price={item.price}
-              images={item.images}
-              subcategory={item.subcategory.name}
-              brand={item.brand ? item.brand.name : null}
-            />
-          ))
+          productsData.map((item) => <ProductCard key={item.id} product={item} />)
         )}
       </div>
     </div>

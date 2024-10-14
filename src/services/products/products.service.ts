@@ -8,6 +8,9 @@ enum EnumProductPaths {
   GET_ALL = '/',
   GET_BY_ID = '/by-id',
   GET_BY_SLUG = '/by-slug',
+  GET_BY_CATEGORY = '/by-category',
+  GET_BY_SUBCATEGORY = '/by-subcategory',
+  GET_BY_BRAND = '/by-brand',
   UPDATE = '/',
   SET_IMAGES = '/set-images',
   DELETE = '/',
@@ -90,6 +93,57 @@ class ProductService {
     try {
       const response = await axiosPublic<IProductResponse>({
         url: API_URL.product(`${EnumProductPaths.GET_BY_SLUG}/${slug}`),
+        method: 'GET',
+      });
+
+      return response;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw error.message;
+      } else {
+        throw new Error('An unknown error occurred');
+      }
+    }
+  }
+
+  async getByCategory(slug: string) {
+    try {
+      const response = await axiosPublic<IProductResponse[]>({
+        url: API_URL.product(`${EnumProductPaths.GET_BY_CATEGORY}/${slug}`),
+        method: 'GET',
+      });
+
+      return response;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw error.message;
+      } else {
+        throw new Error('An unknown error occurred');
+      }
+    }
+  }
+
+  async getBySubcategory(slug: string) {
+    try {
+      const response = await axiosPublic<IProductResponse[]>({
+        url: API_URL.product(`${EnumProductPaths.GET_BY_SUBCATEGORY}/${slug}`),
+        method: 'GET',
+      });
+
+      return response;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw error.message;
+      } else {
+        throw new Error('An unknown error occurred');
+      }
+    }
+  }
+
+  async getByBrand(slug: string) {
+    try {
+      const response = await axiosPublic<IProductResponse[]>({
+        url: API_URL.product(`${EnumProductPaths.GET_BY_BRAND}/${slug}`),
         method: 'GET',
       });
 
