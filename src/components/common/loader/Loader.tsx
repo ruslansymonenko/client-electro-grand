@@ -5,7 +5,7 @@ const Loader: FC = () => {
     <div>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="w-1/4 animate-spin fill-emerald-500 block mx-auto p-4"
+        className="w-1/6 animate-spin fill-emerald-500 block mx-auto p-4"
         viewBox="0 0 24 24"
       >
         <path

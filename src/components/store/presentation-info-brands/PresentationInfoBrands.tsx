@@ -34,7 +34,13 @@ const PresentationInfoBrands: FC = () => {
           <Loader />
         ) : (
           brandsData.map((item) => (
-            <PresentationInfoCard title={item.name} image={item.image} key={item.id} />
+            <PresentationInfoCard
+              title={item.name}
+              image={item.image}
+              slug={item.slug}
+              key={item.id}
+              type={'brand'}
+            />
           ))
         )}
       </div>

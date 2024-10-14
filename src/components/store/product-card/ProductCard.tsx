@@ -1,3 +1,5 @@
+'use client';
+
 import { FC } from 'react';
 import Link from 'next/link';
 import { PUBLIC_URL } from '@/config/url.config';
@@ -5,12 +7,29 @@ import Button from '@/components/common/button/Button';
 import { ShoppingCart, Star } from 'lucide-react';
 import { SERVER_URL } from '@/config/api.config';
 import { IProductResponse } from '@/types/server-response-types/product-response';
+import { AppDispatch } from '@/store';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '@/store/slices/cartSlice';
+import toast from 'react-hot-toast';
 
 interface IProductCardProps {
   product: IProductResponse;
 }
 
 const ProductCard: FC<IProductCardProps> = ({ product }) => {
+  const dispatch: AppDispatch = useDispatch();
+
+  const handleAddToCart = (): void => {
+    dispatch(
+      addToCart({
+        product: product,
+        quantity: 1,
+      }),
+    );
+
+    toast.success('Товар додано в корзину');
+  };
+
   return (
     <div className="bg-white overflow-hidden cursor-pointer rounded-md shadow-md hover:shadow-lg transition-all relative border">
       <Link href={PUBLIC_URL.product(product.slug)}>
@@ -48,7 +67,10 @@ const ProductCard: FC<IProductCardProps> = ({ product }) => {
         </div>
 
         <div className="mb-2 flex items-center justify-between">
-          <Button addClasses={'h-14 flex items-center justify-center hover:bg-secondary'}>
+          <Button
+            addClasses={'h-14 flex items-center justify-center hover:bg-secondary'}
+            onClick={handleAddToCart}
+          >
             <span className="mr-4">Додати до кошика</span>
             <ShoppingCart />
           </Button>

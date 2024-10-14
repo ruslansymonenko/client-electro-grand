@@ -10,6 +10,15 @@ export const useGetProductById = (id: number) => {
   return { data, error, isLoading };
 };
 
+export const useGetProductBySlug = (productSlug: string) => {
+  const { data, error, isLoading } = useQuery({
+    queryKey: ['product-by-slug'],
+    queryFn: () => productService.getBySlug(productSlug),
+  });
+
+  return { data, error, isLoading };
+};
+
 export const useGetProductsByCategory = (categorySlug: string) => {
   const { data, error, isLoading } = useQuery({
     queryKey: ['product-by-category'],
