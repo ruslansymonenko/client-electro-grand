@@ -3,6 +3,7 @@ import './globals.scss';
 import { SITE_DESCRIPTION, SITE_NAME } from '@/consts/seo.consts';
 import { Open_Sans } from 'next/font/google';
 import React from 'react';
+import { Providers } from '@/providers/providers';
 
 const font = Open_Sans({
   weight: ['300', '400', '500', '700'],
@@ -24,7 +25,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ua">
-      <body className={`${font.className} text-textPrimary`}>{children}</body>
+      <body className={`${font.className} text-textPrimary`}>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

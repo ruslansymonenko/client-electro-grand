@@ -1,11 +1,24 @@
-import { FC } from 'react';
+'use client';
+
+import { FC, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { PUBLIC_URL } from '@/config/url.config';
 import Image from 'next/image';
 import { MapPin, Phone, ShoppingCart } from 'lucide-react';
 import { appPages } from '@/components/common/navbar/nav-data';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
 
 const Navbar: FC = () => {
+  const cartItems = useSelector((state: RootState) => state.cart.cartItems);
+  const [quantityInCart, setQuantityInCart] = useState<number>(0);
+
+  useEffect(() => {
+    if (cartItems.length) {
+      setQuantityInCart(cartItems.length);
+    }
+  }, [cartItems]);
+
   return (
     <header className="shadow-md font-[sans-serif] tracking-wide z-50 fixed w-full h-navbarHeight flex flex-col justify-between bg-white">
       <section className="md:flex lg:items-center relative py-3 lg:px-10 px-4 bg-white lg:min-h-[80px] max-lg:min-h-[60px]">
@@ -35,7 +48,7 @@ const Navbar: FC = () => {
                     <ShoppingCart />
                   </Link>
                   <span className="absolute -right-2 -ml-1 -top-1 rounded-full bg-red-500 px-1 py-0 text-xs text-white">
-                    0
+                    {quantityInCart}
                   </span>
                 </span>
               </li>
@@ -55,9 +68,9 @@ const Navbar: FC = () => {
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     ></path>
                   </svg>
                 </button>

@@ -46,8 +46,8 @@ const Hero: FC = () => {
   return (
     <section className={styles.hero}>
       <Slider {...settings}>
-        {slides.map((slide) => (
-          <div className={styles.slide_container}>
+        {slides.map((slide, index) => (
+          <div className={styles.slide_container} key={index}>
             <div className="w-full flex justify-around">
               <div className="flex items-start flex-col justify-center">
                 <h3 className="font-bold text-3xl w-2/3 mb-4">{slide.title}</h3>

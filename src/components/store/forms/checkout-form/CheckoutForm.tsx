@@ -1,9 +1,17 @@
-import { FC } from 'react';
+'use client';
+
+import { FC, useState } from 'react';
 import Button from '@/components/common/button/Button';
 import Link from 'next/link';
 import { PUBLIC_URL } from '@/config/url.config';
 
 const CheckoutForm: FC = () => {
+  const [isDropDownOpen, setIsDropDownOpen] = useState<boolean>(false);
+
+  const toggleDropdown = () => {
+    setIsDropDownOpen(!isDropDownOpen);
+  };
+
   return (
     <div className="font-sans bg-white p-4 my-14">
       <div className="max-w-4xl mx-auto">
@@ -14,7 +22,7 @@ const CheckoutForm: FC = () => {
         </div>
 
         <div className="mt-12">
-          <div className="grid md:grid-cols-3 gap-4">
+          <div className="grid md:grid-cols-3 gap-4 border-b-2 pb-6">
             <div>
               <h3 className="text-3xl font-bold text-gray-300">01</h3>
               <h3 className="text-xl font-bold text-gray-800 mt-1">Покупець</h3>
@@ -56,7 +64,7 @@ const CheckoutForm: FC = () => {
             </div>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-4 mt-12">
+          <div className="grid md:grid-cols-3 gap-4 mt-12 border-b-2 pb-6">
             <div>
               <h3 className="text-3xl font-bold text-gray-300">02</h3>
               <h3 className="text-xl font-bold text-gray-800 mt-1">Спосіб доставки</h3>
@@ -64,6 +72,38 @@ const CheckoutForm: FC = () => {
 
             <div className="md:col-span-2">
               <form>
+                <div className="relative font-[sans-serif] mb-6">
+                  <button
+                    type="button"
+                    onClick={toggleDropdown}
+                    className="px-5 py-2.5 rounded text-white text-sm font-semibold border-none outline-none bg-primary hover:bg-secondaryDark active:bg-secondaryDark2 z-10"
+                  >
+                    Вибрати спосіб доставки
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-3 fill-white inline ml-3"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M11.99997 18.1669a2.38 2.38 0 0 1-1.68266-.69733l-9.52-9.52a2.38 2.38 0 1 1 3.36532-3.36532l7.83734 7.83734 7.83734-7.83734a2.38 2.38 0 1 1 3.36532 3.36532l-9.52 9.52a2.38 2.38 0 0 1-1.68266.69734z"
+                        clip-rule="evenodd"
+                        data-original="#000000"
+                      />
+                    </svg>
+                  </button>
+
+                  {isDropDownOpen && (
+                    <ul className="absolute block shadow-lg bg-white py-2 z-[1000] min-w-full w-max rounded max-h-96 overflow-auto">
+                      <li className="py-2.5 px-5 hover:bg-blue-50 text-black text-sm cursor-pointer">
+                        Нова Пошта
+                      </li>
+                      <li className="py-2.5 px-5 hover:bg-blue-50 text-black text-sm cursor-pointer">
+                        Укр Пошта
+                      </li>
+                    </ul>
+                  )}
+                </div>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <input

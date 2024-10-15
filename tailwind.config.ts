@@ -16,6 +16,7 @@ const config: Config = {
         primary: '#00b894',
         secondary: '#ffeaa7',
         secondaryDark: '#fdcb6e',
+        secondaryDark2: '#fa983a',
         bgLight: '#ffffff',
         bgDark: '#2d3436',
         bgMedium: '#b2bec3',
