@@ -5,6 +5,7 @@ import ProductData from '@/components/store/product-data/ProductData';
 import { useGetProductBySlug } from '@/hooks/products/useProducts';
 import { IProductResponse } from '@/types/server-response-types/product-response';
 import Loader from '@/components/common/loader/Loader';
+import Breadcrumb from '@/components/common/breadcrumb/Breadcrumb';
 
 interface IProductProps {
   productSlug: string;
@@ -24,6 +25,7 @@ const Product: FC<IProductProps> = ({ productSlug }) => {
 
   return (
     <div className="py-4 px-8 container mx-auto min-h-screen pt-navbarHeight">
+      <Breadcrumb />
       {isLoading ? (
         <Loader />
       ) : productData ? (

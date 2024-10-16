@@ -9,6 +9,7 @@ import {
 } from '@/hooks/products/useProducts';
 import { IProductResponse } from '@/types/server-response-types/product-response';
 import Loader from '@/components/common/loader/Loader';
+import Breadcrumb from '@/components/common/breadcrumb/Breadcrumb';
 
 interface IBrandProductsProps {
   brandSlug: string;
@@ -28,6 +29,7 @@ const BrandProducts: FC<IBrandProductsProps> = ({ brandSlug }) => {
 
   return (
     <div className="py-4 px-8 container mx-auto min-h-screen pt-navbarHeight">
+      <Breadcrumb />
       {isLoading ? (
         <Loader />
       ) : (

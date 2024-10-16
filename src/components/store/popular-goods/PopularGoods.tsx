@@ -12,7 +12,11 @@ const PopularGoods: FC = () => {
 
   useEffect(() => {
     if (data) {
-      setProductsData(data.data);
+      if (data.data.length > 5) {
+        setProductsData(data.data.slice(0, 6));
+      } else {
+        setProductsData(data.data);
+      }
     } else {
       setProductsData([]);
     }
