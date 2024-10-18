@@ -1,9 +1,10 @@
 import { FC } from 'react';
-import Image from 'next/image';
+import Breadcrumb from '@/components/common/breadcrumb/Breadcrumb';
 
 const About: FC = () => {
   return (
     <div className="py-4 px-8 container mx-auto min-h-screen pt-navbarHeight">
+      <Breadcrumb />
       <div className="my-14 flex">
         <div className="w-1/2">
           <h1 className="font-bold text-3xl mb-4">Elektro Grand</h1>

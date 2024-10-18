@@ -28,7 +28,7 @@ export const PUBLIC_URL = {
 export const PRIVATE_URL = {
   root: (url: string = '') => `${APP_URL}${url ? url : ''}`,
 
-  dashboard: () => PUBLIC_URL.root(`/user`),
+  customer: () => PUBLIC_URL.root(`/customer`),
   orders: () => PUBLIC_URL.root(`/user/orders`),
   cart: (id: number) => PUBLIC_URL.root(`/user/cart/${id}`),
   order: (id: number) => PUBLIC_URL.root(`/user/order/${id}`),
@@ -38,7 +38,7 @@ export const PRIVATE_URL = {
 export const ADMIN_URL = {
   root: (url = '') => `${APP_URL}${url ? url : ''}`,
 
-  dashboard: () => PUBLIC_URL.root(`/dashboard`),
+  admin: () => PUBLIC_URL.root(`/admin`),
   orders: () => PUBLIC_URL.root(`/dashboard/orders`),
   order: (id: number) => PUBLIC_URL.root(`/dashboard/order/${id}`),
 

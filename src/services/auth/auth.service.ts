@@ -7,6 +7,7 @@ import { IAuthResponse } from '@/types/server-response-types/auth-response';
 
 enum EnumAuthPaths {
   LOGIN = '/login',
+  LOGIN_ADMIN = '/login-admin',
   REGISTER = '/register',
   ACCESS_TOKEN = '/access-token',
   LOGOUT = '/logout',
@@ -37,6 +38,27 @@ class AuthService {
     try {
       const response = await axiosPublic<IAuthResponse>({
         url: API_URL.auth(EnumAuthPaths.LOGIN),
+        method: 'POST',
+        data,
+      });
+
+      if (response.data.accessToken) saveAccessToken(response.data.accessToken);
+
+      return response;
+    } catch (error) {
+      console.log(error);
+      if (error instanceof AxiosError) {
+        throw error;
+      } else {
+        throw new Error('An unknown error occurred');
+      }
+    }
+  }
+
+  async loginAdmin(data: IAuthForm) {
+    try {
+      const response = await axiosPublic<IAuthResponse>({
+        url: API_URL.auth(EnumAuthPaths.LOGIN_ADMIN),
         method: 'POST',
         data,
       });

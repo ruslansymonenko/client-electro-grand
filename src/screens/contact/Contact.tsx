@@ -1,10 +1,12 @@
 import { FC } from 'react';
 import { Mail, Phone } from 'lucide-react';
 import Button from '@/components/common/button/Button';
+import Breadcrumb from '@/components/common/breadcrumb/Breadcrumb';
 
 const Contact: FC = () => {
   return (
     <div className="py-4 px-8 container mx-auto min-h-screen pt-navbarHeight">
+      <Breadcrumb />
       <div className="grid sm:grid-cols-2 items-start gap-16 p-4 mx-auto max-w-4xl bg-white font-[sans-serif] my-14">
         <div>
           <h1 className="text-gray-800 text-3xl font-extrabold">Зв&apos;язатись з нами</h1>

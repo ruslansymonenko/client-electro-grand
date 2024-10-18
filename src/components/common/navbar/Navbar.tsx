@@ -105,8 +105,8 @@ const Navbar: FC = () => {
         </button>
 
         <ul className="lg:flex lg:flex-wrap lg:items-center lg:justify-center px-10 py-3 min-h-[46px] gap-4 max-lg:space-y-4 max-lg:fixed max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50 bg-gray-400">
-          {appPages.map((page) => (
-            <li className="max-lg:border-b max-lg:py-3 px-3">
+          {appPages.map((page, index) => (
+            <li className="max-lg:border-b max-lg:py-3 px-3" key={index}>
               <Link
                 href={page.pagePath}
                 className="hover:text-secondary text-textLight text-[15px] font-medium block"

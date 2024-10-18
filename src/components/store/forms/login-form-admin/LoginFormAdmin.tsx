@@ -8,8 +8,8 @@ import { PUBLIC_URL } from '@/config/url.config';
 import { useAuthForm } from '@/hooks/auth/useAuthForm';
 import FormField from '@/components/common/form-field/FormField';
 
-const LoginForm: FC = () => {
-  const { onSubmit, form, isPending } = useAuthForm('login');
+const LoginFormAdmin: FC = () => {
+  const { onSubmit, form, isPending } = useAuthForm('login-admin');
   const {
     handleSubmit,
     control,
@@ -65,6 +65,22 @@ const LoginForm: FC = () => {
                 </div>
               </div>
 
+              <div className="mb-10">
+                <label className="font-bold text-gray-800 text-sm mb-2 block">Ключ</label>
+                <div className="relative flex items-center">
+                  <FormField
+                    name="secretKey"
+                    type="password"
+                    placeholder="Enter key"
+                    control={control}
+                    rules={{
+                      required: 'Key is required',
+                    }}
+                  />
+                  <KeyRound />
+                </div>
+              </div>
+
               <div>
                 <Button addClasses={'hover:bg-primary hover:text-white'}>Увійти</Button>
               </div>
@@ -85,4 +101,4 @@ const LoginForm: FC = () => {
   );
 };
 
-export default LoginForm;
+export default LoginFormAdmin;
