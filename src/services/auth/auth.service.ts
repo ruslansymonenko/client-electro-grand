@@ -4,6 +4,7 @@ import { API_URL } from '@/config/api.config';
 import { removeTokenFromStorage, saveAccessToken } from '@/services/auth/auth-token.service';
 import { AxiosError } from 'axios';
 import { IAuthResponse } from '@/types/server-response-types/auth-response';
+import Cookies from 'js-cookie';
 
 enum EnumAuthPaths {
   LOGIN = '/login',
@@ -63,7 +64,10 @@ class AuthService {
         data,
       });
 
-      if (response.data.accessToken) saveAccessToken(response.data.accessToken);
+      if (response.data.accessToken) {
+        saveAccessToken(response.data.accessToken);
+        Cookies.set('admin', 'true', { expiresIn: '1d' });
+      }
 
       return response;
     } catch (error) {
@@ -102,7 +106,10 @@ class AuthService {
         method: 'POST',
       });
 
-      if (response.data) removeTokenFromStorage();
+      if (response.data) {
+        removeTokenFromStorage();
+        Cookies.set('admin', 'false');
+      }
 
       return response;
     } catch (error) {

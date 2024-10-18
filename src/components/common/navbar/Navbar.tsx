@@ -2,22 +2,64 @@
 
 import { FC, useEffect, useState } from 'react';
 import Link from 'next/link';
-import { PUBLIC_URL } from '@/config/url.config';
+import { ADMIN_URL, PRIVATE_URL, PUBLIC_URL } from '@/config/url.config';
 import Image from 'next/image';
 import { MapPin, Phone, ShoppingCart } from 'lucide-react';
 import { appPages } from '@/components/common/navbar/nav-data';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
+import { User, LogOut, Cog } from 'lucide-react';
+import { authService } from '@/services/auth/auth.service';
+import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 const Navbar: FC = () => {
   const cartItems = useSelector((state: RootState) => state.cart.cartItems);
   const [quantityInCart, setQuantityInCart] = useState<number>(0);
+  const [token, setToken] = useState<string | null>(null);
+  const [adminToken, setAdminToken] = useState<string | null>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    const cookies = document.cookie
+      .split('; ')
+      .find((row) => row.startsWith('accessToken='))
+      ?.split('=')[1];
+
+    if (cookies) {
+      setToken(cookies);
+    }
+  }, []);
+
+  useEffect(() => {
+    const cookies = document.cookie
+      .split('; ')
+      .find((row) => row.startsWith('admin='))
+      ?.split('=')[1];
+
+    console.log(cookies);
+
+    if (cookies && cookies === 'true') {
+      setAdminToken(cookies);
+    }
+  }, []);
 
   useEffect(() => {
     if (cartItems.length) {
       setQuantityInCart(cartItems.length);
     }
   }, [cartItems]);
+
+  const handleLogout = async () => {
+    const serviceResponse = await authService.logout();
+
+    if (serviceResponse.data) {
+      toast.success('Ви вийшли з аккаунту!');
+      router.replace(PUBLIC_URL.login());
+    } else {
+      toast.error('Помилка, спробуйте пізніше');
+    }
+  };
 
   return (
     <header className="shadow-md font-[sans-serif] tracking-wide z-50 fixed w-full h-navbarHeight flex flex-col justify-between bg-white">
@@ -52,13 +94,44 @@ const Navbar: FC = () => {
                   </span>
                 </span>
               </li>
-              <li className="flex text-[15px] max-lg:py-2 px-3 hover:text-primary">
+              {adminToken ? (
+                <li className="flex text-[15px] max-lg:py-2 px-3 hover:text-primary">
+                  <Link href={`${ADMIN_URL.admin()}`}>
+                    <button className="px-4 py-2 text-sm rounded font-semibold bg-transparent shadow-lg flex items-center">
+                      Адмін
+                      <Cog className={'ml-2'} />
+                    </button>
+                  </Link>
+                </li>
+              ) : (
+                ''
+              )}
+              {token ? (
+                <>
+                  <li className="flex text-[15px] max-lg:py-2 px-3 hover:text-primary">
+                    <Link href={`${PRIVATE_URL.customer()}`}>
+                      <button className="px-4 py-2 text-sm rounded font-semibold bg-transparent shadow-lg flex items-center">
+                        Клієнт
+                        <User className={'ml-2'} />
+                      </button>
+                    </Link>
+                  </li>
+                  <li className="flex text-[15px] max-lg:py-2 px-3 hover:text-primary">
+                    <button
+                      className="px-4 py-2 text-sm rounded font-semibold bg-transparent shadow-lg flex items-center"
+                      onClick={handleLogout}
+                    >
+                      <LogOut />
+                    </button>
+                  </li>
+                </>
+              ) : (
                 <Link href={`${PUBLIC_URL.login()}`}>
                   <button className="px-4 py-2 text-sm rounded font-semibold bg-transparent shadow-lg">
                     Авторизація
                   </button>
                 </Link>
-              </li>
+              )}
               <li className="lg:hidden">
                 <button>
                   <svg
