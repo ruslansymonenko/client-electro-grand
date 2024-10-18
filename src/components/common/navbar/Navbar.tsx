@@ -37,8 +37,6 @@ const Navbar: FC = () => {
       .find((row) => row.startsWith('admin='))
       ?.split('=')[1];
 
-    console.log(cookies);
-
     if (cookies && cookies === 'true') {
       setAdminToken(cookies);
     }

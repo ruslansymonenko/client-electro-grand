@@ -66,7 +66,7 @@ class AuthService {
 
       if (response.data.accessToken) {
         saveAccessToken(response.data.accessToken);
-        Cookies.set('admin', 'true', { expiresIn: '1d' });
+        Cookies.set('admin', 'true', { expires: 1 });
       }
 
       return response;

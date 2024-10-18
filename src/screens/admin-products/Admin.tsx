@@ -7,8 +7,9 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import AddNewProductForm from '@/components/admin/forms/add-new-product/AddNewPorductForm';
 import AdminNav from '@/components/admin/admin-nav/AdminNav';
+import AdminProductsList from '@/components/admin/admin-products-list/AdminProductsList';
 
-const Admin: FC = () => {
+const AdminProducts: FC = () => {
   const isAddNewProductModalOpen: boolean = useSelector(
     (state: RootState) => state.addNewProduct.isOpen,
   );
@@ -17,12 +18,15 @@ const Admin: FC = () => {
     <div className="py-4 px-8 container mx-auto min-h-screen pt-navbarHeight relative">
       <div className="my-14">
         <div>
-          <h2 className="font-bold text-3xl mb-4">Управління магазином</h2>
+          <h2 className="font-bold text-3xl mb-4">Управління товарами</h2>
           <section className="mb-4 flex items-center w-full">
             <ControlBtns />
           </section>
           <section className="mb-4 flex items-center w-full">
             <AdminNav />
+          </section>
+          <section className="mb-4 flex items-center w-full">
+            <AdminProductsList />
           </section>
         </div>
       </div>
@@ -33,4 +37,4 @@ const Admin: FC = () => {
   );
 };
 
-export default Admin;
+export default AdminProducts;

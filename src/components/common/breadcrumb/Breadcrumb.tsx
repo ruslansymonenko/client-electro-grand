@@ -41,8 +41,8 @@ const Breadcrumb: FC = () => {
         <Link href={PUBLIC_URL.main()}>Головна</Link>
       </li>
       {crumbItems.map((item, index) => (
-        <>
-          <li className="text-gray-500 text-lg">/</li>
+        <div className="flex items-center" key={index}>
+          <li className="text-gray-500 text-lg mx-2">/</li>
           <li className="text-gray-500 text-base cursor-pointer">
             <Link
               className={cn(item.path) === pathname ? 'text-primary font-bold' : ''}
@@ -51,7 +51,7 @@ const Breadcrumb: FC = () => {
               {item.label}
             </Link>
           </li>
-        </>
+        </div>
       ))}
     </ul>
   );
