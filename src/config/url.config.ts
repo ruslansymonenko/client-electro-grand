@@ -16,6 +16,7 @@ export const PUBLIC_URL = {
   brands: () => PUBLIC_URL.root('/brands'),
   brand: () => PUBLIC_URL.root('/brand'),
   brandProducts: (slug: string) => PUBLIC_URL.root(`/brand-products/${slug}`),
+  favorites: () => PUBLIC_URL.root('/favorites'),
   cart: () => PUBLIC_URL.root('/cart'),
   checkout: () => PUBLIC_URL.root('/checkout'),
 

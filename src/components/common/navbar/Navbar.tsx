@@ -4,7 +4,7 @@ import { FC, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ADMIN_URL, PRIVATE_URL, PUBLIC_URL } from '@/config/url.config';
 import Image from 'next/image';
-import { MapPin, Phone, ShoppingCart } from 'lucide-react';
+import { MapPin, Phone, ShoppingCart, Heart } from 'lucide-react';
 import { appPages } from '@/components/common/navbar/nav-data';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
@@ -15,6 +15,8 @@ import { useRouter } from 'next/navigation';
 
 const Navbar: FC = () => {
   const cartItems = useSelector((state: RootState) => state.cart.cartItems);
+  const favoritesItems = useSelector((state: RootState) => state.favorites.favoritesItems);
+  const [quantityInFavorites, setQuantityInFavorites] = useState<number>(0);
   const [quantityInCart, setQuantityInCart] = useState<number>(0);
   const [token, setToken] = useState<string | null>(null);
   const [adminToken, setAdminToken] = useState<string | null>(null);
@@ -47,6 +49,12 @@ const Navbar: FC = () => {
       setQuantityInCart(cartItems.length);
     }
   }, [cartItems]);
+
+  useEffect(() => {
+    if (favoritesItems.length) {
+      setQuantityInFavorites(favoritesItems.length);
+    }
+  }, [favoritesItems]);
 
   const handleLogout = async () => {
     const serviceResponse = await authService.logout();
@@ -89,6 +97,16 @@ const Navbar: FC = () => {
                   </Link>
                   <span className="absolute -right-2 -ml-1 -top-1 rounded-full bg-red-500 px-1 py-0 text-xs text-white">
                     {quantityInCart}
+                  </span>
+                </span>
+              </li>
+              <li className="max-lg:py-2 px-3 cursor-pointer">
+                <span className="relative">
+                  <Link href={PUBLIC_URL.favorites()}>
+                    <Heart />
+                  </Link>
+                  <span className="absolute -right-2 -ml-1 -top-1 rounded-full bg-red-500 px-1 py-0 text-xs text-white">
+                    {quantityInFavorites}
                   </span>
                 </span>
               </li>
