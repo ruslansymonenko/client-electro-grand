@@ -24,19 +24,20 @@ const Footer: FC = () => {
           <h4 className="text-lg font-semibold mb-6 text-white">Контакт</h4>
           <ul className="space-y-4">
             <li>
-              <Link href="#" className="text-gray-300 hover:text-white text-sm">
+              <a
+                href="mailto:info@elektro-grand.com.ua"
+                className="text-gray-300 hover:text-white text-sm"
+              >
                 info@elektro-grand.com.ua
-              </Link>
+              </a>
             </li>
             <li>
-              <Link href="#" className="text-gray-300 hover:text-white text-sm">
+              <a href="tel:+38 (099) 123 45 67" className="text-gray-300 hover:text-white text-sm">
                 +38 (099) 123 45 67
-              </Link>
+              </a>
             </li>
             <li>
-              <Link href="#" className="text-gray-300 hover:text-white text-sm">
-                м. Львів, вул. Центральна 1
-              </Link>
+              <p className="text-gray-300 hover:text-white text-sm">м. Львів, вул. Центральна 1</p>
             </li>
           </ul>
         </div>
@@ -45,12 +46,12 @@ const Footer: FC = () => {
           <h4 className="text-lg font-semibold mb-6 text-white">Інформація</h4>
           <ul className="space-y-4">
             <li>
-              <Link href="#" className="text-gray-300 hover:text-white text-sm">
+              <Link href={PUBLIC_URL.about()} className="text-gray-300 hover:text-white text-sm">
                 Про Магазин
               </Link>
             </li>
             <li>
-              <Link href="#" className="text-gray-300 hover:text-white text-sm">
+              <Link href={PUBLIC_URL.terms()} className="text-gray-300 hover:text-white text-sm">
                 Умови
               </Link>
             </li>

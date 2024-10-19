@@ -31,6 +31,9 @@ const config: Config = {
         primary: '#00b894',
         secondary: '#ffeaa7',
       },
+      accentColor: {
+        primary: '#00b894',
+      },
       height: {
         navbarHeight: `${HEADER_HEIGHT}px`,
         footerHeight: `${FOOTER_HEIGHT}px`,

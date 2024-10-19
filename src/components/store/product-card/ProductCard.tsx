@@ -4,12 +4,12 @@ import { FC, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { PUBLIC_URL } from '@/config/url.config';
 import Button from '@/components/common/button/Button';
-import { Heart, ShoppingCart, Star } from 'lucide-react';
+import { Heart, ShoppingCart, Star, Trash } from 'lucide-react';
 import { SERVER_URL } from '@/config/api.config';
 import { IProductResponse } from '@/types/server-response-types/product-response';
 import { AppDispatch, RootState } from '@/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart } from '@/store/slices/cartSlice';
+import { addToCart, removeFromCart } from '@/store/slices/cartSlice';
 import toast from 'react-hot-toast';
 import { toggleFavorites } from '@/store/slices/favoritesSlice';
 import cn from 'clsx';
@@ -21,7 +21,9 @@ interface IProductCardProps {
 const ProductCard: FC<IProductCardProps> = ({ product }) => {
   const dispatch: AppDispatch = useDispatch();
   const favoritesItems = useSelector((state: RootState) => state.favorites.favoritesItems);
+  const cartItems = useSelector((state: RootState) => state.cart.cartItems);
   const [isProductFavorite, setIsProductFavorite] = useState<boolean>(false);
+  const [isProductInCart, setIsProductInCart] = useState<boolean>(false);
 
   const handleAddToCart = (): void => {
     dispatch(
@@ -44,6 +46,12 @@ const ProductCard: FC<IProductCardProps> = ({ product }) => {
     }
   };
 
+  const handleDeleteFromCart = () => {
+    dispatch(removeFromCart(product.id));
+
+    toast.error('Товар видалено з кошика');
+  };
+
   useEffect(() => {
     const isFavorite = favoritesItems.find((item) => item.id === product.id);
 
@@ -53,6 +61,16 @@ const ProductCard: FC<IProductCardProps> = ({ product }) => {
       setIsProductFavorite(false);
     }
   }, [favoritesItems]);
+
+  useEffect(() => {
+    const isInCart = cartItems.find((item) => item.product.id === product.id);
+
+    if (isInCart) {
+      setIsProductInCart(true);
+    } else {
+      setIsProductInCart(false);
+    }
+  }, [cartItems]);
 
   return (
     <div className="bg-white overflow-hidden rounded-md shadow-md hover:shadow-lg transition-all relative border">
@@ -91,13 +109,30 @@ const ProductCard: FC<IProductCardProps> = ({ product }) => {
         </div>
 
         <div className="mb-2 flex items-center justify-between">
-          <Button
-            addClasses={'h-14 flex items-center justify-center hover:bg-secondary'}
-            onClick={handleAddToCart}
-          >
-            <span className="mr-4">Додати до кошика</span>
-            <ShoppingCart />
-          </Button>
+          {isProductInCart ? (
+            <>
+              <Button
+                addClasses={cn(
+                  'h-14 flex items-center justify-center hover:bg-secondary',
+                  isProductInCart ? 'bg-secondary' : '',
+                )}
+                onClick={handleDeleteFromCart}
+              >
+                <span className="mr-4">Видалити з кошика</span>
+                <Trash />
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button
+                addClasses={'h-14 flex items-center justify-center hover:bg-secondary'}
+                onClick={handleAddToCart}
+              >
+                <span className="mr-4">Додати до кошика</span>
+                <ShoppingCart />
+              </Button>
+            </>
+          )}
         </div>
 
         <div className="flex items-center justify-between">
