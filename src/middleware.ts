@@ -8,8 +8,6 @@ export async function middleware(request: NextRequest) {
   const adminToken: string | undefined = request.cookies.get(EnumTokens.ADMIN_TOKEN)?.value;
   const url: string = request.url;
 
-  console.log('text!!!!!!!!!!!!!!');
-
   const isAuthPage: boolean =
     url.includes(PUBLIC_URL.registration()) || url.includes(PUBLIC_URL.login());
 

@@ -31,13 +31,13 @@ const LoginForm: FC = () => {
                   <FormField
                     name="email"
                     type="email"
-                    placeholder="Enter user email"
+                    placeholder="Введіть email"
                     control={control}
                     rules={{
-                      required: 'Email is required',
+                      required: 'Email необхідний',
                       pattern: {
                         value: emailRegex,
-                        message: 'Please, enter a valid email address',
+                        message: 'Поле Email нне заповнене або email не валідний',
                       },
                     }}
                   />
@@ -54,11 +54,7 @@ const LoginForm: FC = () => {
                     placeholder="Enter password"
                     control={control}
                     rules={{
-                      required: 'Password is required',
-                      minLength: {
-                        value: 6,
-                        message: 'Password length should be more than 6 characters',
-                      },
+                      required: 'Пароль необхідний',
                     }}
                   />
                   <KeyRound className="ml-2" />
