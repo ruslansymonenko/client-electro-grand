@@ -1,13 +1,13 @@
 .data {
-  @apply font-sans bg-white my-14
+  @apply font-sans bg-white my-14 relative;
 }
 
 .data_container {
-  @apply p-4 lg:max-w-7xl max-w-4xl mx-auto
+  @apply p-4 lg:max-w-7xl max-w-4xl mx-auto;
 }
 
 .main_data {
-  @apply grid items-start grid-cols-1 lg:grid-cols-5 gap-12 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] p-6 rounded-lg
+  @apply grid items-start grid-cols-1 lg:grid-cols-5 gap-12 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] p-6 rounded-lg;
 }
 
 .img_container {
@@ -19,5 +19,5 @@
 }
 
 .info {
-  @apply lg:col-span-2 flex flex-col justify-around h-full
+  @apply lg:col-span-2 flex flex-col justify-around h-full relative;
 }

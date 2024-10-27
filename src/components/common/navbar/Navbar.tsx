@@ -45,15 +45,11 @@ const Navbar: FC = () => {
   }, []);
 
   useEffect(() => {
-    if (cartItems.length) {
-      setQuantityInCart(cartItems.length);
-    }
+    setQuantityInCart(cartItems.length);
   }, [cartItems]);
 
   useEffect(() => {
-    if (favoritesItems.length) {
-      setQuantityInFavorites(favoritesItems.length);
-    }
+    setQuantityInFavorites(favoritesItems.length);
   }, [favoritesItems]);
 
   const handleLogout = async () => {
