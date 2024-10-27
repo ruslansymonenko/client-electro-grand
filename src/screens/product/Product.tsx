@@ -3,8 +3,9 @@
 import { FC, useEffect, useState } from 'react';
 import ProductData from '@/components/store/product-data/ProductData';
 import { useGetProductBySlug } from '@/hooks/products/useProducts';
-import { IProductResponse } from '@/types/server-response-types/product-response';
+import { IProductDataResponse } from '@/types/server-response-types/product-response';
 import Loader from '@/components/common/loader/Loader';
+import Breadcrumb from '@/components/common/breadcrumb/Breadcrumb';
 
 interface IProductProps {
   productSlug: string;
@@ -12,7 +13,7 @@ interface IProductProps {
 
 const Product: FC<IProductProps> = ({ productSlug }) => {
   const { data, isLoading, error } = useGetProductBySlug(productSlug);
-  const [productData, setProductsData] = useState<IProductResponse | null>(null);
+  const [productData, setProductsData] = useState<IProductDataResponse | null>(null);
 
   useEffect(() => {
     if (data) {
@@ -24,6 +25,7 @@ const Product: FC<IProductProps> = ({ productSlug }) => {
 
   return (
     <div className="py-4 px-8 container mx-auto min-h-screen pt-navbarHeight">
+      <Breadcrumb />
       {isLoading ? (
         <Loader />
       ) : productData ? (

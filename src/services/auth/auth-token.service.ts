@@ -3,6 +3,7 @@ import Cookies from 'js-cookie';
 export enum EnumTokens {
   ACCESS_TOKEN = 'accessToken',
   REFRESH_TOKEN = 'refreshToken',
+  ADMIN_TOKEN = 'adminToken',
 }
 
 export const getAccessToken = (): string | null => {
@@ -23,4 +24,5 @@ export const saveAccessToken = (accessToken: string) => {
 
 export const removeTokenFromStorage = () => {
   Cookies.remove(EnumTokens.ACCESS_TOKEN);
+  Cookies.remove(EnumTokens.ADMIN_TOKEN);
 };

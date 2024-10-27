@@ -14,7 +14,6 @@ const PresentationInfoBrands: FC = () => {
 
   useEffect(() => {
     if (data) {
-      console.log(data.data);
       setBrandsData(data.data.slice(0, 6));
     } else {
       setBrandsData([]);

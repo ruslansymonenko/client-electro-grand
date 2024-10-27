@@ -5,6 +5,7 @@ import ProductsList from '@/components/store/products-list/ProductsList';
 import { useGetAllProducts } from '@/hooks/products/useProducts';
 import { IProductResponse } from '@/types/server-response-types/product-response';
 import Loader from '@/components/common/loader/Loader';
+import Breadcrumb from '@/components/common/breadcrumb/Breadcrumb';
 
 const Products: FC = () => {
   const { data, isLoading, error } = useGetAllProducts();
@@ -19,7 +20,8 @@ const Products: FC = () => {
   }, [data]);
 
   return (
-    <div className="py-4 px-8 container mx-auto min-h-screen pt-navbarHeight">
+    <div className="py-4 px-8 container mx-auto min-h-screen pt-navbarHeight relative">
+      <Breadcrumb />
       {isLoading ? <Loader /> : <ProductsList products={productsData} />}
     </div>
   );

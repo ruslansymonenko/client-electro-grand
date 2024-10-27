@@ -4,9 +4,11 @@ import { API_URL } from '@/config/api.config';
 import { removeTokenFromStorage, saveAccessToken } from '@/services/auth/auth-token.service';
 import { AxiosError } from 'axios';
 import { IAuthResponse } from '@/types/server-response-types/auth-response';
+import Cookies from 'js-cookie';
 
 enum EnumAuthPaths {
   LOGIN = '/login',
+  LOGIN_ADMIN = '/login-admin',
   REGISTER = '/register',
   ACCESS_TOKEN = '/access-token',
   LOGOUT = '/logout',
@@ -54,6 +56,30 @@ class AuthService {
     }
   }
 
+  async loginAdmin(data: IAuthForm) {
+    try {
+      const response = await axiosPublic<IAuthResponse>({
+        url: API_URL.auth(EnumAuthPaths.LOGIN_ADMIN),
+        method: 'POST',
+        data,
+      });
+
+      if (response.data.accessToken) {
+        saveAccessToken(response.data.accessToken);
+        Cookies.set('admin', 'true', { expires: 1 });
+      }
+
+      return response;
+    } catch (error) {
+      console.log(error);
+      if (error instanceof AxiosError) {
+        throw error;
+      } else {
+        throw new Error('An unknown error occurred');
+      }
+    }
+  }
+
   async getNewTokens() {
     try {
       const response = await axiosPublic<IAuthResponse>({
@@ -80,7 +106,10 @@ class AuthService {
         method: 'POST',
       });
 
-      if (response.data) removeTokenFromStorage();
+      if (response.data) {
+        removeTokenFromStorage();
+        Cookies.set('admin', 'false');
+      }
 
       return response;
     } catch (error) {

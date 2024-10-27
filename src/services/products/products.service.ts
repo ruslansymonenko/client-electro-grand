@@ -1,7 +1,10 @@
 import { axiosPrivate, axiosPublic } from '@/api/api.interceptors';
 import { IProduct } from '@/types/data-types/product';
 import { API_URL } from '@/config/api.config';
-import { IProductResponse } from '@/types/server-response-types/product-response';
+import {
+  IProductDataResponse,
+  IProductResponse,
+} from '@/types/server-response-types/product-response';
 
 enum EnumProductPaths {
   CREATE = '/create',
@@ -74,7 +77,7 @@ class ProductService {
 
   async getById(id: number) {
     try {
-      const response = await axiosPublic<IProductResponse>({
+      const response = await axiosPublic<IProductDataResponse>({
         url: API_URL.product(`${EnumProductPaths.GET_BY_ID}/${id}`),
         method: 'GET',
       });
@@ -91,7 +94,7 @@ class ProductService {
 
   async getBySlug(slug: string) {
     try {
-      const response = await axiosPublic<IProductResponse>({
+      const response = await axiosPublic<IProductDataResponse>({
         url: API_URL.product(`${EnumProductPaths.GET_BY_SLUG}/${slug}`),
         method: 'GET',
       });

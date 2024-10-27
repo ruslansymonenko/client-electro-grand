@@ -16,6 +16,7 @@ export const PUBLIC_URL = {
   brands: () => PUBLIC_URL.root('/brands'),
   brand: () => PUBLIC_URL.root('/brand'),
   brandProducts: (slug: string) => PUBLIC_URL.root(`/brand-products/${slug}`),
+  favorites: () => PUBLIC_URL.root('/favorites'),
   cart: () => PUBLIC_URL.root('/cart'),
   checkout: () => PUBLIC_URL.root('/checkout'),
 
@@ -28,24 +29,25 @@ export const PUBLIC_URL = {
 export const PRIVATE_URL = {
   root: (url: string = '') => `${APP_URL}${url ? url : ''}`,
 
-  dashboard: () => PUBLIC_URL.root(`/user`),
-  orders: () => PUBLIC_URL.root(`/user/orders`),
-  cart: (id: number) => PUBLIC_URL.root(`/user/cart/${id}`),
-  order: (id: number) => PUBLIC_URL.root(`/user/order/${id}`),
-  profile: () => PUBLIC_URL.root(`/user/profile`),
+  customer: () => PUBLIC_URL.root(`/customer`),
+  orders: () => PUBLIC_URL.root(`/customer/orders`),
+  cart: (id: number) => PUBLIC_URL.root(`/customer/cart/${id}`),
+  order: (id: number) => PUBLIC_URL.root(`/customer/order/${id}`),
+  profile: () => PUBLIC_URL.root(`/customer/profile`),
 };
 
 export const ADMIN_URL = {
   root: (url = '') => `${APP_URL}${url ? url : ''}`,
 
-  dashboard: () => PUBLIC_URL.root(`/dashboard`),
-  orders: () => PUBLIC_URL.root(`/dashboard/orders`),
-  order: (id: number) => PUBLIC_URL.root(`/dashboard/order/${id}`),
+  admin: () => PUBLIC_URL.root(`/admin`),
+  orders: () => PUBLIC_URL.root(`/admin/orders`),
+  order: (id: number) => PUBLIC_URL.root(`/admin/order/${id}`),
+  customers: () => PUBLIC_URL.root(`/admin/customers`),
 
-  products: () => PUBLIC_URL.root(`/dashboard/products`),
-  product: (id: number) => PUBLIC_URL.root(`/dashboard/products/${id}`),
-  categories: () => PUBLIC_URL.root('/categories'),
-  category: (id: number) => PUBLIC_URL.root(`/category/${id}`),
-  subcategories: () => PUBLIC_URL.root('/subcategories'),
-  subcategory: (id: number) => PUBLIC_URL.root(`/subcategory/${id}`),
+  products: () => PUBLIC_URL.root(`/admin/products`),
+  product: (id: number) => PUBLIC_URL.root(`/admin/products/${id}`),
+  categories: () => PUBLIC_URL.root('/admin'),
+  category: (id: number) => PUBLIC_URL.root(`/admin/${id}`),
+  subcategories: () => PUBLIC_URL.root('/admin'),
+  subcategory: (id: number) => PUBLIC_URL.root(`/admin/${id}`),
 };

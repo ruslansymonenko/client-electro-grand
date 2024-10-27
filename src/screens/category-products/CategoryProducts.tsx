@@ -5,6 +5,7 @@ import ProductsList from '@/components/store/products-list/ProductsList';
 import { useGetProductsByCategory } from '@/hooks/products/useProducts';
 import { IProductResponse } from '@/types/server-response-types/product-response';
 import Loader from '@/components/common/loader/Loader';
+import Breadcrumb from '@/components/common/breadcrumb/Breadcrumb';
 
 interface ICategoryProductsProps {
   categorySlug: string;
@@ -24,6 +25,7 @@ const CategoryProducts: FC<ICategoryProductsProps> = ({ categorySlug }) => {
 
   return (
     <div className="py-4 px-8 container mx-auto min-h-screen pt-navbarHeight">
+      <Breadcrumb />
       {isLoading ? (
         <Loader />
       ) : (

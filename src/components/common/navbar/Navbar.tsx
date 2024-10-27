@@ -2,22 +2,66 @@
 
 import { FC, useEffect, useState } from 'react';
 import Link from 'next/link';
-import { PUBLIC_URL } from '@/config/url.config';
+import { ADMIN_URL, PRIVATE_URL, PUBLIC_URL } from '@/config/url.config';
 import Image from 'next/image';
-import { MapPin, Phone, ShoppingCart } from 'lucide-react';
+import { MapPin, Phone, ShoppingCart, Heart } from 'lucide-react';
 import { appPages } from '@/components/common/navbar/nav-data';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
+import { User, LogOut, Cog } from 'lucide-react';
+import { authService } from '@/services/auth/auth.service';
+import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 const Navbar: FC = () => {
   const cartItems = useSelector((state: RootState) => state.cart.cartItems);
+  const favoritesItems = useSelector((state: RootState) => state.favorites.favoritesItems);
+  const [quantityInFavorites, setQuantityInFavorites] = useState<number>(0);
   const [quantityInCart, setQuantityInCart] = useState<number>(0);
+  const [token, setToken] = useState<string | null>(null);
+  const [adminToken, setAdminToken] = useState<string | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
-    if (cartItems.length) {
-      setQuantityInCart(cartItems.length);
+    const cookies = document.cookie
+      .split('; ')
+      .find((row) => row.startsWith('accessToken='))
+      ?.split('=')[1];
+
+    if (cookies) {
+      setToken(cookies);
     }
+  }, []);
+
+  useEffect(() => {
+    const cookies = document.cookie
+      .split('; ')
+      .find((row) => row.startsWith('admin='))
+      ?.split('=')[1];
+
+    if (cookies && cookies === 'true') {
+      setAdminToken(cookies);
+    }
+  }, []);
+
+  useEffect(() => {
+    setQuantityInCart(cartItems.length);
   }, [cartItems]);
+
+  useEffect(() => {
+    setQuantityInFavorites(favoritesItems.length);
+  }, [favoritesItems]);
+
+  const handleLogout = async () => {
+    const serviceResponse = await authService.logout();
+
+    if (serviceResponse.data) {
+      toast.success('Ви вийшли з аккаунту!');
+      router.replace(PUBLIC_URL.login());
+    } else {
+      toast.error('Помилка, спробуйте пізніше');
+    }
+  };
 
   return (
     <header className="shadow-md font-[sans-serif] tracking-wide z-50 fixed w-full h-navbarHeight flex flex-col justify-between bg-white">
@@ -52,13 +96,54 @@ const Navbar: FC = () => {
                   </span>
                 </span>
               </li>
-              <li className="flex text-[15px] max-lg:py-2 px-3 hover:text-primary">
+              <li className="max-lg:py-2 px-3 cursor-pointer">
+                <span className="relative">
+                  <Link href={PUBLIC_URL.favorites()}>
+                    <Heart />
+                  </Link>
+                  <span className="absolute -right-2 -ml-1 -top-1 rounded-full bg-red-500 px-1 py-0 text-xs text-white">
+                    {quantityInFavorites}
+                  </span>
+                </span>
+              </li>
+              {adminToken ? (
+                <li className="flex text-[15px] max-lg:py-2 px-3 hover:text-primary">
+                  <Link href={`${ADMIN_URL.admin()}`}>
+                    <button className="px-4 py-2 text-sm rounded font-semibold bg-transparent shadow-lg flex items-center">
+                      Адмін
+                      <Cog className={'ml-2'} />
+                    </button>
+                  </Link>
+                </li>
+              ) : (
+                ''
+              )}
+              {token ? (
+                <>
+                  <li className="flex text-[15px] max-lg:py-2 px-3 hover:text-primary">
+                    <Link href={`${PRIVATE_URL.customer()}`}>
+                      <button className="px-4 py-2 text-sm rounded font-semibold bg-transparent shadow-lg flex items-center">
+                        Клієнт
+                        <User className={'ml-2'} />
+                      </button>
+                    </Link>
+                  </li>
+                  <li className="flex text-[15px] max-lg:py-2 px-3 hover:text-primary">
+                    <button
+                      className="px-4 py-2 text-sm rounded font-semibold bg-transparent shadow-lg flex items-center"
+                      onClick={handleLogout}
+                    >
+                      <LogOut />
+                    </button>
+                  </li>
+                </>
+              ) : (
                 <Link href={`${PUBLIC_URL.login()}`}>
                   <button className="px-4 py-2 text-sm rounded font-semibold bg-transparent shadow-lg">
                     Авторизація
                   </button>
                 </Link>
-              </li>
+              )}
               <li className="lg:hidden">
                 <button>
                   <svg
@@ -105,8 +190,8 @@ const Navbar: FC = () => {
         </button>
 
         <ul className="lg:flex lg:flex-wrap lg:items-center lg:justify-center px-10 py-3 min-h-[46px] gap-4 max-lg:space-y-4 max-lg:fixed max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50 bg-gray-400">
-          {appPages.map((page) => (
-            <li className="max-lg:border-b max-lg:py-3 px-3">
+          {appPages.map((page, index) => (
+            <li className="max-lg:border-b max-lg:py-3 px-3" key={index}>
               <Link
                 href={page.pagePath}
                 className="hover:text-secondary text-textLight text-[15px] font-medium block"

@@ -5,6 +5,7 @@ const nextConfig = {
     APP_URL: process.env.APP_URL,
     APP_DOMAIN: process.env.APP_DOMAIN,
     SERVER_URL: process.env.SERVER_URL,
+    STAFF_KEY: process.env.STAFF_KEY,
   },
   async rewrites() {
     return [

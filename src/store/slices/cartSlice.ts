@@ -11,8 +11,11 @@ const saveCartToLocalStorage = (cartItems: ICartItem[]) => {
 };
 
 const loadCartFromLocalStorage = (): ICartItem[] => {
-  const cart = localStorage.getItem('cart');
-  return cart ? JSON.parse(cart) : [];
+  if (typeof window !== 'undefined') {
+    const cart = localStorage.getItem('cart');
+    return cart ? JSON.parse(cart) : [];
+  }
+  return [];
 };
 
 const calculateCartSum = (cartItems: ICartItem[]): number => {

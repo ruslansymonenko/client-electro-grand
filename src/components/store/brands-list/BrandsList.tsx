@@ -28,7 +28,7 @@ const BrandsList: FC = () => {
             <Loader />
           ) : (
             brandsData.map((item) => (
-              <BrandCard key={item.id} name={item.name} image={item.image} />
+              <BrandCard key={item.id} name={item.name} image={item.image} slug={item.slug} />
             ))
           )}
         </div>

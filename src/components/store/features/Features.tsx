@@ -1,5 +1,7 @@
 import { FC } from 'react';
 import { Cog, ShieldCheck, Headset, ChartNoAxesCombined, ChevronsRight } from 'lucide-react';
+import Link from 'next/link';
+import { PUBLIC_URL } from '@/config/url.config';
 
 const Features: FC = () => {
   return (
@@ -25,13 +27,15 @@ const Features: FC = () => {
             Ми пропонуємо можливість налаштування електричних систем під ваші потреби. Вибирайте з
             безлічі варіантів розеток та вимикачів для створення індивідуального дизайну.
           </p>
-          <button
-            type="button"
-            className="text-gray-800 border border-gray-300 px-4 py-2 rounded-lg font-bold flex items-center text-sm mt-6 hover:bg-white"
-          >
-            Дізнатися більше
-            <ChevronsRight />
-          </button>
+          <Link href={PUBLIC_URL.features()}>
+            <button
+              type="button"
+              className="text-gray-800 border border-gray-300 px-4 py-2 rounded-lg font-bold flex items-center text-sm mt-6 hover:bg-white"
+            >
+              Дізнатися більше
+              <ChevronsRight />
+            </button>
+          </Link>
         </div>
 
         <div className="text-left bg-[#adf6e8] rounded-lg shadow p-6">
@@ -43,13 +47,15 @@ const Features: FC = () => {
             Ми дбаємо про вашу безпеку, пропонуючи продукцію з сертифікацією та високими стандартами
             якості.
           </p>
-          <button
-            type="button"
-            className="text-gray-800 border border-gray-300 px-4 py-2 rounded-lg font-bold flex items-center text-sm mt-6 hover:bg-white"
-          >
-            Дізнатися більше
-            <ChevronsRight />
-          </button>
+          <Link href={PUBLIC_URL.features()}>
+            <button
+              type="button"
+              className="text-gray-800 border border-gray-300 px-4 py-2 rounded-lg font-bold flex items-center text-sm mt-6 hover:bg-white"
+            >
+              Дізнатися більше
+              <ChevronsRight />
+            </button>
+          </Link>
         </div>
 
         <div className="text-left bg-[#adf6e8] rounded-lg shadow p-6">
@@ -61,13 +67,15 @@ const Features: FC = () => {
             Наша команда завжди готова допомогти вам з вибором та установкою обладнання. Ми
             забезпечуємо консультації та підтримку на всіх етапах.
           </p>
-          <button
-            type="button"
-            className="text-gray-800 border border-gray-300 px-4 py-2 rounded-lg font-bold flex items-center text-sm mt-6 hover:bg-white"
-          >
-            Дізнатися більше
-            <ChevronsRight />
-          </button>
+          <Link href={PUBLIC_URL.features()}>
+            <button
+              type="button"
+              className="text-gray-800 border border-gray-300 px-4 py-2 rounded-lg font-bold flex items-center text-sm mt-6 hover:bg-white"
+            >
+              Дізнатися більше
+              <ChevronsRight />
+            </button>
+          </Link>
         </div>
 
         <div className="text-left bg-[#adf6e8] rounded-lg shadow p-6">
@@ -79,13 +87,15 @@ const Features: FC = () => {
             Ми пропонуємо продукцію, яка відповідає всім сучасним вимогам до енергозбереження та
             ефективності. Забезпечте свою оселю якісними електричними рішеннями.
           </p>
-          <button
-            type="button"
-            className="text-gray-800 border border-gray-300 px-4 py-2 rounded-lg font-bold flex items-center text-sm mt-6 hover:bg-white"
-          >
-            Дізнатися більше
-            <ChevronsRight />
-          </button>
+          <Link href={PUBLIC_URL.features()}>
+            <button
+              type="button"
+              className="text-gray-800 border border-gray-300 px-4 py-2 rounded-lg font-bold flex items-center text-sm mt-6 hover:bg-white"
+            >
+              Дізнатися більше
+              <ChevronsRight />
+            </button>
+          </Link>
         </div>
       </div>
     </div>

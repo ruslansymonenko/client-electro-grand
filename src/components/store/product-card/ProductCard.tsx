@@ -1,16 +1,18 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { PUBLIC_URL } from '@/config/url.config';
 import Button from '@/components/common/button/Button';
-import { ShoppingCart, Star } from 'lucide-react';
+import { Heart, ShoppingCart, Star, Trash } from 'lucide-react';
 import { SERVER_URL } from '@/config/api.config';
 import { IProductResponse } from '@/types/server-response-types/product-response';
-import { AppDispatch } from '@/store';
-import { useDispatch } from 'react-redux';
-import { addToCart } from '@/store/slices/cartSlice';
+import { AppDispatch, RootState } from '@/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart, removeFromCart } from '@/store/slices/cartSlice';
 import toast from 'react-hot-toast';
+import { toggleFavorites } from '@/store/slices/favoritesSlice';
+import cn from 'clsx';
 
 interface IProductCardProps {
   product: IProductResponse;
@@ -18,6 +20,10 @@ interface IProductCardProps {
 
 const ProductCard: FC<IProductCardProps> = ({ product }) => {
   const dispatch: AppDispatch = useDispatch();
+  const favoritesItems = useSelector((state: RootState) => state.favorites.favoritesItems);
+  const cartItems = useSelector((state: RootState) => state.cart.cartItems);
+  const [isProductFavorite, setIsProductFavorite] = useState<boolean>(false);
+  const [isProductInCart, setIsProductInCart] = useState<boolean>(false);
 
   const handleAddToCart = (): void => {
     dispatch(
@@ -30,8 +36,44 @@ const ProductCard: FC<IProductCardProps> = ({ product }) => {
     toast.success('Товар додано в корзину');
   };
 
+  const handleAddToFavorites = (): void => {
+    dispatch(toggleFavorites(product));
+
+    if (isProductFavorite) {
+      toast.error('Товар видалено з обраного');
+    } else {
+      toast.success('Товар додано до обраного');
+    }
+  };
+
+  const handleDeleteFromCart = () => {
+    dispatch(removeFromCart(product.id));
+
+    toast.error('Товар видалено з кошика');
+  };
+
+  useEffect(() => {
+    const isFavorite = favoritesItems.find((item) => item.id === product.id);
+
+    if (isFavorite) {
+      setIsProductFavorite(true);
+    } else {
+      setIsProductFavorite(false);
+    }
+  }, [favoritesItems]);
+
+  useEffect(() => {
+    const isInCart = cartItems.find((item) => item.product.id === product.id);
+
+    if (isInCart) {
+      setIsProductInCart(true);
+    } else {
+      setIsProductInCart(false);
+    }
+  }, [cartItems]);
+
   return (
-    <div className="bg-white overflow-hidden cursor-pointer rounded-md shadow-md hover:shadow-lg transition-all relative border">
+    <div className="bg-white overflow-hidden rounded-md shadow-md hover:shadow-lg transition-all relative border">
       <Link href={PUBLIC_URL.product(product.slug)}>
         <div className="w-full h-[250px] overflow-hidden mx-auto aspect-w-16 aspect-h-8 p-2">
           <img
@@ -67,22 +109,50 @@ const ProductCard: FC<IProductCardProps> = ({ product }) => {
         </div>
 
         <div className="mb-2 flex items-center justify-between">
-          <Button
-            addClasses={'h-14 flex items-center justify-center hover:bg-secondary'}
-            onClick={handleAddToCart}
-          >
-            <span className="mr-4">Додати до кошика</span>
-            <ShoppingCart />
-          </Button>
+          {isProductInCart ? (
+            <>
+              <Button
+                addClasses={cn(
+                  'h-14 flex items-center justify-center hover:bg-secondary',
+                  isProductInCart ? 'bg-secondary' : '',
+                )}
+                onClick={handleDeleteFromCart}
+              >
+                <span className="mr-4">Видалити з кошика</span>
+                <Trash />
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button
+                addClasses={'h-14 flex items-center justify-center hover:bg-secondary'}
+                onClick={handleAddToCart}
+              >
+                <span className="mr-4">Додати до кошика</span>
+                <ShoppingCart />
+              </Button>
+            </>
+          )}
         </div>
 
-        <div className="flex items-center space-x-1.5 mt-4">
-          <Star strokeWidth={3} width={20} height={20} className={'text-secondaryDark'} />
-          <Star strokeWidth={3} width={20} height={20} />
-          <Star strokeWidth={3} width={20} height={20} />
-          <Star strokeWidth={3} width={20} height={20} />
-          <Star strokeWidth={3} width={20} height={20} />
-          <p className="text-base text-gray-800 !ml-2">50</p>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-1.5 mt-4">
+            <Star strokeWidth={3} width={20} height={20} className={'text-secondaryDark'} />
+            <Star strokeWidth={3} width={20} height={20} />
+            <Star strokeWidth={3} width={20} height={20} />
+            <Star strokeWidth={3} width={20} height={20} />
+            <Star strokeWidth={3} width={20} height={20} />
+            <p className="text-base text-gray-800 !ml-2">50</p>
+          </div>
+          <button
+            className={cn(
+              'cursor-pointer hover:text-secondaryDark2',
+              isProductFavorite ? 'text-secondaryDark2' : '',
+            )}
+            onClick={handleAddToFavorites}
+          >
+            <Heart />
+          </button>
         </div>
       </div>
     </div>

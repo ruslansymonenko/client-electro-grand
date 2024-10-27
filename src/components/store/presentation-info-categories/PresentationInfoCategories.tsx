@@ -14,7 +14,6 @@ const PresentationInfo: FC = () => {
 
   useEffect(() => {
     if (data) {
-      console.log(data.data);
       setCategoriesData(data.data.slice(0, 6));
     } else {
       setCategoriesData([]);
