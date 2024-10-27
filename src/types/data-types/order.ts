@@ -12,3 +12,8 @@ export enum EnumOrderStatus {
   SHIPPED = 'SHIPPED',
   DONE = 'DONE',
 }
+
+enum EnumDeliveryType {
+  NOVA_POST = 'NOVA_POST',
+  UKR_POST = 'UKR_POST',
+}
