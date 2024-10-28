@@ -12,6 +12,7 @@ import { User, LogOut, Cog } from 'lucide-react';
 import { authService } from '@/services/auth/auth.service';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import NavbarSearch from '@/components/common/navbar-search/NavbarSearch';
 
 const Navbar: FC = () => {
   const cartItems = useSelector((state: RootState) => state.cart.cartItems);
@@ -64,18 +65,14 @@ const Navbar: FC = () => {
   };
 
   return (
-    <header className="shadow-md font-[sans-serif] tracking-wide z-50 fixed w-full h-navbarHeight flex flex-col justify-between bg-white">
+    <header className="shadow-md font-[sans-serif] tracking-wide z-10 fixed w-full h-navbarHeight flex flex-col justify-between bg-white">
       <section className="md:flex lg:items-center relative py-3 lg:px-10 px-4 bg-white lg:min-h-[80px] max-lg:min-h-[60px]">
         <Link href={`${PUBLIC_URL.main()}`}>
           <Image src={'/icons/main-logo.svg'} alt="logo" width={100} height={100} />
         </Link>
 
         <div className="flex flex-wrap w-full items-center">
-          <input
-            type="text"
-            placeholder="Пошук..."
-            className="xl:w-96 max-lg:w-full lg:ml-10 max-md:mt-4 max-lg:ml-4 bg-gray-100 focus:bg-transparent px-6 rounded h-11 outline-none text-sm transition-all shadow-lg"
-          />
+          <NavbarSearch />
           <div className="ml-auto max-lg:mt-4">
             <ul className="flex items-center">
               <li className="max-sm:hidden flex text-[15px] max-lg:py-2 px-3 font-medium text-textPrimary cursor-pointer">
