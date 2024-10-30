@@ -4,6 +4,7 @@ import { FC, useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { PUBLIC_URL } from '@/config/url.config';
+import { Home } from 'lucide-react';
 import cn from 'clsx';
 
 const pathReplacements: { [key: string]: string } = {
@@ -38,7 +39,10 @@ const Breadcrumb: FC = () => {
   return (
     <ul className="flex items-center justify-center space-x-4 font-[sans-serif] absolute top-40">
       <li className="text-gray-500 text-base cursor-pointer">
-        <Link href={PUBLIC_URL.main()}>Головна</Link>
+        <Link href={PUBLIC_URL.main()} className="flex items-center gap-2">
+          <Home />
+          <span>Головна</span>
+        </Link>
       </li>
       {crumbItems.map((item, index) => (
         <div className="flex items-center" key={index}>
