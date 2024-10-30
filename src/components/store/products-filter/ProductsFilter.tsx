@@ -1,94 +1,104 @@
 'use client';
 
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import Button from '@/components/common/button/Button';
+import PriceFilter from '@/components/store/products-filter/PriceFilter';
+import {
+  CheckboxFilterGroup,
+  ICheckboxOption,
+} from '@/components/store/products-filter/CheckboxFilterGroup';
+import { useGetAllCategories } from '@/hooks/categories/useCategories';
+import Loader from '@/components/common/loader/Loader';
+import { useGetAllSubcategories } from '@/hooks/subcategories/useSubcategories';
+import { useGetAllBrands } from '@/hooks/brands/useBrands';
 
-const ProductsFilter: FC = () => {
-  const [minPrice, setMinPrice] = useState<number>(0);
-  const [maxPrice, setMaxPrice] = useState<number>(1000);
-  const [range, setRange] = useState<[number, number]>([0, 1000]);
+interface IProductsFilterProps {
+  applyFilter: () => void;
+}
 
-  const handleMinPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = Number(e.target.value);
-    setMinPrice(value);
-    setRange([value, range[1]]);
-  };
+const ProductsFilter: FC<IProductsFilterProps> = ({ applyFilter }) => {
+  const categoriesData = useGetAllCategories();
+  const subcategoriesData = useGetAllSubcategories();
+  const brandsData = useGetAllBrands();
+  const [filterCategoriesOptions, setFilterCategoriesOptions] = useState<ICheckboxOption[]>([]);
+  const [filterSubcategoriesOptions, setFilterSubcategoriesOptions] = useState<ICheckboxOption[]>(
+    [],
+  );
+  const [filterBrandsOptions, setFilterBrandsOptions] = useState<ICheckboxOption[]>([]);
 
-  const handleMaxPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = Number(e.target.value);
-    setMaxPrice(value);
-    setRange([range[0], value]);
-  };
-
-  const handleRangeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = Number(e.target.value);
-    if (e.target.name === 'min') {
-      setRange([value, range[1]]);
-      setMinPrice(value);
-    } else {
-      setRange([range[0], value]);
-      setMaxPrice(value);
+  useEffect(() => {
+    if (categoriesData.data) {
+      const filterOptions: ICheckboxOption[] = categoriesData.data.data.map((item) => {
+        return {
+          label: item.name,
+          value: item.slug,
+          checked: false,
+        };
+      });
+      setFilterCategoriesOptions(filterOptions);
     }
-  };
+  }, [categoriesData.data]);
+
+  useEffect(() => {
+    if (subcategoriesData.data) {
+      const filterOptions: ICheckboxOption[] = subcategoriesData.data.data.map((item) => {
+        return {
+          label: item.name,
+          value: item.slug,
+          checked: false,
+        };
+      });
+
+      setFilterSubcategoriesOptions(filterOptions);
+    }
+  }, [subcategoriesData.data]);
+
+  useEffect(() => {
+    if (brandsData.data) {
+      const filterOptions: ICheckboxOption[] = brandsData.data.data.map((item) => {
+        return {
+          label: item.name,
+          value: item.slug,
+          checked: false,
+        };
+      });
+      setFilterBrandsOptions(filterOptions);
+    }
+  }, [categoriesData.data]);
 
   return (
     <div className="w-1/4 shadow-lg mr-4 p-4">
       <h2 className="text-xl font-bold">Фільтр</h2>
-      <section className="my-4">
-        <h3 className="text-xl border-b-2 pb-2">Ціна</h3>
-        <div className="my-4">
-          <label htmlFor="minPrice" className="block">
-            Мінімальна ціна
-          </label>
-          <input
-            type="number"
-            id="minPrice"
-            value={minPrice}
-            onChange={handleMinPriceChange}
-            className="border p-2 w-full"
-          />
-        </div>
-        <div className="my-4">
-          <label htmlFor="maxPrice" className="block">
-            Максимальна ціна
-          </label>
-          <input
-            type="number"
-            id="maxPrice"
-            value={maxPrice}
-            onChange={handleMaxPriceChange}
-            className="border p-2 w-full"
-          />
-        </div>
-        <div className="my-4">
-          <label className="block">Діапазон цін</label>
-          <div className="flex space-x-4">
-            <input
-              type="range"
-              name="min"
-              min="0"
-              max="10000"
-              value={range[0]}
-              onChange={handleRangeChange}
-              className="w-full accent-primary"
-            />
-            <input
-              type="range"
-              name="max"
-              min="0"
-              max="10000"
-              value={range[1]}
-              onChange={handleRangeChange}
-              className="w-full accent-primary"
-            />
-          </div>
-          <div className="flex justify-between mt-2">
-            <span>{range[0]}₴</span>
-            <span>{range[1]}₴</span>
-          </div>
-        </div>
-      </section>
-      <Button children={'Застосувати'} addClasses={'bg-primary text-white'} />
+
+      <PriceFilter min={0} max={10000} />
+
+      {categoriesData.isLoading ? (
+        <Loader />
+      ) : (
+        <CheckboxFilterGroup
+          options={filterCategoriesOptions}
+          title={'Категорії'}
+          className="my-4"
+        />
+      )}
+
+      {subcategoriesData.isLoading ? (
+        <Loader />
+      ) : (
+        <CheckboxFilterGroup
+          options={filterSubcategoriesOptions}
+          title={'Підкатегорії'}
+          className="my-4"
+        />
+      )}
+
+      {subcategoriesData.isLoading ? (
+        <Loader />
+      ) : (
+        <CheckboxFilterGroup options={filterBrandsOptions} title={'Бренди'} className="my-4" />
+      )}
+
+      <Button children={'Застосувати'} addClasses={'bg-primary text-white'} onClick={applyFilter} />
     </div>
   );
 };

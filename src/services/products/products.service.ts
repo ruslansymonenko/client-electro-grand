@@ -58,10 +58,12 @@ class ProductService {
     }
   }
 
-  async getAll() {
+  async getAll(searchParams?: string) {
     try {
       const response = await axiosPublic<IProductResponse[]>({
-        url: API_URL.product(`${EnumProductPaths.GET_ALL}`),
+        url: API_URL.product(
+          `${EnumProductPaths.GET_ALL}${searchParams ? `?${searchParams}` : ''}`,
+        ),
         method: 'GET',
       });
 

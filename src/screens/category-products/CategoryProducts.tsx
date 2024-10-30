@@ -6,6 +6,7 @@ import { useGetProductsByCategory } from '@/hooks/products/useProducts';
 import { IProductResponse } from '@/types/server-response-types/product-response';
 import Loader from '@/components/common/loader/Loader';
 import Breadcrumb from '@/components/common/breadcrumb/Breadcrumb';
+import { useGetCategoryBySlug } from '@/hooks/categories/useCategories';
 
 interface ICategoryProductsProps {
   categorySlug: string;
@@ -14,6 +15,8 @@ interface ICategoryProductsProps {
 const CategoryProducts: FC<ICategoryProductsProps> = ({ categorySlug }) => {
   const { data, isLoading, error } = useGetProductsByCategory(categorySlug);
   const [productsData, setProductsData] = useState<IProductResponse[]>([]);
+  const categoryData = useGetCategoryBySlug(categorySlug);
+  const [categoryName, setCategoryName] = useState<string>('');
 
   useEffect(() => {
     if (data) {
@@ -23,13 +26,26 @@ const CategoryProducts: FC<ICategoryProductsProps> = ({ categorySlug }) => {
     }
   }, [data]);
 
+  useEffect(() => {
+    if (categoryData.data) {
+      setCategoryName(categoryData.data.data.name);
+    }
+  }, [categoryData.data]);
+
   return (
     <div className="py-4 px-8 container mx-auto min-h-screen pt-navbarHeight">
       <Breadcrumb />
       {isLoading ? (
         <Loader />
       ) : (
-        <ProductsList products={productsData} title={'Товари за' + ' категорією'} />
+        <div className="p-4 mx-auto w-full my-14">
+          <h2 className="text-4xl font-extrabold text-gray-800 mb-12">
+            Товари за категорією: {categoryName}
+          </h2>
+          <div className="flex w-full">
+            <ProductsList products={productsData} />
+          </div>
+        </div>
       )}
     </div>
   );
