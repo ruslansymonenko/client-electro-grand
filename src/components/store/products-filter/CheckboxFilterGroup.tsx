@@ -67,7 +67,7 @@ export const CheckboxFilterGroup: FC<ICheckboxFilterGroupProps> = ({
           onClick={() => setIsExpanded(!isExpanded)}
           className="mt-2 text-primary font-semibold w-full text-center text-sm underline underline-offset-4"
         >
-          {isExpanded ? 'Show Less' : 'Show More'}
+          {isExpanded ? 'Сховати' : 'Показати всі'}
         </button>
       )}
     </div>

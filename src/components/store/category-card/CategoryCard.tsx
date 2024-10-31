@@ -13,7 +13,7 @@ interface ICategoryCardProps {
 
 const CategoryCard: FC<ICategoryCardProps> = ({ categoryData }) => {
   const [showAllSubcategories, setShowAllSubcategories] = useState(false);
-  const MAX_SUBCATEGORIES = 1;
+  const MAX_SUBCATEGORIES = 3;
 
   const handleToggleSubcategories = () => setShowAllSubcategories((prev) => !prev);
 
