@@ -21,7 +21,7 @@ const Admin: FC = () => {
           <section className="mb-4 flex items-center w-full">
             <ControlBtns />
           </section>
-          <section className="mb-4 flex items-center w-full">
+          <section className="mb-4 flex flex-col items-center w-full">
             <AdminNav />
           </section>
         </div>

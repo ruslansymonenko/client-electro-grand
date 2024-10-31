@@ -1,34 +1,120 @@
 'use client';
 
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { X } from 'lucide-react';
 import { AppDispatch } from '@/store';
 import { useDispatch } from 'react-redux';
 import Button from '@/components/common/button/Button';
 import { closeAddNewProductModal } from '@/store/slices/modals/addNewProductSlice';
+import { useGetAllCategories } from '@/hooks/categories/useCategories';
+import { ICategoryResponse } from '@/types/server-response-types/category-response';
+import { ISubcategory } from '@/types/data-types/subcategory';
+import Dropdown from '@/components/common/dropdown/Dropdown';
+import { useGetAllBrands } from '@/hooks/brands/useBrands';
+import { IBrand } from '@/types/data-types/brand';
+import { ICreateProductData } from '@/services/products/products.service';
+import toast from 'react-hot-toast';
 
 interface IAddProductProps {
-  onAddProduct?: (name: string) => void;
+  onAddProduct: (data: ICreateProductData) => void;
 }
 
 const AddNewProductForm: FC<IAddProductProps> = ({ onAddProduct }) => {
   const dispatch: AppDispatch = useDispatch();
+  const categoriesData = useGetAllCategories();
+  const brandsData = useGetAllBrands();
+
+  const [availableCategories, setAvailableCategories] = useState<ICategoryResponse[]>([]);
+  const [availableSubcategories, setAvailableSubcategories] = useState<ISubcategory[]>([]);
+  const [availableBrands, setAvailableBrands] = useState<IBrand[]>([]);
+
   const [name, setName] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [price, setPrice] = useState<number | null>(null);
   const [categoryId, setCategoryId] = useState<number | null>(null);
   const [subcategoryId, setSubcategoryId] = useState<number | null>(null);
+  const [brandId, setBrandId] = useState<number | null>(null);
 
   const handleCloseModal = (e: React.FormEvent) => {
     e.preventDefault();
-    setName('');
     dispatch(closeAddNewProductModal());
+    clearForm();
+  };
+
+  const clearForm = () => {
+    setName('');
+    setDescription('');
+    setPrice(null);
+    setCategoryId(null);
+    setSubcategoryId(null);
+    setBrandId(null);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setName('');
+    if (
+      name ||
+      description ||
+      price !== null ||
+      categoryId !== null ||
+      subcategoryId !== null ||
+      brandId !== null
+    ) {
+      onAddProduct({
+        name: name,
+        description: description,
+        price: price!,
+        categoryId: categoryId!,
+        subcategoryId: subcategoryId!,
+        brandId: brandId!,
+      });
+    } else {
+      toast.error('Введіть всі данні');
+    }
   };
+
+  const handleSetChosenCategories = (name: string) => {
+    const chosenCategory = availableCategories.find((item) => item.name === name);
+    if (chosenCategory) {
+      setCategoryId(chosenCategory.id);
+    }
+  };
+
+  const handleSetChosenSubcategories = (name: string) => {
+    const chosenSubcategory = availableSubcategories.find((item) => item.name === name);
+    if (chosenSubcategory) {
+      setSubcategoryId(chosenSubcategory.id);
+    }
+  };
+
+  const handleSetChosenBrand = (name: string) => {
+    const chosenBrand = availableBrands.find((item) => item.name === name);
+    if (chosenBrand) {
+      setBrandId(chosenBrand.id);
+    }
+  };
+
+  useEffect(() => {
+    if (categoriesData.data) {
+      setAvailableCategories(categoriesData.data.data);
+    }
+  }, [categoriesData.data]);
+
+  useEffect(() => {
+    if (brandsData.data) {
+      setAvailableBrands(brandsData.data.data);
+    }
+  }, [brandsData.data]);
+
+  useEffect(() => {
+    if (categoryId) {
+      const chosenCategory = availableCategories.find((element) => element.id === categoryId);
+
+      if (chosenCategory) {
+        setAvailableSubcategories(chosenCategory.subcategories);
+      }
+    }
+  }, [categoryId]);
 
   return (
     <div className="w-full max-w-lg bg-white shadow-lg rounded-lg p-8 relative">
@@ -47,6 +133,53 @@ const AddNewProductForm: FC<IAddProductProps> = ({ onAddProduct }) => {
             placeholder="Введіть назву"
             onChange={(e) => setName(e.target.value)}
             className="px-4 py-3 bg-gray-100 w-full text-gray-800 text-sm border-none focus:outline-blue-600 focus:bg-transparent rounded-lg"
+          />
+        </div>
+
+        <div>
+          <label className="text-gray-800 text-sm mb-2 block">Опис</label>
+          <input
+            type="text"
+            placeholder="Введіть опис"
+            onChange={(e) => setDescription(e.target.value)}
+            className="px-4 py-3 bg-gray-100 w-full text-gray-800 text-sm border-none focus:outline-blue-600 focus:bg-transparent rounded-lg"
+          />
+        </div>
+
+        <div>
+          <label className="text-gray-800 text-sm mb-2 block">Ціна</label>
+          <input
+            type="number"
+            placeholder="Введіть ціну"
+            onChange={(e) => setPrice(parseInt(e.target.value))}
+            className="px-4 py-3 bg-gray-100 w-full text-gray-800 text-sm border-none focus:outline-blue-600 focus:bg-transparent rounded-lg"
+          />
+        </div>
+
+        <div>
+          <label className="text-gray-800 text-sm mb-2 block">Виберіть категорію</label>
+          <Dropdown
+            options={availableCategories.map((item) => item.name)}
+            onSelect={handleSetChosenCategories}
+            placeholder={'Виберіть категорію'}
+          />
+        </div>
+
+        <div>
+          <label className="text-gray-800 text-sm mb-2 block">Виберіть підкатегорію</label>
+          <Dropdown
+            options={availableSubcategories.map((item) => item.name)}
+            onSelect={handleSetChosenSubcategories}
+            placeholder={'Виберіть підкатегорію'}
+          />
+        </div>
+
+        <div>
+          <label className="text-gray-800 text-sm mb-2 block">Виберіть бренд</label>
+          <Dropdown
+            options={availableBrands.map((item) => item.name)}
+            onSelect={handleSetChosenBrand}
+            placeholder={'Виберіть бренд'}
           />
         </div>
 

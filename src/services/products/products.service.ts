@@ -7,7 +7,7 @@ import {
 } from '@/types/server-response-types/product-response';
 
 enum EnumProductPaths {
-  CREATE = '/create',
+  CREATE = '/',
   GET_ALL = '/',
   GET_BY_ID = '/by-id',
   GET_BY_SLUG = '/by-slug',
@@ -19,16 +19,16 @@ enum EnumProductPaths {
   DELETE = '/',
 }
 
-interface ICreateProductData {
+export interface ICreateProductData {
   name: string;
   description?: string;
   price: number;
   categoryId: number;
-  subCategoryId: number;
-  brandId?: number;
+  subcategoryId: number;
+  brandId: number;
 }
 
-interface IUpdateProductData {
+export interface IUpdateProductData {
   name?: string;
   description?: string;
   price?: number;
@@ -42,7 +42,7 @@ type TypeProductsImages = File | File[];
 class ProductService {
   async create(data: ICreateProductData) {
     try {
-      const response = await axiosPrivate<IProduct>({
+      const response = await axiosPrivate<IProductResponse>({
         url: API_URL.product(EnumProductPaths.CREATE),
         method: 'POST',
         data: data,
@@ -200,9 +200,9 @@ class ProductService {
 
   async delete(id: number) {
     try {
-      const response = await axiosPublic<IProduct>({
-        url: API_URL.product(`${EnumProductPaths.DELETE}/${id}`),
-        method: 'GET',
+      const response = await axiosPrivate<IProduct>({
+        url: API_URL.product(`${EnumProductPaths.DELETE}${id}`),
+        method: 'DELETE',
       });
 
       return response;

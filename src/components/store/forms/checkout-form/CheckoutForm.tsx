@@ -18,6 +18,7 @@ const CheckoutForm: FC = () => {
   const [customerPhone, setCustomerPhone] = useState<string>('');
   const [city, setCity] = useState<string>('');
   const cartItems = useSelector((state: RootState) => state.cart.cartItems);
+  const cartSum = useSelector((state: RootState) => state.cart.cartSum);
 
   const handleTerminalChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewPostTerminal(event.target.value ? parseInt(event.target.value) : null);
@@ -72,9 +73,13 @@ const CheckoutForm: FC = () => {
     <div className="font-sans bg-white p-4 my-14">
       <div className="max-w-4xl mx-auto">
         <div className="text-center">
-          <h2 className="text-3xl font-extrabold text-gray-800 inline-block border-b-[3px] border-gray-800 pb-1">
+          <h2 className="text-3xl font-extrabold text-gray-800 inline-block border-b-[3px] border-gray-800 pb-1 mb-4">
             Оформлення замовлення
           </h2>
+        </div>
+
+        <div className="text-center">
+          <p className="text-gray-800 inline-block pb-1">Ваше замовлення на сумму: {cartSum}</p>
         </div>
 
         <div className="mt-12">

@@ -3,7 +3,7 @@ import Footer from '@/components/common/footer/Footer';
 import { Metadata } from 'next';
 import Admin from '@/screens/admin/Admin';
 import { NO_INDEX_PAGE } from '@/consts/seo.consts';
-import AdminProducts from '@/screens/admin-products/Admin';
+import AdminProducts from '@/screens/admin-products/AdminProducts';
 
 export const metadata: Metadata = {
   title: 'Управління магазином',
