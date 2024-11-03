@@ -1,7 +1,7 @@
 export interface ISubcategory {
   id: number;
-  created_at: string;
-  updated_at: string;
+  createdAt: string;
+  updatedAt: string;
   name: string;
   slug: string;
   categoryId: number;

@@ -10,6 +10,7 @@ import ProductsFilter from '@/components/store/products-filter/ProductsFilter';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { buildSearchParams } from '@/store/slices/filterSlice';
+import { Pagination } from '@/components/common/pagination/Pagination';
 
 const Products: FC = () => {
   const [searchParams, setSearchParams] = useState<string>('');
@@ -39,6 +40,9 @@ const Products: FC = () => {
           <ProductsFilter applyFilter={onApplyFilter} />
 
           {isLoading ? <Loader /> : <ProductsList products={productsData} />}
+        </div>
+        <div className="my-10">
+          <Pagination />
         </div>
       </div>
     </div>

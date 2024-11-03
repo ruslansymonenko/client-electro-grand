@@ -5,6 +5,7 @@ import {
   IProductDataResponse,
   IProductResponse,
 } from '@/types/server-response-types/product-response';
+import axios from 'axios';
 
 enum EnumProductPaths {
   CREATE = '/',
@@ -14,9 +15,9 @@ enum EnumProductPaths {
   GET_BY_CATEGORY = '/by-category',
   GET_BY_SUBCATEGORY = '/by-subcategory',
   GET_BY_BRAND = '/by-brand',
-  UPDATE = '/',
+  UPDATE = '',
   SET_IMAGES = '/set-images',
-  DELETE = '/',
+  DELETE = '',
 }
 
 export interface ICreateProductData {
@@ -33,11 +34,11 @@ export interface IUpdateProductData {
   description?: string;
   price?: number;
   categoryId?: number;
-  subCategoryId?: number;
+  subcategoryId?: number;
   brandId?: number;
 }
 
-type TypeProductsImages = File | File[];
+export type TypeProductsImages = File[];
 
 class ProductService {
   async create(data: ICreateProductData) {
@@ -164,7 +165,7 @@ class ProductService {
 
   async update(id: number, data: IUpdateProductData) {
     try {
-      const response = await axiosPrivate<IProduct>({
+      const response = await axiosPrivate<IProductResponse>({
         url: API_URL.product(`${EnumProductPaths.UPDATE}/${id}`),
         method: 'PUT',
         data: data,
@@ -172,8 +173,11 @@ class ProductService {
 
       return response;
     } catch (error) {
-      if (error instanceof Error) {
-        throw error.message;
+      if (axios.isAxiosError(error) && error.response) {
+        const serverMessage = error.response.data.message || 'Unknown server error';
+        throw new Error(serverMessage);
+      } else if (error instanceof Error) {
+        throw new Error(error.message);
       } else {
         throw new Error('An unknown error occurred');
       }
@@ -182,10 +186,19 @@ class ProductService {
 
   async setImages(id: number, data: TypeProductsImages) {
     try {
-      const response = await axiosPrivate<IProduct>({
+      const formData = new FormData();
+
+      data.forEach((file, index) => {
+        formData.append(`files`, file);
+      });
+
+      const response = await axiosPrivate<IProductResponse>({
         url: API_URL.product(`${EnumProductPaths.SET_IMAGES}/${id}`),
         method: 'PUT',
-        data: data,
+        data: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       });
 
       return response;
@@ -201,7 +214,7 @@ class ProductService {
   async delete(id: number) {
     try {
       const response = await axiosPrivate<IProduct>({
-        url: API_URL.product(`${EnumProductPaths.DELETE}${id}`),
+        url: API_URL.product(`${EnumProductPaths.DELETE}/${id}`),
         method: 'DELETE',
       });
 

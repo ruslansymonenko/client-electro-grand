@@ -5,7 +5,6 @@ import { X } from 'lucide-react';
 import { AppDispatch } from '@/store';
 import { useDispatch } from 'react-redux';
 import Button from '@/components/common/button/Button';
-import { closeAddNewProductModal } from '@/store/slices/modals/addNewProductSlice';
 import { useGetAllCategories } from '@/hooks/categories/useCategories';
 import { ICategoryResponse } from '@/types/server-response-types/category-response';
 import { ISubcategory } from '@/types/data-types/subcategory';
@@ -14,6 +13,7 @@ import { useGetAllBrands } from '@/hooks/brands/useBrands';
 import { IBrand } from '@/types/data-types/brand';
 import { ICreateProductData } from '@/services/products/products.service';
 import toast from 'react-hot-toast';
+import { addProductModal } from '@/store/slices/modals/addNewProductModalSlice';
 
 interface IAddProductProps {
   onAddProduct: (data: ICreateProductData) => void;
@@ -37,7 +37,7 @@ const AddNewProductForm: FC<IAddProductProps> = ({ onAddProduct }) => {
 
   const handleCloseModal = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(closeAddNewProductModal());
+    dispatch(addProductModal.closeModal());
     clearForm();
   };
 

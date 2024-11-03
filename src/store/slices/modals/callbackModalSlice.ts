@@ -1,10 +1,10 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
-interface ICallbackModalSlice {
+interface ISlice {
   isOpen: boolean;
 }
 
-const initialState: ICallbackModalSlice = {
+const initialState: ISlice = {
   isOpen: false,
 };
 
@@ -12,10 +12,10 @@ const callbackModalSlice = createSlice({
   name: 'callbackModalSlice',
   initialState,
   reducers: {
-    openCallbackModal: (state: ICallbackModalSlice) => {
+    openCallbackModal: (state: ISlice) => {
       state.isOpen = true;
     },
-    closeCallbackModal: (state: ICallbackModalSlice) => {
+    closeCallbackModal: (state: ISlice) => {
       state.isOpen = false;
     },
   },

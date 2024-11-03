@@ -47,14 +47,14 @@ export async function middleware(request: NextRequest) {
       const result = await response.json();
 
       if (!result.valid) {
-        return NextResponse.redirect(new URL('/', url));
+        return NextResponse.redirect(new URL(PUBLIC_URL.noAccess(), url));
       }
 
       Cookies.set('admin', 'true', { expires: 1 });
       return NextResponse.next();
     } catch (error) {
       Cookies.set('admin', 'false');
-      return NextResponse.redirect(new URL(PUBLIC_URL.main(), url));
+      return NextResponse.redirect(new URL(PUBLIC_URL.noAccess(), url));
     }
   } else {
     return NextResponse.redirect(new URL(PUBLIC_URL.main(), url));

@@ -4,26 +4,26 @@ import { ICategory } from '@/types/data-types/category';
 import { ICategoryResponse } from '@/types/server-response-types/category-response';
 
 enum EnumCategoriesPaths {
-  CREATE = '/create',
+  CREATE = '/',
   GET_ALL = '/',
   GET_BY_ID = '/by-id',
   GET_BY_SLUG = '/by-slug',
-  UPDATE = '/',
-  DELETE = '/',
+  UPDATE = '',
+  DELETE = '',
 }
 
-interface ICreateCategoryData {
+export interface ICreateCategoryData {
   name: string;
 }
 
-interface IUpdateCategoryData {
+export interface IUpdateCategoryData {
   name?: string;
 }
 
 class CategoriesService {
   async create(data: ICreateCategoryData) {
     try {
-      const response = await axiosPrivate<ICategory>({
+      const response = await axiosPrivate<ICategoryResponse>({
         url: API_URL.category(EnumCategoriesPaths.CREATE),
         method: 'POST',
         data: data,
@@ -92,7 +92,7 @@ class CategoriesService {
 
   async update(id: number, data: IUpdateCategoryData) {
     try {
-      const response = await axiosPrivate<ICategory>({
+      const response = await axiosPrivate<ICategoryResponse>({
         url: API_URL.category(`${EnumCategoriesPaths.UPDATE}/${id}`),
         method: 'PUT',
         data: data,
@@ -110,9 +110,9 @@ class CategoriesService {
 
   async delete(id: number) {
     try {
-      const response = await axiosPublic<ICategory>({
+      const response = await axiosPrivate<ICategory>({
         url: API_URL.category(`${EnumCategoriesPaths.DELETE}/${id}`),
-        method: 'GET',
+        method: 'DELETE',
       });
 
       return response;

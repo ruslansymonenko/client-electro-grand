@@ -1,7 +1,7 @@
 export interface IOrderItem {
   id: number;
-  created_at: string;
-  updated_at: string;
+  createdAt: string;
+  updatedAt: string;
 
   quantity: number;
   price: number;

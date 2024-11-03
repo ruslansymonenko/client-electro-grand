@@ -7,8 +7,8 @@ enum EnumBrandsPaths {
   GET_ALL = '/',
   GET_BY_ID = '/by-id',
   GET_BY_SLUG = '/by-slug',
-  UPDATE = '/',
-  DELETE = '/',
+  UPDATE = '',
+  DELETE = '',
 }
 
 interface ICreateBrandData {
@@ -109,9 +109,9 @@ class BrandsService {
 
   async delete(id: number) {
     try {
-      const response = await axiosPublic<IBrand>({
+      const response = await axiosPrivate<IBrand>({
         url: API_URL.brand(`${EnumBrandsPaths.DELETE}/${id}`),
-        method: 'GET',
+        method: 'DELETE',
       });
 
       return response;
