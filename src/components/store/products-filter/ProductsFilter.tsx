@@ -14,9 +14,10 @@ import { useGetAllBrands } from '@/hooks/brands/useBrands';
 
 interface IProductsFilterProps {
   applyFilter: () => void;
+  clearFilter: () => void;
 }
 
-const ProductsFilter: FC<IProductsFilterProps> = ({ applyFilter }) => {
+const ProductsFilter: FC<IProductsFilterProps> = ({ applyFilter, clearFilter }) => {
   const categoriesData = useGetAllCategories();
   const subcategoriesData = useGetAllSubcategories();
   const brandsData = useGetAllBrands();
@@ -99,6 +100,7 @@ const ProductsFilter: FC<IProductsFilterProps> = ({ applyFilter }) => {
       )}
 
       <Button children={'Застосувати'} addClasses={'bg-primary text-white'} onClick={applyFilter} />
+      <Button children={'Очистити'} addClasses={'bg-secondary mt-4'} onClick={clearFilter} />
     </div>
   );
 };

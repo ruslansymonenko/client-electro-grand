@@ -20,7 +20,7 @@ const SubcategoryProducts: FC<ISubcategoryProductsProps> = ({ subcategorySlug })
 
   useEffect(() => {
     if (data) {
-      setProductsData(data.data);
+      setProductsData(data.data.products);
     } else {
       setProductsData([]);
     }

@@ -8,12 +8,14 @@ import deleteCheckModalSlice from '@/store/slices/modals/deleteCheckModalSlice';
 import addNewCategoryModalSlice from '@/store/slices/modals/addNewCategoryModalSlice';
 import updateProductModalSlice from '@/store/slices/modals/updateProductModalSlice';
 import setProductImagesModalSlice from '@/store/slices/modals/setProductImagesModalSlice';
+import productPaginationSlice from '@/store/slices/productPaginationSlice';
 
 const store = configureStore({
   reducer: {
     cart: cartSlice,
     favorites: favoritesSlice,
     filterSlice: filterSlice,
+    productPagination: productPaginationSlice,
 
     //product modals
     addNewProductModal: addNewProductSlice,

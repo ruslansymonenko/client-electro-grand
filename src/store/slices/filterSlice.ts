@@ -1,33 +1,34 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface IFiltersSlice {
-  minPrice: number | null;
-  maxPrice: number | null;
+export interface IFiltersSlice {
+  minPrice: number;
+  maxPrice: number;
   category: string[] | null;
   subcategory: string[] | null;
   brand: string[] | null;
+  currentPage: number;
+  pageSize: number;
 }
 
 const initialState: IFiltersSlice = {
-  minPrice: null,
-  maxPrice: null,
+  minPrice: 0,
+  maxPrice: 10000,
   category: null,
   subcategory: null,
   brand: null,
+  currentPage: 1,
+  pageSize: 10,
 };
 
-export function buildSearchParams(filters: IFiltersSlice): string {
-  const params: Record<string, string> = {};
-
-  if (filters.minPrice !== null) params.minPrice = filters.minPrice.toString();
-  if (filters.maxPrice !== null) params.maxPrice = filters.maxPrice.toString();
-  if (filters.category) params.category = filters.category.join(',');
-  if (filters.subcategory) params.subcategory = filters.subcategory.join(',');
-  if (filters.brand) params.brand = filters.brand.join(',');
-
-  const searchParams = new URLSearchParams(params);
-  return searchParams.toString();
-}
+export const defaultFilter: IFiltersSlice = {
+  minPrice: 0,
+  maxPrice: 10000,
+  category: null,
+  subcategory: null,
+  brand: null,
+  currentPage: 1,
+  pageSize: 10,
+};
 
 const filtersSlice = createSlice({
   name: 'filters',
@@ -49,11 +50,19 @@ const filtersSlice = createSlice({
       state.brand = action.payload;
     },
     clearFilter: (state: IFiltersSlice) => {
-      state.minPrice = null;
-      state.maxPrice = null;
+      state.minPrice = 0;
+      state.maxPrice = 10000;
       state.category = null;
       state.subcategory = null;
       state.brand = null;
+      state.currentPage = 1;
+      state.pageSize = 10;
+    },
+    setCurrentPage: (state: IFiltersSlice, action: PayloadAction<number>) => {
+      state.currentPage = action.payload;
+    },
+    setPageSize: (state: IFiltersSlice, action: PayloadAction<number>) => {
+      state.pageSize = action.payload;
     },
   },
 });
@@ -65,5 +74,7 @@ export const {
   setFilterBrand,
   setFilterSubcategory,
   clearFilter,
+  setCurrentPage,
+  setPageSize,
 } = filtersSlice.actions;
 export default filtersSlice.reducer;

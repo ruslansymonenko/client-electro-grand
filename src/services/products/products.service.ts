@@ -4,6 +4,7 @@ import { API_URL } from '@/config/api.config';
 import {
   IProductDataResponse,
   IProductResponse,
+  IProductResponseWithPagination,
 } from '@/types/server-response-types/product-response';
 import axios from 'axios';
 
@@ -61,7 +62,9 @@ class ProductService {
 
   async getAll(searchParams?: string) {
     try {
-      const response = await axiosPublic<IProductResponse[]>({
+      console.log(searchParams);
+
+      const response = await axiosPublic<IProductResponseWithPagination>({
         url: API_URL.product(
           `${EnumProductPaths.GET_ALL}${searchParams ? `?${searchParams}` : ''}`,
         ),
@@ -114,7 +117,7 @@ class ProductService {
 
   async getByCategory(slug: string) {
     try {
-      const response = await axiosPublic<IProductResponse[]>({
+      const response = await axiosPublic<IProductResponseWithPagination>({
         url: API_URL.product(`${EnumProductPaths.GET_BY_CATEGORY}/${slug}`),
         method: 'GET',
       });
@@ -131,7 +134,7 @@ class ProductService {
 
   async getBySubcategory(slug: string) {
     try {
-      const response = await axiosPublic<IProductResponse[]>({
+      const response = await axiosPublic<IProductResponseWithPagination>({
         url: API_URL.product(`${EnumProductPaths.GET_BY_SUBCATEGORY}/${slug}`),
         method: 'GET',
       });
@@ -148,7 +151,7 @@ class ProductService {
 
   async getByBrand(slug: string) {
     try {
-      const response = await axiosPublic<IProductResponse[]>({
+      const response = await axiosPublic<IProductResponseWithPagination>({
         url: API_URL.product(`${EnumProductPaths.GET_BY_BRAND}/${slug}`),
         method: 'GET',
       });

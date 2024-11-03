@@ -10,6 +10,13 @@ export interface IProductResponse extends IProduct {
   brand: IBrand;
 }
 
+export interface IProductResponseWithPagination {
+  products: IProductResponse[];
+  totalProducts: number;
+  totalPages: number;
+  currentPage: number;
+}
+
 export interface IProductDataResponse extends IProductResponse {
   productAttribute: IProductAttributeResponse[];
   similarProducts: IProduct[];

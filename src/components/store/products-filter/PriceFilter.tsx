@@ -1,48 +1,52 @@
 'use client';
 
 import React, { FC, useEffect, useState } from 'react';
-import { AppDispatch } from '@/store';
-import { useDispatch } from 'react-redux';
+import { AppDispatch, RootState } from '@/store';
+import { useDispatch, useSelector } from 'react-redux';
 import { setFilterMaxPrice, setFilterMinPrice } from '@/store/slices/filterSlice';
 
-interface IPriceFilterProps {
+interface IProps {
   min: number;
   max: number;
 }
 
-const PriceFilter: FC<IPriceFilterProps> = ({ min, max }) => {
+const PriceFilter: FC<IProps> = ({ min, max }) => {
   const dispatch: AppDispatch = useDispatch();
 
-  const [minPrice, setMinPrice] = useState<number>(min);
-  const [maxPrice, setMaxPrice] = useState<number>(max);
-  const [range, setRange] = useState<[number, number]>([min, max]);
+  const minPrice: number = useSelector((state: RootState) => state.filterSlice.minPrice);
+  const maxPrice: number = useSelector((state: RootState) => state.filterSlice.maxPrice);
+
+  const [range, setRange] = useState<[number, number]>([minPrice, maxPrice]);
 
   const handleMinPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(e.target.value);
-    setMinPrice(value);
+    dispatch(setFilterMinPrice(value));
     setRange([value, range[1]]);
   };
 
   const handleMaxPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(e.target.value);
-    setMaxPrice(value);
+    dispatch(setFilterMaxPrice(value));
     setRange([range[0], value]);
   };
 
   const handleRangeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(e.target.value);
     if (e.target.name === 'min') {
-      setRange([value, range[1]]);
-      setMinPrice(value);
+      const newMin = Math.min(value, range[1]);
+
+      setRange([newMin, range[1]]);
+      dispatch(setFilterMinPrice(newMin));
     } else {
-      setRange([range[0], value]);
-      setMaxPrice(value);
+      const newMax = Math.max(value, range[0]);
+
+      setRange([range[0], newMax]);
+      dispatch(setFilterMaxPrice(newMax));
     }
   };
 
   useEffect(() => {
-    dispatch(setFilterMinPrice(minPrice));
-    dispatch(setFilterMaxPrice(maxPrice));
+    setRange([minPrice, maxPrice]);
   }, [minPrice, maxPrice]);
 
   return (

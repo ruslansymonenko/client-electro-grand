@@ -25,7 +25,7 @@ const BrandProducts: FC<IBrandProductsProps> = ({ brandSlug }) => {
 
   useEffect(() => {
     if (data) {
-      setProductsData(data.data);
+      setProductsData(data.data.products);
     } else {
       setProductsData([]);
     }

@@ -154,7 +154,7 @@ const AdminProducts: FC = () => {
 
   useEffect(() => {
     if (data) {
-      setProductsData(data.data);
+      setProductsData(data.data.products);
     } else {
       setProductsData([]);
     }

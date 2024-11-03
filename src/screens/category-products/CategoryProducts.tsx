@@ -20,7 +20,7 @@ const CategoryProducts: FC<ICategoryProductsProps> = ({ categorySlug }) => {
 
   useEffect(() => {
     if (data) {
-      setProductsData(data.data);
+      setProductsData(data.data.products);
     } else {
       setProductsData([]);
     }
