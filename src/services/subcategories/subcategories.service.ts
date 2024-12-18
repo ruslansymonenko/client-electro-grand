@@ -7,8 +7,8 @@ enum EnumSubCategoriesPaths {
   GET_ALL = '/',
   GET_BY_ID = '/by-id',
   GET_BY_SLUG = '/by-slug',
-  UPDATE = '/',
-  DELETE = '/',
+  UPDATE = '',
+  DELETE = '',
 }
 
 interface ICreateSubcategoryData {
@@ -109,9 +109,9 @@ class SubcategoriesService {
 
   async delete(id: number) {
     try {
-      const response = await axiosPublic<ISubcategory>({
+      const response = await axiosPrivate<ISubcategory>({
         url: API_URL.subcategory(`${EnumSubCategoriesPaths.DELETE}/${id}`),
-        method: 'GET',
+        method: 'DELETE',
       });
 
       return response;

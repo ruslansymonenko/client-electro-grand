@@ -9,18 +9,18 @@ const initialState: IAddNewProductModalSlice = {
 };
 
 const addNewProductModalSlice = createSlice({
-  name: 'addNewElement',
+  name: 'addNewProductModal',
   initialState,
   reducers: {
-    openAddNewProductModal: (state: IAddNewProductModalSlice) => {
+    openModal: (state: IAddNewProductModalSlice) => {
       state.isOpen = true;
     },
-    closeAddNewProductModal: (state: IAddNewProductModalSlice) => {
+    closeModal: (state: IAddNewProductModalSlice) => {
       state.isOpen = false;
     },
   },
 });
 
-export const { openAddNewProductModal, closeAddNewProductModal } = addNewProductModalSlice.actions;
+export const addProductModal = addNewProductModalSlice.actions;
 
 export default addNewProductModalSlice.reducer;

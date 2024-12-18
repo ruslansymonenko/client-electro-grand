@@ -1,3 +1,5 @@
+'use client';
+
 import { FC } from 'react';
 import { Mail, KeyRound } from 'lucide-react';
 import Button from '@/components/common/button/Button';
@@ -7,7 +9,7 @@ import { useAuthForm } from '@/hooks/auth/useAuthForm';
 import FormField from '@/components/common/form-field/FormField';
 
 const RegistrationForm: FC = () => {
-  const { onSubmit, form, isPending } = useAuthForm('login');
+  const { onSubmit, form, isPending } = useAuthForm('register');
   const {
     handleSubmit,
     control,
@@ -29,13 +31,13 @@ const RegistrationForm: FC = () => {
                   <FormField
                     name="email"
                     type="email"
-                    placeholder="Enter user email"
+                    placeholder="Введіть email"
                     control={control}
                     rules={{
-                      required: 'Email is required',
+                      required: 'Email необхідний',
                       pattern: {
                         value: emailRegex,
-                        message: 'Please, enter a valid email address',
+                        message: 'Поле Email нне заповнене або email не валідний',
                       },
                     }}
                   />
@@ -49,13 +51,13 @@ const RegistrationForm: FC = () => {
                   <FormField
                     name="password"
                     type="password"
-                    placeholder="Enter password"
+                    placeholder="Введіть пароль"
                     control={control}
                     rules={{
-                      required: 'Password is required',
+                      required: 'Пароль необхідний',
                       minLength: {
                         value: 6,
-                        message: 'Password length should be more than 6 characters',
+                        message: 'Довжина паролю повинна бути не менше 6 символів',
                       },
                     }}
                   />

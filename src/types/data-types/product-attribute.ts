@@ -1,7 +1,7 @@
 export interface IProductAttribute {
   id: number;
-  created_at: string;
-  updated_at: string;
+  createdAt: string;
+  updatedAt: string;
   attributeValueId: number;
   productId: number;
 }

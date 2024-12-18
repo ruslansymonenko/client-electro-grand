@@ -1,39 +1,56 @@
 'use client';
 
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { X } from 'lucide-react';
 import { AppDispatch } from '@/store';
 import { useDispatch } from 'react-redux';
 import Button from '@/components/common/button/Button';
-import { closeAddNewProductModal } from '@/store/slices/modals/addNewProductSlice';
+import { closeAddNewProductModal } from '@/store/slices/modals/addNewProductModalSlice';
+import { useGetAllCategories } from '@/hooks/categories/useCategories';
+import { ICategoryResponse } from '@/types/server-response-types/category-response';
+import { ISubcategory } from '@/types/data-types/subcategory';
+import Dropdown from '@/components/common/dropdown/Dropdown';
+import { useGetAllBrands } from '@/hooks/brands/useBrands';
+import { IBrand } from '@/types/data-types/brand';
+import { ICreateProductData } from '@/services/products/products.service';
+import toast from 'react-hot-toast';
+import { ICreateCategoryData } from '@/services/categories/categories.service';
+import { addCategoryModal } from '@/store/slices/modals/addNewCategoryModalSlice';
 
 interface IAddProductProps {
-  onAddProduct?: (name: string) => void;
+  onAddItem: (data: ICreateCategoryData) => void;
 }
 
-const AddNewProductForm: FC<IAddProductProps> = ({ onAddProduct }) => {
+const AddNewCategoryForm: FC<IAddProductProps> = ({ onAddItem }) => {
   const dispatch: AppDispatch = useDispatch();
+
   const [name, setName] = useState<string>('');
-  const [description, setDescription] = useState<string>('');
-  const [price, setPrice] = useState<number | null>(null);
-  const [categoryId, setCategoryId] = useState<number | null>(null);
-  const [subcategoryId, setSubcategoryId] = useState<number | null>(null);
 
   const handleCloseModal = (e: React.FormEvent) => {
     e.preventDefault();
+    dispatch(addCategoryModal.closeModal());
+    clearForm();
+  };
+
+  const clearForm = () => {
     setName('');
-    dispatch(closeAddNewProductModal());
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setName('');
+    if (name) {
+      onAddItem({
+        name: name,
+      });
+    } else {
+      toast.error('Введіть всі данні');
+    }
   };
 
   return (
     <div className="w-full max-w-lg bg-white shadow-lg rounded-lg p-8 relative">
       <div className="flex items-center">
-        <h3 className="text-primary text-xl font-bold flex-1">Додати новий товар</h3>
+        <h3 className="text-primary text-xl font-bold flex-1">Додати новий елемент</h3>
         <button onClick={handleCloseModal}>
           <X className="hover:bg-secondaryLight rounded-md cursor-pointer transition-all" />
         </button>
@@ -41,7 +58,7 @@ const AddNewProductForm: FC<IAddProductProps> = ({ onAddProduct }) => {
 
       <form className="space-y-4 mt-8">
         <div>
-          <label className="text-gray-800 text-sm mb-2 block">Назва товару</label>
+          <label className="text-gray-800 text-sm mb-2 block">Назва:</label>
           <input
             type="text"
             placeholder="Введіть назву"
@@ -63,4 +80,4 @@ const AddNewProductForm: FC<IAddProductProps> = ({ onAddProduct }) => {
   );
 };
 
-export default AddNewProductForm;
+export default AddNewCategoryForm;

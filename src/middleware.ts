@@ -2,13 +2,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import { EnumTokens } from '@/services/auth/auth-token.service';
 import { ADMIN_URL, PRIVATE_URL, PUBLIC_URL } from '@/config/url.config';
 import Cookies from 'js-cookie';
+import { authService } from '@/services/auth/auth.service';
 
 export async function middleware(request: NextRequest) {
   const refreshToken: string | undefined = request.cookies.get(EnumTokens.REFRESH_TOKEN)?.value;
   const adminToken: string | undefined = request.cookies.get(EnumTokens.ADMIN_TOKEN)?.value;
   const url: string = request.url;
-
-  console.log('text!!!!!!!!!!!!!!');
 
   const isAuthPage: boolean =
     url.includes(PUBLIC_URL.registration()) || url.includes(PUBLIC_URL.login());
@@ -48,18 +47,16 @@ export async function middleware(request: NextRequest) {
       const result = await response.json();
 
       if (!result.valid) {
-        return NextResponse.redirect(new URL('/', url));
+        return NextResponse.redirect(new URL(PUBLIC_URL.noAccess(), url));
       }
 
       Cookies.set('admin', 'true', { expires: 1 });
       return NextResponse.next();
     } catch (error) {
-      console.error('Invalid admin token:', error);
       Cookies.set('admin', 'false');
-      return NextResponse.redirect(new URL(PUBLIC_URL.main(), url));
+      return NextResponse.redirect(new URL(PUBLIC_URL.noAccess(), url));
     }
   } else {
-    console.log('Admin token not found');
     return NextResponse.redirect(new URL(PUBLIC_URL.main(), url));
   }
 }

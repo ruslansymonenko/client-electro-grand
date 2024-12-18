@@ -3,22 +3,83 @@
 import { FC, useState } from 'react';
 import Button from '@/components/common/button/Button';
 import Link from 'next/link';
+import { ArrowDown } from 'lucide-react';
 import { PUBLIC_URL } from '@/config/url.config';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
 
 const CheckoutForm: FC = () => {
-  const [isDropDownOpen, setIsDropDownOpen] = useState<boolean>(false);
+  // const [isDropDownOpen, setIsDropDownOpen] = useState<boolean>(false);
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string>('delivery-payment');
+  const [newPostTerminal, setNewPostTerminal] = useState<number | null>(null);
+  const [customerName, setCustomerName] = useState<string>('');
+  const [customerSurname, setCustomerSurname] = useState<string>('');
+  const [customerEmail, setCustomerEmail] = useState<string>('');
+  const [customerPhone, setCustomerPhone] = useState<string>('');
+  const [city, setCity] = useState<string>('');
+  const cartItems = useSelector((state: RootState) => state.cart.cartItems);
+  const cartSum = useSelector((state: RootState) => state.cart.cartSum);
 
-  const toggleDropdown = () => {
-    setIsDropDownOpen(!isDropDownOpen);
+  const handleTerminalChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNewPostTerminal(event.target.value ? parseInt(event.target.value) : null);
+  };
+
+  const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCity(event.target.value);
+  };
+
+  const handleCustomerNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCustomerName(event.target.value);
+  };
+
+  const handleCustomerSurnameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCustomerSurname(event.target.value);
+  };
+
+  const handleCustomerEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCustomerEmail(event.target.value);
+  };
+
+  const handleCustomerPhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCustomerPhone(event.target.value);
+  };
+
+  // const toggleDropdown = () => {
+  //   setIsDropDownOpen(!isDropDownOpen);
+  // };
+
+  const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedPaymentMethod(event.target.id);
+  };
+
+  const handleSendOrder = () => {
+    const customerData = {
+      name: customerName,
+      surname: customerSurname,
+      email: customerEmail,
+      phone: customerPhone,
+    };
+
+    const order = {
+      customer: customerData,
+      products: cartItems,
+      paymentMethod: selectedPaymentMethod,
+      deliveryAddress: `Нова пошта: ${newPostTerminal}, Місто: ${city}`,
+    };
+    console.log(order);
   };
 
   return (
     <div className="font-sans bg-white p-4 my-14">
       <div className="max-w-4xl mx-auto">
         <div className="text-center">
-          <h2 className="text-3xl font-extrabold text-gray-800 inline-block border-b-[3px] border-gray-800 pb-1">
+          <h2 className="text-3xl font-extrabold text-gray-800 inline-block border-b-[3px] border-gray-800 pb-1 mb-4">
             Оформлення замовлення
           </h2>
+        </div>
+
+        <div className="text-center">
+          <p className="text-gray-800 inline-block pb-1">Ваше замовлення на сумму: {cartSum}</p>
         </div>
 
         <div className="mt-12">
@@ -35,6 +96,8 @@ const CheckoutForm: FC = () => {
                     <input
                       type="text"
                       placeholder="Ім'я"
+                      value={customerName}
+                      onChange={handleCustomerNameChange}
                       className="px-4 py-3 bg-white text-gray-800 w-full text-sm border-2 rounded-md focus:border-blue-500 outline-none"
                     />
                   </div>
@@ -42,6 +105,8 @@ const CheckoutForm: FC = () => {
                     <input
                       type="text"
                       placeholder="Прізвище"
+                      value={customerSurname}
+                      onChange={handleCustomerSurnameChange}
                       className="px-4 py-3 bg-white text-gray-800 w-full text-sm border-2 rounded-md focus:border-blue-500 outline-none"
                     />
                   </div>
@@ -49,13 +114,17 @@ const CheckoutForm: FC = () => {
                     <input
                       type="email"
                       placeholder="Email"
+                      value={customerEmail}
+                      onChange={handleCustomerEmailChange}
                       className="px-4 py-3 bg-white text-gray-800 w-full text-sm border-2 rounded-md focus:border-blue-500 outline-none"
                     />
                   </div>
                   <div>
                     <input
-                      type="number"
+                      type="text"
                       placeholder="Телефон"
+                      value={customerPhone}
+                      onChange={handleCustomerPhoneChange}
                       className="px-4 py-3 bg-white text-gray-800 w-full text-sm border-2 rounded-md focus:border-blue-500 outline-none"
                     />
                   </div>
@@ -72,64 +141,44 @@ const CheckoutForm: FC = () => {
 
             <div className="md:col-span-2">
               <form>
-                <div className="relative font-[sans-serif] mb-6">
-                  <button
-                    type="button"
-                    onClick={toggleDropdown}
-                    className="px-5 py-2.5 rounded text-white text-sm font-semibold border-none outline-none bg-primary hover:bg-secondaryDark active:bg-secondaryDark2 z-10"
-                  >
-                    Вибрати спосіб доставки
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-3 fill-white inline ml-3"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M11.99997 18.1669a2.38 2.38 0 0 1-1.68266-.69733l-9.52-9.52a2.38 2.38 0 1 1 3.36532-3.36532l7.83734 7.83734 7.83734-7.83734a2.38 2.38 0 1 1 3.36532 3.36532l-9.52 9.52a2.38 2.38 0 0 1-1.68266.69734z"
-                        clip-rule="evenodd"
-                        data-original="#000000"
-                      />
-                    </svg>
-                  </button>
+                <p className="mb-2 font-semibold">Доступна доставка Новою Поштою</p>
+                {/*<div className="relative font-[sans-serif] mb-6">*/}
+                {/*  <button*/}
+                {/*    type="button"*/}
+                {/*    onClick={toggleDropdown}*/}
+                {/*    className="px-5 py-2.5 rounded text-white text-sm font-semibold border-none outline-none bg-primary hover:bg-secondaryDark active:bg-secondaryDark2 z-10"*/}
+                {/*  >*/}
+                {/*    Вибрати спосіб доставки*/}
+                {/*    <ArrowDown/>*/}
+                {/*  </button>*/}
 
-                  {isDropDownOpen && (
-                    <ul className="absolute block shadow-lg bg-white py-2 z-[1000] min-w-full w-max rounded max-h-96 overflow-auto">
-                      <li className="py-2.5 px-5 hover:bg-blue-50 text-black text-sm cursor-pointer">
-                        Нова Пошта
-                      </li>
-                      <li className="py-2.5 px-5 hover:bg-blue-50 text-black text-sm cursor-pointer">
-                        Укр Пошта
-                      </li>
-                    </ul>
-                  )}
-                </div>
+                {/*  {isDropDownOpen && (*/}
+                {/*    <ul className="absolute block shadow-lg bg-white py-2 z-[1000] min-w-full w-max rounded max-h-96 overflow-auto">*/}
+                {/*      <li className="py-2.5 px-5 hover:bg-blue-50 text-black text-sm cursor-pointer">*/}
+                {/*        Нова Пошта*/}
+                {/*      </li>*/}
+                {/*      <li className="py-2.5 px-5 hover:bg-blue-50 text-black text-sm cursor-pointer">*/}
+                {/*        Укр Пошта*/}
+                {/*      </li>*/}
+                {/*    </ul>*/}
+                {/*  )}*/}
+                {/*</div>*/}
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <input
-                      type="text"
-                      placeholder="Street address"
-                      className="px-4 py-3 bg-white text-gray-800 w-full text-sm border-2 rounded-md focus:border-blue-500 outline-none"
-                    />
-                  </div>
-                  <div>
-                    <input
-                      type="text"
-                      placeholder="City"
-                      className="px-4 py-3 bg-white text-gray-800 w-full text-sm border-2 rounded-md focus:border-blue-500 outline-none"
-                    />
-                  </div>
-                  <div>
-                    <input
-                      type="text"
-                      placeholder="State"
-                      className="px-4 py-3 bg-white text-gray-800 w-full text-sm border-2 rounded-md focus:border-blue-500 outline-none"
-                    />
-                  </div>
-                  <div>
-                    <input
                       type="number"
-                      placeholder="Zip Code"
+                      placeholder="Відділення нової пошти"
+                      value={newPostTerminal ?? ''}
+                      onChange={handleTerminalChange}
+                      className="px-4 py-3 bg-white text-gray-800 w-full text-sm border-2 rounded-md focus:border-blue-500 outline-none"
+                    />
+                  </div>
+                  <div>
+                    <input
+                      type="text"
+                      placeholder="Місто"
+                      value={city}
+                      onChange={handleCityChange}
                       className="px-4 py-3 bg-white text-gray-800 w-full text-sm border-2 rounded-md focus:border-blue-500 outline-none"
                     />
                   </div>
@@ -145,62 +194,37 @@ const CheckoutForm: FC = () => {
             </div>
 
             <div className="md:col-span-2">
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div className="flex items-center">
-                  <input type="radio" className="w-5 h-5 cursor-pointer" id="card" checked />
-                  <label htmlFor="card" className="ml-4 flex gap-2 cursor-pointer">
-                    <img
-                      src="https://readymadeui.com/images/visa.webp"
-                      className="w-12"
-                      alt="card1"
-                    />
-                    <img
-                      src="https://readymadeui.com/images/american-express.webp"
-                      className="w-12"
-                      alt="card2"
-                    />
-                    <img
-                      src="https://readymadeui.com/images/master.webp"
-                      className="w-12"
-                      alt="card3"
-                    />
-                  </label>
-                </div>
-
-                <div className="flex items-center">
-                  <input type="radio" className="w-5 h-5 cursor-pointer" id="paypal" />
-                  <label htmlFor="paypal" className="ml-4 flex gap-2 cursor-pointer">
-                    <img
-                      src="https://readymadeui.com/images/paypal.webp"
-                      className="w-20"
-                      alt="paypalCard"
-                    />
-                  </label>
-                </div>
+              <div className="flex items-center mb-4">
+                <input
+                  id="delivery-payment"
+                  type="radio"
+                  name="default-radio"
+                  checked={selectedPaymentMethod === 'delivery-payment'}
+                  onChange={handleOptionChange}
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                />
+                <label
+                  htmlFor="default-radio-1"
+                  className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >
+                  Оплата при отриманні замовлення
+                </label>
               </div>
-
-              <div className="grid sm:grid-cols-4 gap-4 mt-4">
-                <div className="col-span-2">
-                  <input
-                    type="number"
-                    placeholder="Card number"
-                    className="px-4 py-3 bg-white text-gray-800 w-full text-sm border-2 rounded-md focus:border-blue-500 outline-none"
-                  />
-                </div>
-                <div>
-                  <input
-                    type="number"
-                    placeholder="EXP."
-                    className="px-4 py-3 bg-white text-gray-800 w-full text-sm border-2 rounded-md focus:border-blue-500 outline-none"
-                  />
-                </div>
-                <div>
-                  <input
-                    type="number"
-                    placeholder="CVV"
-                    className="px-4 py-3 bg-white text-gray-800 w-full text-sm border-2 rounded-md focus:border-blue-500 outline-none"
-                  />
-                </div>
+              <div className="flex items-center">
+                <input
+                  id="order-payment"
+                  type="radio"
+                  name="default-radio"
+                  checked={selectedPaymentMethod === 'order-payment'}
+                  onChange={handleOptionChange}
+                  className="w-4 h-4 text-primary bg-gray-100 border-gray-300 focus:ring-emerald-500 dark:focus:ring-emerald-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                />
+                <label
+                  htmlFor="default-radio-2"
+                  className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >
+                  Звичайна оплата
+                </label>
               </div>
             </div>
           </div>
@@ -210,7 +234,9 @@ const CheckoutForm: FC = () => {
               <Link className="mr-4 w-full" href={`${PUBLIC_URL.main()}`}>
                 <Button>Продовжити покупки</Button>
               </Link>
-              <Button addClasses={'bg-primary text-white'}>Підтвердити</Button>
+              <Button addClasses={'bg-primary text-white'} onClick={handleSendOrder}>
+                Підтвердити
+              </Button>
             </div>
           </div>
         </div>

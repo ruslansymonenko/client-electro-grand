@@ -7,6 +7,7 @@ import PresentationInfoCard from '@/components/store/presentation-info-card/Pres
 import Loader from '@/components/common/loader/Loader';
 import { IBrand } from '@/types/data-types/brand';
 import { useGetAllBrands } from '@/hooks/brands/useBrands';
+import { PUBLIC_URL } from '@/config/url.config';
 
 const PresentationInfoBrands: FC = () => {
   const { data, isLoading, error } = useGetAllBrands();
@@ -24,7 +25,7 @@ const PresentationInfoBrands: FC = () => {
     <div className="bg-white flex flex-col max-lg:flex-col my-8 gap-6 max-w-[1400px] mx-auto mt-24">
       <div className="flex w-full items-center justify-between">
         <h2 className="text-gray-800 text-4xl font-extrabold mb-4">Бренди</h2>
-        <Link href={'#'}>
+        <Link href={PUBLIC_URL.brands()}>
           <Button addClasses={'hover:bg-secondary'}>Переглянути більше</Button>
         </Link>
       </div>

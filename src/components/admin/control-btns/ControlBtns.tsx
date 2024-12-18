@@ -4,7 +4,7 @@ import { FC } from 'react';
 import ControlBtn from '@/components/admin/control-btn/ControlBtn';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/store';
-import { openAddNewProductModal } from '@/store/slices/modals/addNewProductSlice';
+import { openAddNewProductModal } from '@/store/slices/modals/addNewProductModalSlice';
 
 const ControlBtns: FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -14,13 +14,11 @@ const ControlBtns: FC = () => {
   };
 
   return (
-    <div className="grid grid-cols-3 w-full gap-4">
+    <div className="grid grid-cols-4 w-full gap-4">
       <ControlBtn text={'Додати товар'} action={handleOpenAddNewProductModal} />
       <ControlBtn text={'Додати категорію'} />
       <ControlBtn text={'Додати підкатегорію'} />
       <ControlBtn text={'Додати бренд'} />
-      <ControlBtn text={'Список замовленнь'} />
-      <ControlBtn text={'Список користувачів'} />
     </div>
   );
 };

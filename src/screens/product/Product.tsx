@@ -6,6 +6,7 @@ import { useGetProductBySlug } from '@/hooks/products/useProducts';
 import { IProductDataResponse } from '@/types/server-response-types/product-response';
 import Loader from '@/components/common/loader/Loader';
 import Breadcrumb from '@/components/common/breadcrumb/Breadcrumb';
+import { ElementNotFound } from '@/components/common/element-not-found/ElementNotFound';
 
 interface IProductProps {
   productSlug: string;
@@ -31,7 +32,7 @@ const Product: FC<IProductProps> = ({ productSlug }) => {
       ) : productData ? (
         <ProductData product={productData} />
       ) : (
-        'Данних товару не знайдено'
+        <ElementNotFound text="Данний товар не знайдено" className="mt-32" />
       )}
     </div>
   );

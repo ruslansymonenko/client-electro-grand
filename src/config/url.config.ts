@@ -6,6 +6,7 @@ export const PUBLIC_URL = {
   main: () => PUBLIC_URL.root('/'),
   registration: () => PUBLIC_URL.root('/auth/registration'),
   login: () => PUBLIC_URL.root('/auth/login'),
+  noAccess: () => PUBLIC_URL.root('/no-access'),
 
   categories: () => PUBLIC_URL.root('/categories'),
   category: (slug: string) => PUBLIC_URL.root(`/category/${slug}`),
@@ -46,7 +47,7 @@ export const ADMIN_URL = {
 
   products: () => PUBLIC_URL.root(`/admin/products`),
   product: (id: number) => PUBLIC_URL.root(`/admin/products/${id}`),
-  categories: () => PUBLIC_URL.root('/admin'),
+  categories: () => PUBLIC_URL.root('/admin/categories'),
   category: (id: number) => PUBLIC_URL.root(`/admin/${id}`),
   subcategories: () => PUBLIC_URL.root('/admin'),
   subcategory: (id: number) => PUBLIC_URL.root(`/admin/${id}`),

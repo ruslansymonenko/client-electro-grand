@@ -73,7 +73,7 @@ const ProductCard: FC<IProductCardProps> = ({ product }) => {
   }, [cartItems]);
 
   return (
-    <div className="bg-white overflow-hidden rounded-md shadow-md hover:shadow-lg transition-all relative border">
+    <div className="bg-white overflow-hidden rounded-md shadow-md hover:shadow-lg transition-all relative border  h-[580px]">
       <Link href={PUBLIC_URL.product(product.slug)}>
         <div className="w-full h-[250px] overflow-hidden mx-auto aspect-w-16 aspect-h-8 p-2">
           <img

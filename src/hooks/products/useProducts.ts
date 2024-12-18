@@ -46,10 +46,10 @@ export const useGetProductsByBrand = (brandSlug: string) => {
   return { data, error, isLoading };
 };
 
-export const useGetAllProducts = () => {
+export const useGetAllProducts = (searchParams?: string) => {
   const { data, error, isLoading } = useQuery({
-    queryKey: ['all-products'],
-    queryFn: productService.getAll,
+    queryKey: ['all-products', searchParams],
+    queryFn: () => productService.getAll(searchParams),
   });
 
   return { data, error, isLoading };
