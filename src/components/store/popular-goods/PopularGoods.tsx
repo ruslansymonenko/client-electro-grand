@@ -10,6 +10,14 @@ const PopularGoods: FC = () => {
   const { data, isLoading, error } = useGetAllProducts();
   const [productsData, setProductsData] = useState<IProductResponse[]>([]);
 
+  const renderProducts = (items: IProductResponse[]) => {
+    if (items.length > 0) {
+      return items.map((item) => <ProductCard key={item.id} product={item} />);
+    }
+
+    return <div>Товари не знайдені</div>;
+  };
+
   useEffect(() => {
     if (data) {
       if (data.data.products.length > 5) {
@@ -28,8 +36,10 @@ const PopularGoods: FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {isLoading ? (
           <Loader />
+        ) : error ? (
+          <div>Помилка завантаження товарів</div>
         ) : (
-          productsData.map((item) => <ProductCard key={item.id} product={item} />)
+          renderProducts(productsData)
         )}
       </div>
     </div>
