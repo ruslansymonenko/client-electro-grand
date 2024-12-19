@@ -49,6 +49,6 @@ export const ADMIN_URL = {
   product: (id: number) => PUBLIC_URL.root(`/admin/products/${id}`),
   categories: () => PUBLIC_URL.root('/admin/categories'),
   category: (id: number) => PUBLIC_URL.root(`/admin/${id}`),
-  subcategories: () => PUBLIC_URL.root('/admin'),
+  subcategories: () => PUBLIC_URL.root('/admin/subcategories'),
   subcategory: (id: number) => PUBLIC_URL.root(`/admin/${id}`),
 };

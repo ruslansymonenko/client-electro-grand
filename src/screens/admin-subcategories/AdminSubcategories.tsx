@@ -12,26 +12,30 @@ import { getErrorMessage } from '@/utils/getErrorMessage/getErrorMessage';
 import DeleteCheck from '@/components/common/modal/DeleteCheckModal';
 import Loader from '@/components/common/loader/Loader';
 import AdminCategoriesList from '@/components/admin/admin-categories-list/AdminCategoriesList';
-import { ICategoryResponse } from '@/types/server-response-types/category-response';
-import { useGetAllCategories } from '@/hooks/categories/useCategories';
-import { categoriesService, ICreateCategoryData } from '@/services/categories/categories.service';
 import AddNewCategoryForm from '@/components/admin/forms/add-new-category/AddNewCategoryForm';
-import { addCategoryModal } from '@/store/slices/modals/addNewCategoryModalSlice';
+import { addSubcategoryModal } from '@/store/slices/modals/addNewSubcategoryModalSlice';
+import {
+  ICreateSubcategoryData,
+  subcategoriesService,
+} from '@/services/subcategories/subcategories.service';
+import { useGetAllSubcategories } from '@/hooks/subcategories/useSubcategories';
+import { ISubcategoryResponse } from '@/types/server-response-types/subcategory-response';
+import AddNewSubcategoryForm from '@/components/admin/forms/add-new-subcategory/AddNewSubcategoryForm';
 
-const AdminCategories: FC = () => {
+const AdminSubcategories: FC = () => {
   const dispatch: AppDispatch = useDispatch();
 
-  const { data, isLoading, error } = useGetAllCategories();
-  const [categoriesData, setCategoriesData] = useState<ICategoryResponse[]>([]);
+  const { data, isLoading, error } = useGetAllSubcategories();
+  const [subcategoriesData, setSubcategoriesData] = useState<ISubcategoryResponse[]>([]);
 
-  const isAddNewCategoryModalOpen: boolean = useSelector(
-    (state: RootState) => state.addNewCategoryModal.isOpen,
+  const isAddNewSubcategoryModalOpen: boolean = useSelector(
+    (state: RootState) => state.addNewSubcategoryModal.isOpen,
   );
   const isModalDeleteCheckOpen = useSelector((state: RootState) => state.deleteCheckModal.isOpen);
   const elementToDelete = useSelector((state: RootState) => state.deleteCheckModal.elementId);
 
-  const openAddCategoryModal = () => {
-    dispatch(addCategoryModal.openModal());
+  const openAddElementModal = () => {
+    dispatch(addSubcategoryModal.openModal());
   };
 
   const closeDeleteCheck = () => {
@@ -41,10 +45,10 @@ const AdminCategories: FC = () => {
   const deleteItem = async () => {
     try {
       if (elementToDelete) {
-        await categoriesService.delete(elementToDelete);
+        await subcategoriesService.delete(elementToDelete);
       }
       closeDeleteCheck();
-      setCategoriesData((prevTypes) => prevTypes.filter((type) => type.id !== elementToDelete));
+      setSubcategoriesData((prevTypes) => prevTypes.filter((type) => type.id !== elementToDelete));
       toast.success(`Елемент успішно видалено`);
     } catch (error: any) {
       console.log(error);
@@ -52,19 +56,20 @@ const AdminCategories: FC = () => {
     }
   };
 
-  const addNewItem = async (data: ICreateCategoryData) => {
-    if (!data.name) {
+  const addNewItem = async (data: ICreateSubcategoryData) => {
+    if (!data.name && !data.categoryId) {
       toast.error('Будь ласка вкажіть всі необхідні дані для створення елементу.');
       return;
     }
 
     try {
-      const newElement = await categoriesService.create({
+      const newElement = await subcategoriesService.create({
         name: data.name,
+        categoryId: data.categoryId,
       });
 
-      dispatch(addCategoryModal.closeModal());
-      setCategoriesData((prevTypes) => [...prevTypes, newElement.data]);
+      dispatch(addSubcategoryModal.closeModal());
+      setSubcategoriesData((prevTypes) => [...prevTypes, newElement.data]);
       toast.success('Елемент успішно створений!');
     } catch (error: any) {
       console.log(error);
@@ -74,9 +79,9 @@ const AdminCategories: FC = () => {
 
   useEffect(() => {
     if (data) {
-      setCategoriesData(data.data);
+      setSubcategoriesData(data.data);
     } else {
-      setCategoriesData([]);
+      setSubcategoriesData([]);
     }
   }, [data]);
 
@@ -84,20 +89,20 @@ const AdminCategories: FC = () => {
     <div className="py-4 px-8 container mx-auto min-h-screen pt-navbarHeight relative">
       <div className="my-14">
         <div>
-          <h2 className="font-bold text-3xl mb-4">Управління категоріями</h2>
+          <h2 className="font-bold text-3xl mb-4">Управління підкатегоріями</h2>
           <section className="mb-4 flex items-center justify-center w-full">
-            <ControlBtn text={'Додати категорію'} action={openAddCategoryModal} />
+            <ControlBtn text={'Додати підкатегорію'} action={openAddElementModal} />
           </section>
           <section className="mb-4 flex items-center justify-center w-full">
             <AdminNav />
           </section>
           <section className="mb-4 flex items-center w-full">
-            {isLoading ? <Loader /> : <AdminCategoriesList categories={categoriesData} />}
+            {isLoading ? <Loader /> : <AdminCategoriesList categories={subcategoriesData} />}
           </section>
         </div>
       </div>
-      <Modal isVisible={isAddNewCategoryModalOpen}>
-        <AddNewCategoryForm onAddItem={addNewItem} />
+      <Modal isVisible={isAddNewSubcategoryModalOpen}>
+        <AddNewSubcategoryForm onAddItem={addNewItem} />
       </Modal>
       <Modal isVisible={isModalDeleteCheckOpen}>
         <DeleteCheck
@@ -111,4 +116,4 @@ const AdminCategories: FC = () => {
   );
 };
 
-export default AdminCategories;
+export default AdminSubcategories;

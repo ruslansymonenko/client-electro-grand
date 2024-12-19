@@ -1,9 +1,10 @@
 import { axiosPrivate, axiosPublic } from '@/api/api.interceptors';
 import { API_URL } from '@/config/api.config';
 import { ISubcategory } from '@/types/data-types/subcategory';
+import { ISubcategoryResponse } from '@/types/server-response-types/subcategory-response';
 
 enum EnumSubCategoriesPaths {
-  CREATE = '/create',
+  CREATE = '/',
   GET_ALL = '/',
   GET_BY_ID = '/by-id',
   GET_BY_SLUG = '/by-slug',
@@ -11,18 +12,19 @@ enum EnumSubCategoriesPaths {
   DELETE = '',
 }
 
-interface ICreateSubcategoryData {
+export interface ICreateSubcategoryData {
   name: string;
+  categoryId: number;
 }
 
-interface IUpdateSubcategoryData {
+export interface IUpdateSubcategoryData {
   name?: string;
 }
 
 class SubcategoriesService {
   async create(data: ICreateSubcategoryData) {
     try {
-      const response = await axiosPrivate<ISubcategory>({
+      const response = await axiosPrivate<ISubcategoryResponse>({
         url: API_URL.subcategory(EnumSubCategoriesPaths.CREATE),
         method: 'POST',
         data: data,
@@ -40,7 +42,7 @@ class SubcategoriesService {
 
   async getAll() {
     try {
-      const response = await axiosPublic<ISubcategory[]>({
+      const response = await axiosPublic<ISubcategoryResponse[]>({
         url: API_URL.subcategory(`${EnumSubCategoriesPaths.GET_ALL}`),
         method: 'GET',
       });
@@ -57,7 +59,7 @@ class SubcategoriesService {
 
   async getById(id: number) {
     try {
-      const response = await axiosPublic<ISubcategory>({
+      const response = await axiosPublic<ISubcategoryResponse>({
         url: API_URL.subcategory(`${EnumSubCategoriesPaths.GET_BY_ID}/${id}`),
         method: 'GET',
       });
@@ -74,7 +76,7 @@ class SubcategoriesService {
 
   async getBySlug(slug: string) {
     try {
-      const response = await axiosPublic<ISubcategory>({
+      const response = await axiosPublic<ISubcategoryResponse>({
         url: API_URL.subcategory(`${EnumSubCategoriesPaths.GET_BY_SLUG}/${slug}`),
         method: 'GET',
       });

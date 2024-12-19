@@ -1,9 +1,10 @@
 import { FC } from 'react';
 import { ICategoryResponse } from '@/types/server-response-types/category-response';
 import AdminCategoriesListItem from '@/components/admin/admin-categories-list-item/AdminCategoriesListItem';
+import { ISubcategoryResponse } from '@/types/server-response-types/subcategory-response';
 
 interface IProps {
-  categories: ICategoryResponse[];
+  categories: ICategoryResponse[] | ISubcategoryResponse[];
 }
 
 const AdminCategoriesList: FC<IProps> = ({ categories }) => {

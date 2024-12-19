@@ -42,7 +42,10 @@ const CategoryCard: FC<ICategoryCardProps> = ({ categoryData }) => {
       <ul className="mb-4">
         <p className="my-2 text-sm font-semibold">Підкатегорії</p>
         {displayedSubcategories.map((item) => (
-          <li className="text-gray-600 text-sm mt-4 hover:text-primary transition-all cursor-pointer flex items-center">
+          <li
+            className="text-gray-600 text-sm mt-4 hover:text-primary transition-all cursor-pointer flex items-center"
+            key={item.id}
+          >
             <span className="bg-gray-500 h-1 w-1 block rounded-full mr-2"></span>
             <Link href={PUBLIC_URL.subcategory(item.slug)}>
               <span>{item.name}</span>
