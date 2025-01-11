@@ -13,4 +13,6 @@ export const API_URL = {
 
   order: (url = '') => API_URL.root(`/order${url}`),
   payment: (url = '') => API_URL.root(`/payment${url}`),
+
+  mailer: (url = '') => API_URL.root(`/mailer${url}`),
 };

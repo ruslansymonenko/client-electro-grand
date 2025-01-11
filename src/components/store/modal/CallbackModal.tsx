@@ -1,13 +1,14 @@
 'use client';
 
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import cn from 'clsx';
 import Button from '@/components/common/button/Button';
-import toast from 'react-hot-toast';
-import { X } from 'lucide-react';
+import { X, Phone } from 'lucide-react';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/store';
 import { closeCallbackModal } from '@/store/slices/modals/callbackModalSlice';
+import { useCallbackForm } from '@/hooks/forms/useCallbackForm';
+import FormField from '@/components/common/form-field/FormField';
 
 interface IProps {
   className?: string;
@@ -15,21 +16,17 @@ interface IProps {
 
 export const CallbackModal: FC<IProps> = ({ className }) => {
   const dispatch: AppDispatch = useDispatch();
-  const [phone, setPhone] = useState<string>('');
+  const { onSubmit, form, isPending } = useCallbackForm();
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = form;
 
-  const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPhone(event.target.value);
-  };
+  const phoneRegex = /^\+?[1-9]\d{1,14}$/;
 
   const closeModal = () => {
     dispatch(closeCallbackModal());
-  };
-
-  const handleSendCallbackRequest = (event: React.FormEvent) => {
-    event.preventDefault();
-    setPhone('');
-    toast.success('Дякуємо! Ми вам зателефонуємо.');
-    closeModal();
   };
 
   return (
@@ -40,13 +37,24 @@ export const CallbackModal: FC<IProps> = ({ className }) => {
       )}
     >
       <h1 className="text-xl text-gray-800 font-bold text-center">Замовити зворотній звінок</h1>
-      <form className="mt-8 space-y-4" onSubmit={handleSendCallbackRequest}>
-        <input
-          type="string"
-          placeholder="Телефон"
-          className="w-full rounded-md py-3 px-4 text-gray-800 bg-gray-100 focus:bg-transparent text-sm  mb-2"
-          onChange={(e) => handlePhoneChange(e)}
-        />
+      <form className="mt-8 space-y-4" onSubmit={handleSubmit(onSubmit)}>
+        <label className="font-bold text-gray-800 text-sm mb-2 block">Email</label>
+        <div className="relative flex items-center">
+          <FormField
+            name="phone"
+            type="text"
+            placeholder="Введіть телефон"
+            control={control}
+            rules={{
+              required: 'Телефон необхідний',
+              pattern: {
+                value: phoneRegex,
+                message: 'Поле телефон не заповнене або він не валідний',
+              },
+            }}
+          />
+          <Phone className="ml-2" />
+        </div>
         <Button children={'Відправити'} addClasses={'hover:bg-primary'} />
       </form>
 
