@@ -24,10 +24,7 @@ const AdminNav: FC = () => {
         <Link href={ADMIN_URL.subcategories()}>Управління підкатегоріями</Link>
       </li>
       <li className="font-bold hover:text-primary">
-        <Link href={ADMIN_URL.subcategories()}>Управління брендами</Link>
-      </li>
-      <li className="font-bold hover:text-primary">
-        <Link href={ADMIN_URL.subcategories()}>Управління Брендами</Link>
+        <Link href={ADMIN_URL.brands()}>Управління брендами</Link>
       </li>
     </ul>
   );

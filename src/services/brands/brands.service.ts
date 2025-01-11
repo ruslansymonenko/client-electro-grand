@@ -3,7 +3,7 @@ import { API_URL } from '@/config/api.config';
 import { IBrand } from '@/types/data-types/brand';
 
 enum EnumBrandsPaths {
-  CREATE = '/create',
+  CREATE = '/',
   GET_ALL = '/',
   GET_BY_ID = '/by-id',
   GET_BY_SLUG = '/by-slug',
@@ -11,11 +11,11 @@ enum EnumBrandsPaths {
   DELETE = '',
 }
 
-interface ICreateBrandData {
+export interface ICreateBrandData {
   name: string;
 }
 
-interface IUpdateBrandData {
+export interface IUpdateBrandData {
   name?: string;
 }
 

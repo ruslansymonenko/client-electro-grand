@@ -51,4 +51,5 @@ export const ADMIN_URL = {
   category: (id: number) => PUBLIC_URL.root(`/admin/${id}`),
   subcategories: () => PUBLIC_URL.root('/admin/subcategories'),
   subcategory: (id: number) => PUBLIC_URL.root(`/admin/${id}`),
+  brands: () => PUBLIC_URL.root(`/admin/brands`),
 };

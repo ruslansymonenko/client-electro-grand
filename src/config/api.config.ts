@@ -11,6 +11,7 @@ export const API_URL = {
   subcategory: (url = '') => API_URL.root(`/subcategory${url}`),
   product: (url = '') => API_URL.root(`/product${url}`),
 
+  users: (url = '') => API_URL.root(`/user${url}`),
   order: (url = '') => API_URL.root(`/order${url}`),
   payment: (url = '') => API_URL.root(`/payment${url}`),
 
