@@ -1,9 +1,7 @@
 'use client';
 
 import { FC } from 'react';
-import Link from 'next/link';
 import { Pencil, Trash } from 'lucide-react';
-import { PUBLIC_URL } from '@/config/url.config';
 import { AppDispatch } from '@/store';
 import { useDispatch } from 'react-redux';
 import { openDeleteCheckModal } from '@/store/slices/modals/deleteCheckModalSlice';

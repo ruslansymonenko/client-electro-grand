@@ -18,7 +18,7 @@ interface IAddProductProps {
 
 const AddNewSubcategoryForm: FC<IAddProductProps> = ({ onAddItem }) => {
   const dispatch: AppDispatch = useDispatch();
-  const { data, isLoading, error } = useGetAllCategories();
+  const { data } = useGetAllCategories();
   const [categories, setCategories] = useState<ICategoryResponse[]>([]);
 
   const [name, setName] = useState<string>('');
