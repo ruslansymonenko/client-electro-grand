@@ -1,0 +1,49 @@
+name: Deploy Client
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/dev'
+
+    steps:
+      - name: repository clone
+        uses: actions/checkout@v4
+
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+
+      - name: install dependencies
+        run: npm install
+
+      - name: build check
+        run: npm run build
+
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    needs: build-test
+
+    steps:
+      - name: repository clone
+        uses: actions/checkout@v4
+
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+
+      - name: install dependencies
+        run: npm install
+
+      - name: build
+        run: npm run build
