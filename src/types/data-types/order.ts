@@ -13,7 +13,7 @@ export enum EnumOrderStatus {
   DONE = 'DONE',
 }
 
-enum EnumDeliveryType {
-  NOVA_POST = 'NOVA_POST',
-  UKR_POST = 'UKR_POST',
-}
+// enum EnumDeliveryType {
+//   NOVA_POST = 'NOVA_POST',
+//   UKR_POST = 'UKR_POST',
+// }

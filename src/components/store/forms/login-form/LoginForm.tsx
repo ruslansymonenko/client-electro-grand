@@ -10,7 +10,7 @@ import FormField from '@/components/common/form-field/FormField';
 
 const LoginForm: FC = () => {
   const { onSubmit, form } = useAuthForm('login');
-  const { handleSubmit, control, formState } = form;
+  const { handleSubmit, control } = form;
 
   const emailRegex = /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
 

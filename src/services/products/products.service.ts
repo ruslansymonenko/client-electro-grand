@@ -191,7 +191,7 @@ class ProductService {
     try {
       const formData = new FormData();
 
-      data.forEach((file, index) => {
+      data.forEach((file) => {
         formData.append(`files`, file);
       });
 
