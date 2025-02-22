@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { NextRequest, NextResponse } from 'next/server';
 import { EnumTokens } from '@/services/auth/auth-token.service';
 import { ADMIN_URL, PRIVATE_URL, PUBLIC_URL } from '@/config/url.config';
@@ -51,7 +52,6 @@ export async function middleware(request: NextRequest) {
 
       Cookies.set('admin', 'true', { expires: 1 });
       return NextResponse.next();
-      // @ts-ignore
     } catch (error) {
       Cookies.set('admin', 'false');
       return NextResponse.redirect(new URL(PUBLIC_URL.noAccess(), url));

@@ -8,12 +8,7 @@ import { useContactForm } from '@/hooks/forms/useContactForm';
 
 const ContactForm = () => {
   const { onSubmit, form } = useContactForm();
-  const {
-    handleSubmit,
-    control,
-    // @ts-ignore
-    formState: { errors },
-  } = form;
+  const { handleSubmit, control, formState } = form;
 
   const emailRegex = /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
 

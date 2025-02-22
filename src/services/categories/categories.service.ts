@@ -3,14 +3,14 @@ import { API_URL } from '@/config/api.config';
 import { ICategory } from '@/types/data-types/category';
 import { ICategoryResponse } from '@/types/server-response-types/category-response';
 
-enum EnumCategoriesPaths {
-  CREATE = '/',
-  GET_ALL = '/',
-  GET_BY_ID = '/by-id',
-  GET_BY_SLUG = '/by-slug',
-  UPDATE = '',
-  DELETE = '',
-}
+const EnumCategoriesPaths = {
+  CREATE: '/',
+  GET_ALL: '/',
+  GET_BY_ID: '/by-id',
+  GET_BY_SLUG: '/by-slug',
+  UPDATE: '',
+  DELETE: '',
+} as const;
 
 export interface ICreateCategoryData {
   name: string;

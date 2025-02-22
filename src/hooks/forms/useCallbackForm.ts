@@ -20,8 +20,7 @@ export function useCallbackForm() {
     mutationFn: (data: ICallbackFromData) => {
       return formsService.callback(data);
     },
-    // @ts-ignore
-    onSuccess(responseData) {
+    onSuccess() {
       form.reset();
       toast.success('Дякуємо! Ви отримаєте відповідь в найближчий час!');
       dispatch(closeCallbackModal());

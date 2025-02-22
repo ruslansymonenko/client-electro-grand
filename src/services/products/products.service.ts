@@ -8,18 +8,18 @@ import {
 } from '@/types/server-response-types/product-response';
 import axios from 'axios';
 
-enum EnumProductPaths {
-  CREATE = '/',
-  GET_ALL = '/',
-  GET_BY_ID = '/by-id',
-  GET_BY_SLUG = '/by-slug',
-  GET_BY_CATEGORY = '/by-category',
-  GET_BY_SUBCATEGORY = '/by-subcategory',
-  GET_BY_BRAND = '/by-brand',
-  UPDATE = '',
-  SET_IMAGES = '/set-images',
-  DELETE = '',
-}
+const EnumProductPaths = {
+  CREATE: '/',
+  GET_ALL: '/',
+  GET_BY_ID: '/by-id',
+  GET_BY_SLUG: '/by-slug',
+  GET_BY_CATEGORY: '/by-category',
+  GET_BY_SUBCATEGORY: '/by-subcategory',
+  GET_BY_BRAND: '/by-brand',
+  UPDATE: '',
+  SET_IMAGES: '/set-images',
+  DELETE: '',
+} as const;
 
 export interface ICreateProductData {
   name: string;

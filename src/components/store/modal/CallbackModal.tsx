@@ -17,12 +17,7 @@ interface IProps {
 export const CallbackModal: FC<IProps> = ({ className }) => {
   const dispatch: AppDispatch = useDispatch();
   const { onSubmit, form } = useCallbackForm();
-  const {
-    handleSubmit,
-    control,
-    // @ts-ignore
-    formState: { errors },
-  } = form;
+  const { handleSubmit, control, formState } = form;
 
   const phoneRegex = /^\+?[1-9]\d{1,14}$/;
 

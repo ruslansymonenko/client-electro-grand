@@ -2,14 +2,14 @@ import { axiosPrivate, axiosPublic } from '@/api/api.interceptors';
 import { API_URL } from '@/config/api.config';
 import { IBrand } from '@/types/data-types/brand';
 
-enum EnumBrandsPaths {
-  CREATE = '/',
-  GET_ALL = '/',
-  GET_BY_ID = '/by-id',
-  GET_BY_SLUG = '/by-slug',
-  UPDATE = '',
-  DELETE = '',
-}
+const EnumBrandsPaths = {
+  CREATE: '/',
+  GET_ALL: '/',
+  GET_BY_ID: '/by-id',
+  GET_BY_SLUG: '/by-slug',
+  UPDATE: '/',
+  DELETE: '/',
+} as const;
 
 export interface ICreateBrandData {
   name: string;

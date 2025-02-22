@@ -3,14 +3,14 @@ import { API_URL } from '@/config/api.config';
 import { ISubcategory } from '@/types/data-types/subcategory';
 import { ISubcategoryResponse } from '@/types/server-response-types/subcategory-response';
 
-enum EnumSubCategoriesPaths {
-  CREATE = '/',
-  GET_ALL = '/',
-  GET_BY_ID = '/by-id',
-  GET_BY_SLUG = '/by-slug',
-  UPDATE = '',
-  DELETE = '',
-}
+const EnumSubCategoriesPaths = {
+  CREATE: '/',
+  GET_ALL: '/',
+  GET_BY_ID: '/by-id',
+  GET_BY_SLUG: '/by-slug',
+  UPDATE: '',
+  DELETE: '',
+} as const;
 
 export interface ICreateSubcategoryData {
   name: string;

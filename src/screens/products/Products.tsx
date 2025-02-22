@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
 import { FC, useEffect, useState } from 'react';
@@ -24,7 +25,7 @@ const Products: FC = () => {
   const currentPage: number = useSelector(
     (state: RootState) => state.productPagination.currentPage,
   );
-  // @ts-ignore
+
   const pageSize: number = useSelector((state: RootState) => state.productPagination.pageSize);
 
   const onApplyFilter = (): void => {
@@ -46,7 +47,6 @@ const Products: FC = () => {
     setSearchParams(filterParams);
   };
 
-  // @ts-ignore
   const handlePageSizeChange = (newSize: number) => {
     dispatch(setPageSize(newSize));
     const filterParams: string = buildSearchParams({

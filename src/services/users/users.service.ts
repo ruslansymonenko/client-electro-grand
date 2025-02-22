@@ -2,12 +2,12 @@ import { axiosPrivate } from '@/api/api.interceptors';
 import { API_URL } from '@/config/api.config';
 import { IUserResponse } from '@/types/server-response-types/user-response';
 
-enum EnumBrandsPaths {
-  GET_ALL = '/get-all',
-  GET_BY_ID = '/by-id',
-  UPDATE = '',
-  DELETE = '',
-}
+const EnumBrandsPaths = {
+  GET_ALL: '/get-all',
+  GET_BY_ID: '/by-id',
+  UPDATE: '',
+  DELETE: '',
+} as const;
 
 class UsersService {
   async getAll() {

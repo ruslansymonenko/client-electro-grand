@@ -1,11 +1,10 @@
 import { axiosPublic } from '@/api/api.interceptors';
 import { API_URL } from '@/config/api.config';
-import { IBrand } from '@/types/data-types/brand';
 
-enum EnumBrandsPaths {
-  CONTACT = '/contact-form',
-  CALLBACK = '/callback-form',
-}
+const EnumBrandsPaths = {
+  CONTACT: '/contact-form',
+  CALLBACK: '/callback-form',
+} as const;
 
 export interface ICallbackFromData {
   phone: string;

@@ -26,8 +26,7 @@ export function useAuthForm(type: 'login' | 'register' | 'login-admin') {
         return authService.login(data);
       }
     },
-    // @ts-ignore
-    onSuccess(responseData) {
+    onSuccess() {
       form.reset();
       toast.success('Успішна авторизація');
       router.replace(PRIVATE_URL.customer());
