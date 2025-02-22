@@ -4,13 +4,13 @@ import { FC } from 'react';
 import ControlBtn from '@/components/admin/control-btn/ControlBtn';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/store';
-import { openAddNewProductModal } from '@/store/slices/modals/addNewProductModalSlice';
+import { addProductModal } from '@/store/slices/modals/addNewProductModalSlice';
 
 const ControlBtns: FC = () => {
   const dispatch: AppDispatch = useDispatch();
 
   const handleOpenAddNewProductModal = () => {
-    dispatch(openAddNewProductModal());
+    dispatch(addProductModal.openModal());
   };
 
   return (
