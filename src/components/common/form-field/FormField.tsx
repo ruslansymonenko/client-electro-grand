@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { FieldValues, Control, FieldPath, RegisterOptions, Controller } from 'react-hook-form';
 import { InputHTMLAttributes } from 'react';
 import cn from 'clsx';
@@ -26,7 +28,13 @@ const FormField = <T extends Record<string, any>>({
       name={name}
       render={({ field: { value, onChange, onBlur, name }, fieldState: { error } }) => (
         <>
-          <div className="w-full text-gray-800 text-sm border border-gray-300 px-2 py-1 rounded-md shadow-md outline-gray-200 ">
+          <div
+            className={
+              className
+                ? className
+                : 'w-full text-gray-800 text-sm border border-gray-300 px-2 py-1 rounded-md shadow-md outline-gray-200'
+            }
+          >
             <div className="">
               <input
                 name={name}

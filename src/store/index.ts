@@ -9,6 +9,8 @@ import addNewCategoryModalSlice from '@/store/slices/modals/addNewCategoryModalS
 import updateProductModalSlice from '@/store/slices/modals/updateProductModalSlice';
 import setProductImagesModalSlice from '@/store/slices/modals/setProductImagesModalSlice';
 import productPaginationSlice from '@/store/slices/productPaginationSlice';
+import addNewSubcategoryModalSlice from '@/store/slices/modals/addNewSubcategoryModalSlice';
+import addNewBrandModalSlice from '@/store/slices/modals/addNewBrandModalSlice';
 
 const store = configureStore({
   reducer: {
@@ -24,6 +26,10 @@ const store = configureStore({
 
     //category modals
     addNewCategoryModal: addNewCategoryModalSlice,
+    addNewSubcategoryModal: addNewSubcategoryModalSlice,
+
+    //brand modals
+    addNewBrandModal: addNewBrandModalSlice,
 
     //common modals
     callbackModalSlice: callbackModalSlice,

@@ -10,7 +10,7 @@ import Loader from '@/components/common/loader/Loader';
 import { PUBLIC_URL } from '@/config/url.config';
 
 const PresentationInfo: FC = () => {
-  const { data, isLoading, error } = useGetAllCategories();
+  const { data, isLoading } = useGetAllCategories();
   const [categoriesData, setCategoriesData] = useState<ICategoryResponse[]>([]);
 
   useEffect(() => {

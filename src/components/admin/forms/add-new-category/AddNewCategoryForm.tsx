@@ -1,18 +1,10 @@
 'use client';
 
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { X } from 'lucide-react';
 import { AppDispatch } from '@/store';
 import { useDispatch } from 'react-redux';
 import Button from '@/components/common/button/Button';
-import { closeAddNewProductModal } from '@/store/slices/modals/addNewProductModalSlice';
-import { useGetAllCategories } from '@/hooks/categories/useCategories';
-import { ICategoryResponse } from '@/types/server-response-types/category-response';
-import { ISubcategory } from '@/types/data-types/subcategory';
-import Dropdown from '@/components/common/dropdown/Dropdown';
-import { useGetAllBrands } from '@/hooks/brands/useBrands';
-import { IBrand } from '@/types/data-types/brand';
-import { ICreateProductData } from '@/services/products/products.service';
 import toast from 'react-hot-toast';
 import { ICreateCategoryData } from '@/services/categories/categories.service';
 import { addCategoryModal } from '@/store/slices/modals/addNewCategoryModalSlice';
@@ -68,12 +60,10 @@ const AddNewCategoryForm: FC<IAddProductProps> = ({ onAddItem }) => {
         </div>
 
         <div className="flex justify-end gap-4 !mt-8">
-          <Button
-            children={'Підтвердити'}
-            addClasses="bg-secondaryLight"
-            onClick={(e) => handleSubmit(e)}
-          />
-          <Button children={'Відмінити'} onClick={(e) => handleCloseModal(e)} />
+          <Button addClasses="bg-secondaryLight" onClick={(e) => handleSubmit(e)}>
+            Підтвердити
+          </Button>
+          <Button onClick={(e) => handleCloseModal(e)}>Відмінити</Button>
         </div>
       </form>
     </div>

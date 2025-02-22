@@ -99,8 +99,12 @@ const ProductsFilter: FC<IProductsFilterProps> = ({ applyFilter, clearFilter }) 
         <CheckboxFilterGroup options={filterBrandsOptions} title={'Бренди'} className="my-4" />
       )}
 
-      <Button children={'Застосувати'} addClasses={'bg-primary text-white'} onClick={applyFilter} />
-      <Button children={'Очистити'} addClasses={'bg-secondary mt-4'} onClick={clearFilter} />
+      <Button addClasses={'bg-primary text-white'} onClick={applyFilter}>
+        Застосувати
+      </Button>
+      <Button addClasses={'bg-secondary mt-4'} onClick={clearFilter}>
+        Очистити
+      </Button>
     </div>
   );
 };

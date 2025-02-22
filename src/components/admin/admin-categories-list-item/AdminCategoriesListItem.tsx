@@ -9,9 +9,10 @@ import { useDispatch } from 'react-redux';
 import { openDeleteCheckModal } from '@/store/slices/modals/deleteCheckModalSlice';
 import { ICategoryResponse } from '@/types/server-response-types/category-response';
 import { getFormatedDate } from '@/utils/getFormatedDate/getFormatedDate';
+import { ISubcategoryResponse } from '@/types/server-response-types/subcategory-response';
 
 interface IProps {
-  category: ICategoryResponse;
+  category: ICategoryResponse | ISubcategoryResponse;
 }
 
 const AdminCategoriesListItem: FC<IProps> = ({ category }) => {
@@ -21,6 +22,12 @@ const AdminCategoriesListItem: FC<IProps> = ({ category }) => {
     if (category.id) {
       dispatch(openDeleteCheckModal(category.id));
     }
+  };
+
+  const isSubcategoryResponse = (
+    item: ICategoryResponse | ISubcategoryResponse,
+  ): item is ISubcategoryResponse => {
+    return 'category' in item;
   };
 
   return (
@@ -35,6 +42,13 @@ const AdminCategoriesListItem: FC<IProps> = ({ category }) => {
             </span>
           </Link>
         </div>
+
+        {isSubcategoryResponse(category) && category.category && (
+          <div>
+            <span className="mr-2">Належить до категорії:</span>
+            <span className="font-semibold">{category.category.name}</span>
+          </div>
+        )}
 
         <div>
           <span className="mr-2">Створено:</span>

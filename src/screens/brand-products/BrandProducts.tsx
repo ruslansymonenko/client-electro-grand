@@ -2,15 +2,10 @@
 
 import { FC, useEffect, useState } from 'react';
 import ProductsList from '@/components/store/products-list/ProductsList';
-import {
-  useGetProductsByBrand,
-  useGetProductsByCategory,
-  useGetProductsBySubcategory,
-} from '@/hooks/products/useProducts';
+import { useGetProductsByBrand } from '@/hooks/products/useProducts';
 import { IProductResponse } from '@/types/server-response-types/product-response';
 import Loader from '@/components/common/loader/Loader';
 import Breadcrumb from '@/components/common/breadcrumb/Breadcrumb';
-import { useGetCategoryBySlug } from '@/hooks/categories/useCategories';
 import { useGetBrandBySlug } from '@/hooks/brands/useBrands';
 
 interface IBrandProductsProps {
@@ -18,7 +13,7 @@ interface IBrandProductsProps {
 }
 
 const BrandProducts: FC<IBrandProductsProps> = ({ brandSlug }) => {
-  const { data, isLoading, error } = useGetProductsByBrand(brandSlug);
+  const { data, isLoading } = useGetProductsByBrand(brandSlug);
   const [productsData, setProductsData] = useState<IProductResponse[]>([]);
   const brandData = useGetBrandBySlug(brandSlug);
   const [brandName, setBrandName] = useState<string>('');

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
 import { FC, useEffect, useState } from 'react';
@@ -17,13 +18,14 @@ import { clearFilter, defaultFilter, IFiltersSlice, setPageSize } from '@/store/
 const Products: FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const [searchParams, setSearchParams] = useState<string>('');
-  const { data, isLoading, error } = useGetAllProducts(searchParams);
+  const { data, isLoading } = useGetAllProducts(searchParams);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [productsData, setProductsData] = useState<IProductResponse[]>([]);
   const filters: IFiltersSlice = useSelector((state: RootState) => state.filterSlice);
   const currentPage: number = useSelector(
     (state: RootState) => state.productPagination.currentPage,
   );
+
   const pageSize: number = useSelector((state: RootState) => state.productPagination.pageSize);
 
   const onApplyFilter = (): void => {

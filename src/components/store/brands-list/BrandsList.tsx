@@ -7,7 +7,7 @@ import { IBrand } from '@/types/data-types/brand';
 import BrandCard from '@/components/store/brand-card/BrandCard';
 
 const BrandsList: FC = () => {
-  const { data, isLoading, error } = useGetAllBrands();
+  const { data, isLoading } = useGetAllBrands();
   const [brandsData, setBrandsData] = useState<IBrand[]>([]);
 
   useEffect(() => {

@@ -13,7 +13,7 @@ interface ISubcategoryProductsProps {
 }
 
 const SubcategoryProducts: FC<ISubcategoryProductsProps> = ({ subcategorySlug }) => {
-  const { data, isLoading, error } = useGetProductsBySubcategory(subcategorySlug);
+  const { data, isLoading } = useGetProductsBySubcategory(subcategorySlug);
   const [productsData, setProductsData] = useState<IProductResponse[]>([]);
   const subcategoryData = useGetSubcategoryBySlug(subcategorySlug);
   const [subcategoryName, setSubcategoryName] = useState<string>('');

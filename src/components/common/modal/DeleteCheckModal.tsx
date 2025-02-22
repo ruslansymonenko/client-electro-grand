@@ -25,8 +25,12 @@ const DeleteCheck: FC<IDeleteCheckProps> = ({ onConfirm, onCancel, message, onCl
         <h4 className="text-gray-800 text-base font-semibold my-4">{message}</h4>
 
         <div className="flex">
-          <Button children={'Відмінити'} addClasses={'mr-4 bg-gray-200'} onClick={onCancel} />
-          <Button children={'Видалити'} addClasses={'bg-secondary'} onClick={onConfirm} />
+          <Button addClasses={'mr-4 bg-gray-200'} onClick={onCancel}>
+            Відмінити
+          </Button>
+          <Button addClasses={'bg-secondary'} onClick={onConfirm}>
+            Видалити
+          </Button>
         </div>
       </div>
     </div>

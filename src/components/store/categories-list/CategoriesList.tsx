@@ -7,7 +7,7 @@ import { ICategoryResponse } from '@/types/server-response-types/category-respon
 import Loader from '@/components/common/loader/Loader';
 
 const CategoriesList: FC = () => {
-  const { data, isLoading, error } = useGetAllCategories();
+  const { data, isLoading } = useGetAllCategories();
   const [categoriesData, setCategoriesData] = useState<ICategoryResponse[]>([]);
 
   useEffect(() => {

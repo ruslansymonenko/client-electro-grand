@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Mail, Phone } from 'lucide-react';
-import Button from '@/components/common/button/Button';
 import Breadcrumb from '@/components/common/breadcrumb/Breadcrumb';
+import ContactForm from '@/components/store/forms/contact-form/ContactForm';
 
 const Contact: FC = () => {
   return (
@@ -46,30 +46,7 @@ const Contact: FC = () => {
           </div>
         </div>
 
-        <form className="ml-auto space-y-4">
-          <input
-            type="text"
-            placeholder="Ім'я"
-            className="w-full rounded-md py-3 px-4 bg-gray-100 text-gray-800 text-sm outline-blue-500 focus:bg-transparent"
-          />
-          <input
-            type="email"
-            placeholder="email"
-            className="w-full rounded-md py-3 px-4 bg-gray-100 text-gray-800 text-sm outline-blue-500 focus:bg-transparent"
-          />
-          <input
-            type="text"
-            placeholder="Тема"
-            className="w-full rounded-md py-3 px-4 bg-gray-100 text-gray-800 text-sm outline-blue-500 focus:bg-transparent"
-          />
-          <textarea
-            placeholder="Повідомлення"
-            className="w-full rounded-md px-4 bg-gray-100 text-gray-800 text-sm pt-3 outline-blue-500 focus:bg-transparent"
-          ></textarea>
-          <Button addClasses="bg-primary" style={{ color: 'white' }}>
-            Відправити
-          </Button>
-        </form>
+        <ContactForm />
       </div>
     </div>
   );

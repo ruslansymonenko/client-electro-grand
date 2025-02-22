@@ -9,18 +9,14 @@ import { useAuthForm } from '@/hooks/auth/useAuthForm';
 import FormField from '@/components/common/form-field/FormField';
 
 const LoginFormAdmin: FC = () => {
-  const { onSubmit, form, isPending } = useAuthForm('login-admin');
-  const {
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = form;
+  const { onSubmit, form } = useAuthForm('login-admin');
+  const { handleSubmit, control } = form;
 
   const emailRegex = /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
 
   return (
     <div className="bg-gray-50">
-      <div className="flex flex-col items-center justify-center px-4 mt-14">
+      <div className="flex flex-col items-center justify-center px-4 py-8 mt-14">
         <div className="max-w-md w-full">
           <div className="p-8 rounded-2xl bg-white shadow">
             <h2 className="text-gray-800 text-center text-2xl font-bold">Авторизація</h2>

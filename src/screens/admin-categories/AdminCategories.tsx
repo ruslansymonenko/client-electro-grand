@@ -21,7 +21,7 @@ import { addCategoryModal } from '@/store/slices/modals/addNewCategoryModalSlice
 const AdminCategories: FC = () => {
   const dispatch: AppDispatch = useDispatch();
 
-  const { data, isLoading, error } = useGetAllCategories();
+  const { data, isLoading } = useGetAllCategories();
   const [categoriesData, setCategoriesData] = useState<ICategoryResponse[]>([]);
 
   const isAddNewCategoryModalOpen: boolean = useSelector(
@@ -54,7 +54,7 @@ const AdminCategories: FC = () => {
 
   const addNewItem = async (data: ICreateCategoryData) => {
     if (!data.name) {
-      toast.error('Будь ласка вкажіть всі необхідні дані для створення товару.');
+      toast.error('Будь ласка вкажіть всі необхідні дані для створення елементу.');
       return;
     }
 

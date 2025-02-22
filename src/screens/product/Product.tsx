@@ -13,7 +13,7 @@ interface IProductProps {
 }
 
 const Product: FC<IProductProps> = ({ productSlug }) => {
-  const { data, isLoading, error } = useGetProductBySlug(productSlug);
+  const { data, isLoading } = useGetProductBySlug(productSlug);
   const [productData, setProductsData] = useState<IProductDataResponse | null>(null);
 
   useEffect(() => {

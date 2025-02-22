@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { NextRequest, NextResponse } from 'next/server';
 import { EnumTokens } from '@/services/auth/auth-token.service';
 import { ADMIN_URL, PRIVATE_URL, PUBLIC_URL } from '@/config/url.config';
 import Cookies from 'js-cookie';
-import { authService } from '@/services/auth/auth.service';
 
 export async function middleware(request: NextRequest) {
   const refreshToken: string | undefined = request.cookies.get(EnumTokens.REFRESH_TOKEN)?.value;

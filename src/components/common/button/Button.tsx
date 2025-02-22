@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { ButtonHTMLAttributes, FC, ReactNode } from 'react';
 import cn from 'clsx';
 import styles from './Button.module.scss';

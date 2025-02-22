@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store';
 import FavoritesListItem from '@/components/store/favorites-list-item/FavoritesListItem';
 import { IProductResponse } from '@/types/server-response-types/product-response';
-import { setFavorites, toggleFavorites } from '@/store/slices/favoritesSlice';
+import { setFavorites } from '@/store/slices/favoritesSlice';
 
 const FavoritesList: FC = () => {
   const favoritesItems = useSelector((state: RootState) => state.favorites.favoritesItems);
