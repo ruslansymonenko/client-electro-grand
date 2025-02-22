@@ -18,7 +18,7 @@ import AdminUsersList from '@/components/admin/admin-users-list/AdminUsersList';
 const AdminCustomers: FC = () => {
   const dispatch: AppDispatch = useDispatch();
 
-  const { data, isLoading, error } = useGetAllUsers();
+  const { data, isLoading } = useGetAllUsers();
   const [usersData, setUsersData] = useState<IUserResponse[]>([]);
 
   const isModalDeleteCheckOpen = useSelector((state: RootState) => state.deleteCheckModal.isOpen);

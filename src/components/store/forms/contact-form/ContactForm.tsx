@@ -7,10 +7,11 @@ import { Mail, User, ClipboardList, AlignJustify } from 'lucide-react';
 import { useContactForm } from '@/hooks/forms/useContactForm';
 
 const ContactForm = () => {
-  const { onSubmit, form, isPending } = useContactForm();
+  const { onSubmit, form } = useContactForm();
   const {
     handleSubmit,
     control,
+    // @ts-ignore
     formState: { errors },
   } = form;
 

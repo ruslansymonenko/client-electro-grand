@@ -11,9 +11,7 @@ import { ISubcategory } from '@/types/data-types/subcategory';
 import Dropdown from '@/components/common/dropdown/Dropdown';
 import { useGetAllBrands } from '@/hooks/brands/useBrands';
 import { IBrand } from '@/types/data-types/brand';
-import { ICreateProductData, IUpdateProductData } from '@/services/products/products.service';
-import toast from 'react-hot-toast';
-import { addProductModal } from '@/store/slices/modals/addNewProductModalSlice';
+import { IUpdateProductData } from '@/services/products/products.service';
 import { updateProductModal } from '@/store/slices/modals/updateProductModalSlice';
 
 interface IProps {
@@ -181,12 +179,10 @@ const UpdateProductForm: FC<IProps> = ({ onUpdateItem }) => {
         </div>
 
         <div className="flex justify-end gap-4 !mt-8">
-          <Button
-            children={'Підтвердити'}
-            addClasses="bg-secondaryLight"
-            onClick={(e) => handleSubmit(e)}
-          />
-          <Button children={'Відмінити'} onClick={(e) => handleCloseModal(e)} />
+          <Button addClasses="bg-secondaryLight" onClick={(e) => handleSubmit(e)}>
+            Підтвердити
+          </Button>
+          <Button onClick={(e) => handleCloseModal(e)}>Відмінити</Button>
         </div>
       </form>
     </div>

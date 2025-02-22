@@ -12,7 +12,6 @@ import { getErrorMessage } from '@/utils/getErrorMessage/getErrorMessage';
 import DeleteCheck from '@/components/common/modal/DeleteCheckModal';
 import Loader from '@/components/common/loader/Loader';
 import AdminCategoriesList from '@/components/admin/admin-categories-list/AdminCategoriesList';
-import AddNewCategoryForm from '@/components/admin/forms/add-new-category/AddNewCategoryForm';
 import { addSubcategoryModal } from '@/store/slices/modals/addNewSubcategoryModalSlice';
 import {
   ICreateSubcategoryData,
@@ -25,7 +24,7 @@ import AddNewSubcategoryForm from '@/components/admin/forms/add-new-subcategory/
 const AdminSubcategories: FC = () => {
   const dispatch: AppDispatch = useDispatch();
 
-  const { data, isLoading, error } = useGetAllSubcategories();
+  const { data, isLoading } = useGetAllSubcategories();
   const [subcategoriesData, setSubcategoriesData] = useState<ISubcategoryResponse[]>([]);
 
   const isAddNewSubcategoryModalOpen: boolean = useSelector(

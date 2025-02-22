@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { FieldValues, Control, FieldPath, RegisterOptions, Controller } from 'react-hook-form';
 import { InputHTMLAttributes } from 'react';
 import cn from 'clsx';

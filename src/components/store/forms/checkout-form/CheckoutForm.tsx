@@ -3,7 +3,6 @@
 import { FC, useState } from 'react';
 import Button from '@/components/common/button/Button';
 import Link from 'next/link';
-import { ArrowDown } from 'lucide-react';
 import { PUBLIC_URL } from '@/config/url.config';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';

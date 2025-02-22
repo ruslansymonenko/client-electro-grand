@@ -21,7 +21,7 @@ import { addCategoryModal } from '@/store/slices/modals/addNewCategoryModalSlice
 const AdminCategories: FC = () => {
   const dispatch: AppDispatch = useDispatch();
 
-  const { data, isLoading, error } = useGetAllCategories();
+  const { data, isLoading } = useGetAllCategories();
   const [categoriesData, setCategoriesData] = useState<ICategoryResponse[]>([]);
 
   const isAddNewCategoryModalOpen: boolean = useSelector(

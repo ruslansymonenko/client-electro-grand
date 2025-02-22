@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import { Mail, Phone } from 'lucide-react';
-import Button from '@/components/common/button/Button';
 import Breadcrumb from '@/components/common/breadcrumb/Breadcrumb';
 import ContactForm from '@/components/store/forms/contact-form/ContactForm';
 

@@ -31,7 +31,7 @@ import { setProductImagesModal } from '@/store/slices/modals/setProductImagesMod
 const AdminProducts: FC = () => {
   const dispatch: AppDispatch = useDispatch();
 
-  const { data, isLoading, error } = useGetAllProducts();
+  const { data, isLoading } = useGetAllProducts();
   const [productsData, setProductsData] = useState<IProductResponse[]>([]);
 
   const isAddNewProductModalOpen: boolean = useSelector(

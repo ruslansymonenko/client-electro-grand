@@ -16,7 +16,7 @@ const SimilarProducts: FC<IProps> = ({ className, products, limit = 3 }) => {
 
       <div className="flex gap-4">
         {products.slice(0, limit).map((item) => (
-          <SimilarProductCard product={item} />
+          <SimilarProductCard product={item} key={item.id} />
         ))}
       </div>
     </div>

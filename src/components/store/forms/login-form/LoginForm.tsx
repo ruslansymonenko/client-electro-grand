@@ -9,10 +9,11 @@ import { useAuthForm } from '@/hooks/auth/useAuthForm';
 import FormField from '@/components/common/form-field/FormField';
 
 const LoginForm: FC = () => {
-  const { onSubmit, form, isPending } = useAuthForm('login');
+  const { onSubmit, form } = useAuthForm('login');
   const {
     handleSubmit,
     control,
+    // @ts-ignore
     formState: { errors },
   } = form;
 

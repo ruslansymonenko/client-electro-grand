@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { PUBLIC_URL } from '@/config/url.config';
 
 const NavbarSearch: FC = () => {
-  const { data, isLoading, error } = useGetAllProducts();
+  const { data } = useGetAllProducts();
   const [productsData, setProductsData] = useState<IProductResponse[]>([]);
   const [searchValue, setSearchValue] = useState<string>('');
   const [isSearchVisible, setIsSearchVisible] = useState<boolean>(false);
@@ -27,7 +27,7 @@ const NavbarSearch: FC = () => {
 
   useEffect(() => {
     if (data) {
-      setProductsData(data.data);
+      setProductsData(data.data.products);
     } else {
       setProductsData([]);
     }
@@ -62,10 +62,11 @@ const NavbarSearch: FC = () => {
       >
         {foundedProducts.length ? (
           <>
-            {foundedProducts.map((item, index) => (
+            {foundedProducts.map((item) => (
               <Link
                 className="w-full shadow-md p-2 my-2 flex h-12 justify-between"
                 href={PUBLIC_URL.product(item.slug)}
+                key={item.id}
               >
                 <img src={`${SERVER_URL}/${item.images[0]}`} alt={item.name} />
                 <p>{item.name}</p>

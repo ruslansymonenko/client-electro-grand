@@ -1,9 +1,9 @@
 'use client';
 
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import { motion } from 'framer-motion';
 import cn from 'clsx';
-import { Phone, X } from 'lucide-react';
+import { Phone } from 'lucide-react';
 import { AppDispatch } from '@/store';
 import { useDispatch } from 'react-redux';
 import { openCallbackModal } from '@/store/slices/modals/callbackModalSlice';

@@ -26,6 +26,7 @@ export function useAuthForm(type: 'login' | 'register' | 'login-admin') {
         return authService.login(data);
       }
     },
+    // @ts-ignore
     onSuccess(responseData) {
       form.reset();
       toast.success('Успішна авторизація');

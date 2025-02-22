@@ -68,12 +68,10 @@ const SetProductImagesForm: FC<IProps> = ({ onSetImages }) => {
 
       <form className="space-y-4 mt-8">
         <div className="flex justify-end gap-4 !mt-8">
-          <Button
-            children={'Підтвердити'}
-            addClasses="bg-secondaryLight"
-            onClick={(e) => handleSubmit(e)}
-          />
-          <Button children={'Відмінити'} onClick={(e) => handleCloseModal(e)} />
+          <Button addClasses="bg-secondaryLight" onClick={(e) => handleSubmit(e)}>
+            Підтвердити
+          </Button>
+          <Button onClick={(e) => handleCloseModal(e)}>Відмінити</Button>
         </div>
       </form>
     </div>

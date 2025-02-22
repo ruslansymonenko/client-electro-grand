@@ -180,7 +180,7 @@ const ProductData: FC<IProductDataProps> = ({ product }) => {
         <div className="mt-16 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] p-6">
           <h3 className="text-xl font-bold text-gray-800">Інформація</h3>
           <ul className="mt-4 space-y-6 text-gray-800">
-            {product.productAttribute.map((item, key) => (
+            {product.productAttribute.map((item) => (
               <li key={item.id} className="border-b pb-1">
                 <span className="font-semibold text-primary">
                   {item.attributeValue.attribute.name}

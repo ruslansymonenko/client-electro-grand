@@ -10,7 +10,7 @@ import { useGetAllBrands } from '@/hooks/brands/useBrands';
 import { PUBLIC_URL } from '@/config/url.config';
 
 const PresentationInfoBrands: FC = () => {
-  const { data, isLoading, error } = useGetAllBrands();
+  const { data, isLoading } = useGetAllBrands();
   const [brandsData, setBrandsData] = useState<IBrand[]>([]);
 
   useEffect(() => {

@@ -11,8 +11,6 @@ import toast from 'react-hot-toast';
 import { getErrorMessage } from '@/utils/getErrorMessage/getErrorMessage';
 import DeleteCheck from '@/components/common/modal/DeleteCheckModal';
 import Loader from '@/components/common/loader/Loader';
-import { subcategoriesService } from '@/services/subcategories/subcategories.service';
-import AddNewSubcategoryForm from '@/components/admin/forms/add-new-subcategory/AddNewSubcategoryForm';
 import { useGetAllBrands } from '@/hooks/brands/useBrands';
 import { IBrand } from '@/types/data-types/brand';
 import { brandsService, ICreateBrandData } from '@/services/brands/brands.service';
@@ -23,7 +21,7 @@ import AddNewBrandForm from '@/components/admin/forms/add-new-brand/AddNewBrandF
 const AdminBrands: FC = () => {
   const dispatch: AppDispatch = useDispatch();
 
-  const { data, isLoading, error } = useGetAllBrands();
+  const { data, isLoading } = useGetAllBrands();
   const [brandsData, setBrandsData] = useState<IBrand[]>([]);
 
   const isAddNewBrandModalOpen: boolean = useSelector(

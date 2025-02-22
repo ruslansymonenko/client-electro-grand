@@ -16,10 +16,11 @@ interface IProps {
 
 export const CallbackModal: FC<IProps> = ({ className }) => {
   const dispatch: AppDispatch = useDispatch();
-  const { onSubmit, form, isPending } = useCallbackForm();
+  const { onSubmit, form } = useCallbackForm();
   const {
     handleSubmit,
     control,
+    // @ts-ignore
     formState: { errors },
   } = form;
 
@@ -55,7 +56,7 @@ export const CallbackModal: FC<IProps> = ({ className }) => {
           />
           <Phone className="ml-2" />
         </div>
-        <Button children={'Відправити'} addClasses={'hover:bg-primary'} />
+        <Button addClasses={'hover:bg-primary'}>Відправити</Button>
       </form>
 
       <div className="absolute top-1 right-1 cursor-pointer" onClick={closeModal}>

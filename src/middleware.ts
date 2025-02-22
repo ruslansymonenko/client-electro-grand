@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { EnumTokens } from '@/services/auth/auth-token.service';
 import { ADMIN_URL, PRIVATE_URL, PUBLIC_URL } from '@/config/url.config';
 import Cookies from 'js-cookie';
-import { authService } from '@/services/auth/auth.service';
 
 export async function middleware(request: NextRequest) {
   const refreshToken: string | undefined = request.cookies.get(EnumTokens.REFRESH_TOKEN)?.value;
@@ -52,6 +51,7 @@ export async function middleware(request: NextRequest) {
 
       Cookies.set('admin', 'true', { expires: 1 });
       return NextResponse.next();
+      // @ts-ignore
     } catch (error) {
       Cookies.set('admin', 'false');
       return NextResponse.redirect(new URL(PUBLIC_URL.noAccess(), url));
