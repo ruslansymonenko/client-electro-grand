@@ -9,7 +9,7 @@ on:
 jobs:
   build-test:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/dev'
+    if: github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/main'
 
     steps:
       - name: repository clone
@@ -30,6 +30,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
+
     needs: build-test
 
     steps:
@@ -44,4 +45,3 @@ jobs:
             git pull origin main
             docker compose up -d --build
             docker system prune -af
-
