@@ -27,21 +27,21 @@ jobs:
       - name: build check
         run: npm run build
 
-  deploy:
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-
-    needs: build-test
-
-    steps:
-      - name: Deploy to VPS
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          script: |
-            cd /home/${{ secrets.VPS_USER }}/app
-            git pull origin main
-            docker compose up -d --build
-            docker system prune -af
+#  deploy:
+#    runs-on: ubuntu-latest
+#    if: github.ref == 'refs/heads/main'
+#
+#    needs: build-test
+#
+#    steps:
+#      - name: Deploy to VPS
+#        uses: appleboy/ssh-action@master
+#        with:
+#          host: ${{ secrets.VPS_HOST }}
+#          username: ${{ secrets.VPS_USER }}
+#          key: ${{ secrets.VPS_SSH_KEY }}
+#          script: |
+#            cd /home/${{ secrets.VPS_USER }}/app
+#            git pull origin main
+#            docker compose up -d --build
+#            docker system prune -af
