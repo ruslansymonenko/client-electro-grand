@@ -33,17 +33,15 @@ jobs:
     needs: build-test
 
     steps:
-      - name: repository clone
-        uses: actions/checkout@v4
-
-      - name: setup node
-        uses: actions/setup-node@v4
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@master
         with:
-          node-version: 18
-          cache: npm
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            cd /home/${{ secrets.VPS_USER }}/app
+            git pull origin main
+            docker compose up -d --build
+            docker system prune -af
 
-      - name: install dependencies
-        run: npm install
-
-      - name: build
-        run: npm run build
