@@ -10,7 +10,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   }
 
   const data = await req.json();
-  const secretKey = process.env.STAFF_KEY;
+  const secretKey = process.env.NEXT_PUBLIC_STAFF_KEY;
 
   if (!data.token) {
     return NextResponse.json({ valid: false, message: 'Invalid token' }, { status: 400 });

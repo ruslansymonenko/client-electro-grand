@@ -36,7 +36,7 @@ export async function middleware(request: NextRequest) {
 
   if (isAdminPage && adminToken) {
     try {
-      const response = await fetch(`${process.env.APP_URL}/api/verify-token`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/verify-token`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
