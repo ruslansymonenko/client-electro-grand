@@ -66,7 +66,11 @@ class AuthService {
 
       if (response.data.accessToken) {
         saveAccessToken(response.data.accessToken);
-        Cookies.set('admin', 'true', { expires: 1 });
+        Cookies.set('admin', 'true', {
+          domain: process.env.NEXT_PUBLIC_APP_DOMAIN,
+          sameSite: 'lax',
+          expires: 1,
+        });
       }
 
       return response;
@@ -108,7 +112,11 @@ class AuthService {
 
       if (response.data) {
         removeTokenFromStorage();
-        Cookies.set('admin', 'false');
+        Cookies.set('admin', 'false', {
+          domain: process.env.NEXT_PUBLIC_APP_DOMAIN,
+          sameSite: 'lax',
+          expires: 1,
+        });
       }
 
       return response;

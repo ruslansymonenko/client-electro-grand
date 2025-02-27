@@ -50,10 +50,18 @@ export async function middleware(request: NextRequest) {
         return NextResponse.redirect(new URL(PUBLIC_URL.noAccess(), url));
       }
 
-      Cookies.set('admin', 'true', { expires: 1 });
+      Cookies.set('admin', 'true', {
+        domain: process.env.NEXT_PUBLIC_APP_DOMAIN,
+        sameSite: 'lax',
+        expires: 1,
+      });
       return NextResponse.next();
     } catch (error) {
-      Cookies.set('admin', 'false');
+      Cookies.set('admin', 'false', {
+        domain: process.env.NEXT_PUBLIC_APP_DOMAIN,
+        sameSite: 'lax',
+        expires: 1,
+      });
       return NextResponse.redirect(new URL(PUBLIC_URL.noAccess(), url));
     }
   } else {
