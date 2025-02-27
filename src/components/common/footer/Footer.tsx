@@ -8,7 +8,7 @@ const Footer: FC = () => {
     <footer className="bg-gray-600 p-10 font-[sans-serif] tracking-wide">
       <div className="grid grid-cols-4">
         <div className="lg:flex lg:items-center">
-          <Link href={`${PUBLIC_URL.main}`}>
+          <Link href={`${PUBLIC_URL.main()}`}>
             <Image src={'/icons/main-logo.svg'} alt="logo" width={200} height={200} />
           </Link>
         </div>
