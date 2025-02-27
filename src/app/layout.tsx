@@ -25,6 +25,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ua">
+      <head>
+        <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+      </head>
       <body className={`${font.className} text-textPrimary`}>
         <Providers>{children}</Providers>
       </body>
