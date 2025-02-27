@@ -23,6 +23,6 @@ export const saveAccessToken = (accessToken: string) => {
 };
 
 export const removeTokenFromStorage = () => {
-  Cookies.remove(EnumTokens.ACCESS_TOKEN);
-  Cookies.remove(EnumTokens.ADMIN_TOKEN);
+  Cookies.remove(EnumTokens.ACCESS_TOKEN, { domain: process.env.NEXT_PUBLIC_APP_DOMAIN });
+  Cookies.remove(EnumTokens.ACCESS_TOKEN, { domain: process.env.NEXT_PUBLIC_APP_DOMAIN });
 };
