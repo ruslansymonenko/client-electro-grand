@@ -1,5 +1,5 @@
 export const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL as string;
-export const SERVER_API = `${SERVER_URL}/api`;
+export const SERVER_API = `${SERVER_URL}/backend`;
 
 export const API_URL = {
   root: (url = '') => `${url ? url : ''}`,
