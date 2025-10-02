@@ -1,1 +1,1 @@
-# Elektro Grand Store
+# Electro Grand Store
