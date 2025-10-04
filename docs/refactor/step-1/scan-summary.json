@@ -1,0 +1,286 @@
+{
+  "scan_date": "2025-01-04",
+  "project_name": "elektro-grand-client",
+  "repository": "client-electro-grand",
+  "branch": "refactoring",
+  "dependencies": {
+    "runtime": {
+      "next": "14.2.12",
+      "react": "^18",
+      "react-dom": "^18",
+      "@reduxjs/toolkit": "^2.2.7",
+      "@tanstack/react-query": "^5.51.23",
+      "axios": "^1.7.4",
+      "framer-motion": "^11.11.10",
+      "react-hook-form": "^7.52.2",
+      "react-hot-toast": "^2.4.1",
+      "react-redux": "^9.1.2",
+      "react-slick": "^0.30.2",
+      "lucide-react": "^0.441.0",
+      "clsx": "^2.1.1",
+      "js-cookie": "^3.0.5",
+      "jsonwebtoken": "^9.0.2",
+      "sass": "^1.79.1",
+      "slick-carousel": "^1.8.1",
+      "tailwind-scrollbar": "^3.1.0",
+      "prettier": "^3.3.3"
+    },
+    "development": {
+      "typescript": "^5",
+      "@types/node": "^20",
+      "@types/react": "^18",
+      "@types/react-dom": "^18",
+      "@types/js-cookie": "^3.0.6",
+      "@types/jsonwebtoken": "^9.0.7",
+      "@types/react-slick": "^0.23.13",
+      "eslint": "^8",
+      "eslint-config-next": "14.2.12",
+      "postcss": "^8",
+      "tailwindcss": "^3.4.1"
+    }
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "cicd": {
+    "github_actions": {
+      "file": ".github/workflows/deploy-client.yml",
+      "triggers": ["main", "dev"],
+      "jobs": ["build-test"],
+      "deployment": "commented_out"
+    },
+    "docker": {
+      "dockerfile": "Dockerfile",
+      "base_image": "node:18-alpine",
+      "multi_stage": true,
+      "port": 3000
+    }
+  },
+  "architecture": {
+    "framework": "Next.js 14 with App Router",
+    "language": "TypeScript",
+    "styling": "Tailwind CSS + SCSS",
+    "state_management": "Redux Toolkit + React Query",
+    "routing": "Next.js App Router with route groups",
+    "api_client": "Axios with interceptors"
+  },
+  "endpoints": {
+    "internal": [
+      {
+        "path": "/api/verify-token",
+        "method": "POST",
+        "description": "JWT token verification",
+        "file": "src/app/api/verify-token/route.ts"
+      }
+    ],
+    "external": {
+      "base_url": "${SERVER_URL}/backend",
+      "auth": [
+        "POST /auth/login",
+        "POST /auth/login-admin",
+        "POST /auth/register",
+        "POST /auth/access-token",
+        "POST /auth/logout"
+      ],
+      "products": [
+        "GET /product",
+        "GET /product/by-id/{id}",
+        "GET /product/by-slug/{slug}",
+        "GET /product/by-category/{slug}",
+        "GET /product/by-subcategory/{slug}",
+        "GET /product/by-brand/{slug}",
+        "POST /product",
+        "PUT /product/{id}",
+        "PUT /product/set-images/{id}",
+        "DELETE /product/{id}"
+      ],
+      "categories": [
+        "GET /category",
+        "GET /category/by-id/{id}",
+        "GET /category/by-slug/{slug}",
+        "POST /category",
+        "PUT /category/{id}",
+        "DELETE /category/{id}"
+      ],
+      "subcategories": [
+        "GET /subcategory",
+        "GET /subcategory/by-id/{id}",
+        "GET /subcategory/by-slug/{slug}",
+        "POST /subcategory",
+        "PUT /subcategory/{id}",
+        "DELETE /subcategory/{id}"
+      ],
+      "brands": [
+        "GET /brand",
+        "GET /brand/by-id/{id}",
+        "GET /brand/by-slug/{slug}",
+        "POST /brand",
+        "PUT /brand/{id}",
+        "DELETE /brand/{id}"
+      ],
+      "users": ["GET /user/get-all", "GET /user/by-id/{id}", "DELETE /user/{id}"],
+      "forms": ["POST /mailer/contact-form", "POST /mailer/callback-form"]
+    }
+  },
+  "database_entities": [
+    "users",
+    "categories",
+    "subcategories",
+    "brands",
+    "products",
+    "orders",
+    "order_items",
+    "payments",
+    "attributes",
+    "attribute_values",
+    "product_attributes"
+  ],
+  "tests": {
+    "unit_tests": 0,
+    "integration_tests": 0,
+    "e2e_tests": 0,
+    "test_frameworks": [],
+    "coverage": "No tests found"
+  },
+  "todos": [
+    {
+      "type": "eslint-disable",
+      "count": 7,
+      "locations": [
+        "src/middleware.ts",
+        "src/screens/products/Products.tsx",
+        "src/app/api/verify-token/route.ts",
+        "src/components/common/form-field/FormField.tsx",
+        "src/components/common/button/Button.tsx",
+        "src/api/api.helper.ts"
+      ]
+    },
+    {
+      "type": "console.log",
+      "count": 17,
+      "locations": [
+        "src/screens/admin-subcategories/AdminSubcategories.tsx",
+        "src/screens/admin-products/AdminProducts.tsx",
+        "src/screens/admin-customers/AdminCustomers.tsx",
+        "src/services/products/products.service.ts",
+        "src/screens/admin-categories/AdminCategories.tsx",
+        "src/screens/admin-brands/AdminBrands.tsx",
+        "src/services/auth/auth.service.ts",
+        "src/app/error.tsx",
+        "src/components/store/forms/checkout-form/CheckoutForm.tsx"
+      ]
+    }
+  ],
+  "metrics": {
+    "total_files": 181,
+    "total_lines": 7607,
+    "file_types": {
+      "typescript": ".ts",
+      "react": ".tsx",
+      "javascript": ".js",
+      "jsx": ".jsx"
+    },
+    "avg_lines_per_file": 42
+  },
+  "risk_map": [
+    {
+      "path": "src/middleware.ts",
+      "reason": "Eslint disabled, no actual middleware implementation",
+      "risk": "Medium",
+      "suggested_action": "Implement proper middleware or remove unused file"
+    },
+    {
+      "path": "src/api/api.helper.ts",
+      "reason": "Uses 'any' type, potential type safety issues",
+      "risk": "Medium",
+      "suggested_action": "Replace 'any' with proper types"
+    },
+    {
+      "path": "src/components/common/form-field/FormField.tsx",
+      "reason": "Uses 'any' type, disabled explicit-any rule",
+      "risk": "Medium",
+      "suggested_action": "Add proper form field types"
+    },
+    {
+      "path": "next.config.mjs",
+      "reason": "Commented out configuration, potential unused code",
+      "risk": "Low",
+      "suggested_action": "Remove commented code or document why it's kept"
+    },
+    {
+      "path": "src/services/auth/auth.service.ts",
+      "reason": "Multiple console.log statements, debug code in production",
+      "risk": "Low",
+      "suggested_action": "Remove console.log or replace with proper logging"
+    },
+    {
+      "path": "src/services/products/products.service.ts",
+      "reason": "Console.log for debugging searchParams",
+      "risk": "Low",
+      "suggested_action": "Remove debug console.log"
+    },
+    {
+      "path": "src/services/users/users.service.ts",
+      "reason": "Commented out update method, incomplete implementation",
+      "risk": "Medium",
+      "suggested_action": "Implement update method or remove commented code"
+    },
+    {
+      "path": "src/app/api/verify-token/route.ts",
+      "reason": "Eslint disabled, hardcoded algorithms",
+      "risk": "Medium",
+      "suggested_action": "Review JWT verification security, enable eslint"
+    },
+    {
+      "path": "All admin screens",
+      "reason": "Extensive console.log usage for error handling",
+      "risk": "Low",
+      "suggested_action": "Implement proper error logging system"
+    },
+    {
+      "path": "Entire codebase",
+      "reason": "No tests found, no test coverage",
+      "risk": "High",
+      "suggested_action": "Implement comprehensive testing strategy"
+    }
+  ],
+  "environment_variables": [
+    "NEXT_PUBLIC_APP_ENV",
+    "NEXT_PUBLIC_APP_URL",
+    "NEXT_PUBLIC_APP_DOMAIN",
+    "NEXT_PUBLIC_SERVER_URL",
+    "NEXT_PUBLIC_STAFF_KEY"
+  ],
+  "security_concerns": [
+    {
+      "issue": "JWT secret in environment variables",
+      "severity": "Medium",
+      "description": "STAFF_KEY should be properly secured"
+    },
+    {
+      "issue": "Console.log statements",
+      "severity": "Low",
+      "description": "Potential information leakage in production"
+    },
+    {
+      "issue": "Eslint disabled rules",
+      "severity": "Medium",
+      "description": "Code quality and security rules bypassed"
+    }
+  ],
+  "recommendations": [
+    "Add comprehensive test suite (unit, integration, e2e)",
+    "Remove or replace console.log statements with proper logging",
+    "Fix TypeScript 'any' types with proper interfaces",
+    "Enable all eslint rules and fix violations",
+    "Implement proper error boundary and logging system",
+    "Add API response caching strategy",
+    "Implement proper loading states and error handling",
+    "Add input validation and sanitization",
+    "Consider implementing Progressive Web App features",
+    "Add performance monitoring and analytics"
+  ]
+}
